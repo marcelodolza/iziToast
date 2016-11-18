@@ -1,6 +1,6 @@
 {
   "name": "izitoast",
-  "version": "1.0.0",
+  "version": "1.0.0b",
   "description": "Elegant, responsive, flexible and lightweight notification plugin with no dependencies.",
   "readmeFilename": "README.md",
   "main": "index.js",
