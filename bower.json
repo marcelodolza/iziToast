@@ -1,0 +1,32 @@
+{
+  "name": "izitoast",
+  "description": "Elegant, responsive, flexible and lightweight notification plugin with no dependencies.",
+  "main": [
+    "js/iziToast.js",
+    "css/iziToast.css"
+  ],
+  "authors": [
+    {
+      "name": "Marcelo Dolce",
+      "email": "dolcemarcelo@gmail.com",
+      "homepage": "http://marcelodolce.com"
+    }
+  ],
+  "license": "Apache-2.0",
+  "keywords": [
+    "izitoast",
+    "notification",
+    "toaster",
+    "alert",
+    "confirm",
+    "js"
+  ],
+  "homepage": "http://izitoast.marcelodolce.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
