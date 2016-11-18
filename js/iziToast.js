@@ -239,8 +239,8 @@
 		});
 
 		// Remove event listeners
-		document.removeEventListener(PLUGIN_NAME+'-open', false);
-		document.removeEventListener(PLUGIN_NAME+'-close', false);
+		document.removeEventListener(PLUGIN_NAME+'-open', {}, false);
+		document.removeEventListener(PLUGIN_NAME+'-close', {}, false);
 
 		// Reset variables
 		config = {};
