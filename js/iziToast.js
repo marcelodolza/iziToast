@@ -1,9 +1,8 @@
 /*
- * iziToast | v1.0.0
+ * iziToast | v1.0.1
  * http://izitoast.marcelodolce.com
  * by Marcelo Dolce.
  */
-
 (function (root, factory) {
 	if (typeof define === 'function' && define.amd) {
 		define([], factory(root));
@@ -62,6 +61,17 @@
 	// Methods
 	//
 
+
+	/**
+	 * Polyfill for remove() method
+	 */
+	if (!('remove' in Element.prototype)) {
+	    Element.prototype.remove = function() {
+	        if (this.parentNode) {
+	            this.parentNode.removeChild(this);
+	        }
+	    };
+	}
 
 	/**
 	 * A simple forEach() implementation for Arrays, Objects and NodeLists
@@ -382,14 +392,18 @@
 		}
 
 		if (settings.class){
-			var event;
-			if (window.CustomEvent) {
-				event = new CustomEvent('iziToast-close', {detail: {class: settings.class}});
-			} else {
-				event = document.createEvent('CustomEvent');
-				event.initCustomEvent('iziToast-close', true, true, {class: settings.class});
+			try {
+				var event;
+				if (window.CustomEvent) {
+					event = new CustomEvent('iziToast-close', {detail: {class: settings.class}});
+				} else {
+					event = document.createEvent('CustomEvent');
+					event.initCustomEvent('iziToast-close', true, true, {class: settings.class});
+				}
+				document.dispatchEvent(event);
+			} catch(ex){
+				console.warn(ex);
 			}
-			document.dispatchEvent(event);
 		}
 
 		if(typeof settings.onClose !== "undefined")
@@ -586,6 +600,8 @@
 		var position = settings.position,
 			$wrapper;
 
+			
+
 		if(settings.target){
 
 			$wrapper = document.querySelector(settings.target);
@@ -610,7 +626,8 @@
 
 			if (!$wrapper) {
 				$wrapper = document.createElement("div");
-				$wrapper.classList.add(PLUGIN_NAME + '-wrapper', position);
+				$wrapper.classList.add(PLUGIN_NAME + '-wrapper');
+				$wrapper.classList.add(position);
 				document.body.appendChild($wrapper);
 			}
 			if(settings.position == "topLeft" || settings.position == "topCenter" || settings.position == "topRight"){
@@ -622,14 +639,18 @@
 
 		settings.onOpen.apply();
 
-		var event;
-		if (window.CustomEvent) {
-			event = new CustomEvent('iziToast-open', {detail: {class: settings.class}});
-		} else {
-			event = document.createEvent('CustomEvent');
-			event.initCustomEvent('iziToast-open', true, true, {class: settings.class});
+		try {
+			var event;
+			if (window.CustomEvent) {
+				event = new CustomEvent('iziToast-open', {detail: {class: settings.class}});
+			} else {
+				event = document.createEvent('CustomEvent');
+				event.initCustomEvent('iziToast-open', true, true, {class: settings.class});
+			}
+			document.dispatchEvent(event);
+		} catch(ex){
+			console.warn(ex);
 		}
-		document.dispatchEvent(event);
 
 		if(settings.animateInside){
 			$toast.classList.add(PLUGIN_NAME+'-animateInside');

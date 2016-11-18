@@ -24,7 +24,8 @@ Fast | Responsive | Animated | Lightweight | Customizable | No dependencies | Re
 ___
 ### Version Log
 
-- **v1.0.0** - released
+- **v1.0.1**
+  - ![alt text][new] Internet Explorer support - *Implemented.*
 
 ___
 ### Install
