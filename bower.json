@@ -22,11 +22,5 @@
     "js"
   ],
   "homepage": "http://izitoast.marcelodolce.com",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ]
+  "ignore": []
 }
