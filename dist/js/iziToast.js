@@ -1,5 +1,5 @@
 /*
- * iziToast | v1.0.1
+ * iziToast | v1.0.2
  * http://izitoast.marcelodolce.com
  * by Marcelo Dolce.
  */
@@ -18,12 +18,12 @@
 	//
 	// Variables
 	//
-	var PLUGIN_NAME = 'iziToast';
 	var iziToast = {};
-	var supports = !!document.querySelector && !!root.addEventListener; // Feature test
-	var isMobile = (/Mobi/.test(navigator.userAgent)) ? true : false;
-	var mobileWidth = 568;
-	var config = {};
+	var PLUGIN_NAME = 'iziToast';
+	var ISMOBILE = (/Mobi/.test(navigator.userAgent)) ? true : false;
+	var POSITIONS = ['bottomRight','bottomLeft','bottomCenter','topRight','topLeft','topCenter','center'];
+	var MOBILEWIDTH = 568;
+	var CONFIG = {};
 
 	// Default settings
 	var defaults = {
@@ -116,6 +116,7 @@
 
 	/**
 	 * Get the closest matching element up the DOM tree
+	 * @private
 	 * @param {Element} elem Starting element
 	 * @param {String} selector Selector to match against (class, ID, or data attribute)
 	 * @return {Boolean|Element} Returns false if not match found
@@ -144,7 +145,7 @@
 	 * animationEnd 
 	 * @private
 	 */
-	function whichAnimationEvent(){
+	var whichAnimationEvent = function(){
 		var t,
 			el = document.createElement("fakeelement");
 
@@ -159,14 +160,13 @@
 				return animations[t];
 			}
 		}
-	}
-	var animationEvent = whichAnimationEvent();
+	};
 
 	/**
 	 * Create a fragment DOM elements
 	 * @private
 	 */
-	function createFragElem(htmlStr) {
+	var createFragElem = function(htmlStr) {
 		var frag = document.createDocumentFragment(),
 			temp = document.createElement('div');
 		temp.innerHTML = htmlStr;
@@ -174,13 +174,13 @@
 			frag.appendChild(temp.firstChild);
 		}
 		return frag;
-	}
+	};
 
 	/**
 	 * Do the calculation to move the progress bar
 	 * @private
 	 */
-	function moveProgress(toast, settings, callback){
+	var moveProgress = function(toast, settings, callback){
 
 		var isPaused = false;
 		var isReseted = false;
@@ -196,11 +196,8 @@
 				isPaused = toast.classList.contains(PLUGIN_NAME+'-paused') ? true : false;
 				isReseted = toast.classList.contains(PLUGIN_NAME+'-reseted') ? true : false;
 				isClosed = toast.classList.contains(PLUGIN_NAME+'-closed') ? true : false;
-			
-				//console.log(new Date().getTime());
 
 				if(isReseted){
-					console.log('ok');
 					clearTimeout(timerTimeout);
 					elem.style.width = '100%';
 					moveProgress(toast, settings, callback);
@@ -208,7 +205,6 @@
 				}
 				if(isClosed){
 					clearTimeout(timerTimeout);
-					console.log('closed1');
 					toast.classList.remove(PLUGIN_NAME+'-closed');
 				}
 
@@ -220,7 +216,6 @@
 					if(Math.round(percentage) < 0 || typeof toast != 'object'){
 						clearTimeout(timerTimeout);
 						callback.apply();
-						console.log('closed2');
 					}
 				}
 
@@ -231,8 +226,7 @@
 			progressBar.hideEta = new Date().getTime() + progressBar.maxHideTime;
 			timerTimeout = setInterval(progressBar.updateProgress, 10);
 		}
-
-	}
+	};
 
 	/**
 	 * Destroy the current initialization.
@@ -253,7 +247,7 @@
 		document.removeEventListener(PLUGIN_NAME+'-close', {}, false);
 
 		// Reset variables
-		config = {};
+		CONFIG = {};
 	};
 
 	/**
@@ -263,13 +257,10 @@
 	 */
 	iziToast.settings = function (options) {
 
-		// feature test
-		if (!supports) return;
-
 		// Destroy any existing initializations
 		iziToast.destroy();
 
-		config = options;
+		CONFIG = options;
 		defaults = extend(defaults, options || {});
 	};
 
@@ -285,7 +276,7 @@
 			icon: "ico-info"
 		};
 
-		var settings = extend(config, options || {});
+		var settings = extend(CONFIG, options || {});
 		settings = extend(theme, settings || {});
 
 		this.show(settings);
@@ -303,7 +294,7 @@
 			icon: "ico-check"
 		};
 
-		var settings = extend(config, options || {});
+		var settings = extend(CONFIG, options || {});
 		settings = extend(theme, settings || {});
 		
 		this.show(settings);
@@ -321,7 +312,7 @@
 			icon: "ico-warning"
 		};
 
-		var settings = extend(config, options || {});
+		var settings = extend(CONFIG, options || {});
 		settings = extend(theme, settings || {});
 
 		this.show(settings);
@@ -339,7 +330,7 @@
 			icon: "ico-error"
 		};
 
-		var settings = extend(config, options || {});
+		var settings = extend(CONFIG, options || {});
 		settings = extend(theme, settings || {});
 
 		this.show(settings);
@@ -364,7 +355,7 @@
 		}
 		if(settings.transitionOut || settings.transitionOutMobile){
 
-			if(isMobile || window.innerWidth <= mobileWidth){
+			if(ISMOBILE || window.innerWidth <= MOBILEWIDTH){
 				if(settings.transitionOutMobile.length>0)
 					$toast.classList.add(settings.transitionOutMobile);
 			} else{
@@ -374,7 +365,7 @@
 			var H = $toast.parentNode.offsetHeight;
 					$toast.parentNode.style.height = H+'px';
 					$toast.style.pointerEvents = 'none';
-			if(isMobile || window.innerWidth <= mobileWidth){
+			if(ISMOBILE || window.innerWidth <= MOBILEWIDTH){
 
 			} else {
 				$toast.parentNode.style.transitionDelay = '0.2s';
@@ -420,7 +411,7 @@
 		var that = this;
 
 		// Merge user options with defaults
-		var settings = extend(config, options || {});
+		var settings = extend(CONFIG, options || {});
 			settings = extend(defaults, settings);
 
 		var $toastCapsule = document.createElement("div");
@@ -429,7 +420,7 @@
 		var $toast = document.createElement("div");
 			$toast.classList.add(PLUGIN_NAME);
 
-		if(isMobile || window.innerWidth <= mobileWidth){
+		if(ISMOBILE || window.innerWidth <= MOBILEWIDTH){
 			if(settings.transitionInMobile.length>0)
 				$toast.classList.add(settings.transitionInMobile);
 		} else {
@@ -538,7 +529,6 @@
 
 		
 		if(settings.layout > 1){
-			$p.style.width = "100%";
 			$toast.classList.add(PLUGIN_NAME+"-layout"+settings.layout);
 		}
 
@@ -609,7 +599,13 @@
 			$wrapper.appendChild($toastCapsule);
 
 		} else {
-			if(isMobile || window.innerWidth <= mobileWidth){
+
+			if( POSITIONS.indexOf(settings.position) == -1 ){
+				console.warn("["+PLUGIN_NAME+"] Incorrect position.\nIt can be › " + POSITIONS);
+				return;
+			}
+
+			if(ISMOBILE || window.innerWidth <= MOBILEWIDTH){
 				if(settings.position == "bottomLeft" || settings.position == "bottomRight" || settings.position == "bottomCenter"){
 					position = PLUGIN_NAME+'-wrapper-bottomCenter';
 				}

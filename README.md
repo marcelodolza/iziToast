@@ -18,11 +18,17 @@ Fast | Responsive | Animated | Lightweight | Customizable | No dependencies | Re
 ![alt text][logo] | ![alt text][logo] | ![alt text][logo] | ![alt text][logo] | ![alt text][logo] | ![alt text][logo] | ![alt text][logo]
 
 
-- All modern browsers are supported (Tested in Chrome, Firefox, Opera, Safari, IE9+ and Edge).
+- All modern browsers are supported (Tested in Chrome, Firefox, Opera, Safari, IE10+ and Edge).
 - Bugs? create an issue [here](https://github.com/dolce/iziToast/issues).
 
 ___
 ### Version Log
+
+- **v1.0.2**
+  - ![alt text][new] Original stylus source files - *Implemented.*
+  - ![alt text][new] Folder structure - *Modified.*
+  - ![alt text][bug] Flip animation - *Fixed.*
+  - ![alt text][bug] Wrong positioning of internal elements - *Fixed.*
 
 - **v1.0.1**
   - ![alt text][new] Internet Explorer support - *Implemented.*

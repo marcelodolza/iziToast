@@ -1,0 +1,54 @@
+/*
+* iziToast | v1.0.2
+* http://izitoast.marcelodolce.com
+* by Marcelo Dolce.
+*/
+
+.iziToast
+  &.iziToast-color-dark
+    background #565C70
+    border-color #565C70
+    & strong
+      color white
+    & p
+      color rgba(255, 255, 255, 0.7)
+      font-weight 300
+    & .iziToast-close
+      background url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J/AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAADdcAAA3XAUIom3gAAAAHdElNRQfgCR4OIQIPSao6AAAAwElEQVRIx72VUQ6EIAwFmz2XB+AConhjzqTJ7JeGKhLYlyx/BGdoBVpjIpMJNjgIZDKTkQHYmYfwmR2AfAqGFBcO2QjXZCd24bEggvd1KBx+xlwoDpYmvnBUUy68DYXD77ESr8WDtYqvxRex7a8oHP4Wo1Mkt5I68Mc+qYqv1h5OsZmZsQ3gj/02h6cO/KEYx29hu3R+VTTwz6D3TymIP1E8RvEiiVdZfEzicxYLiljSxKIqlnW5seitTW6uYnv/Aqh4whX3mEUrAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE2LTA5LTMwVDE0OjMzOjAyKzAyOjAwl6RMVgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxNi0wOS0zMFQxNDozMzowMiswMjowMOb59OoAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwaAAAAAElFTkSuQmCC') no-repeat 50% 50%
+      background-size 8px
+    & .iziToast-icon
+      color white
+    & strong
+      font-weight 500
+    & .iziToast-buttons button, & .iziToast-buttons a
+      color rgb(255, 255, 255)
+      background rgba(255, 255, 255, 0.1)
+      &:hover
+        background rgba(255, 255, 255, 0.2)
+
+  &.iziToast-color-red
+    background rgba(243, 186, 189, 0.85)
+    border-color rgba(243, 186, 189, 0.85)
+  &.iziToast-color-yellow
+    background rgba(243, 237, 172, 0.85)
+    border-color rgba(243, 237, 172, 0.85)
+  &.iziToast-color-blue
+    background rgba(181, 225, 249, 0.85)
+    border-color rgba(181, 225, 249, 0.85)
+  &.iziToast-color-green
+    background rgba(180, 241, 196, 0.85)
+    border-color rgba(180, 241, 196, 0.85)
+  
+  /*
+  * EXAMPLE new colors
+  *
+  &.iziToast-color-custom
+  */
+
+
+@media only screen and (min-width: 568px)
+
+  .iziToast
+    &.iziToast-color-dark
+      &::after
+        box-shadow inset 0 -10px 20px -10px rgba(255, 255, 255, 0.3),0 10px 10px -5px rgba(0, 0, 0, 0.25)
