@@ -27,6 +27,7 @@ ___
 - **v1.0.2**
   - ![alt text][new] Original stylus source files - *Implemented.*
   - ![alt text][new] Folder structure - *Modified.*
+  - ![alt text][new] Larger zIndex and Option to set it - *Implemented.*
   - ![alt text][bug] Flip animation - *Fixed.*
   - ![alt text][bug] Wrong positioning of internal elements - *Fixed.*
 
@@ -61,6 +62,7 @@ iziToast.show({
     iconColor: '',
     image: '',
     imageWidth: 50,
+    zindex: 99999,
     layout: 1,
     balloon: false,
     close: true,
@@ -95,6 +97,7 @@ Argument | Default Value | Description
 **iconColor** | *''* | Icon color.
 **image** | *''* | Cover image.
 **imageWidth** | *50* | Width of cover image.
+**zindex** | *99999* | The z-index CSS attribute of the toast.
 **layout** | *1* | It can be 1 or 2, or use another layout, creating the class like this: ".iziToast-layout3"
 **balloon** | *false* | Applies a balloon like toast.
 **close** | *true* | Show "x" close button

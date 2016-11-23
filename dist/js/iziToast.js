@@ -36,6 +36,7 @@
 		iconColor: '',
 		image: '',
 		imageWidth: 50,
+		zindex: 99999,
 		layout: 1,
 		balloon: false,
 		close: true,
@@ -451,6 +452,12 @@
 			$cover.style.width = settings.imageWidth + "px";
 			$cover.style.backgroundImage = 'url(' + settings.image + ')';
 			$toast.appendChild($cover);
+		}
+
+		if (!isNaN(settings.zindex)) {
+			$toast.style.zIndex = settings.zindex;
+		} else {
+			console.warn("["+PLUGIN_NAME+"] Invalid zIndex.");
 		}
 
 		var $buttonClose;
