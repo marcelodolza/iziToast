@@ -342,7 +342,8 @@
 	 * @public
 	 * @param {Object} options User settings
 	 */
-	iziToast.hide = function (options, $toast) {
+	iziToast.hide = function (options, $toast, closed) {
+		var isClosed=closed || false;
 		
 		var settings = extend(defaults, options || {});
 
@@ -399,7 +400,7 @@
 		}
 
 		if(typeof settings.onClose !== "undefined")
-			settings.onClose.apply();
+			settings.onClose.apply(null, [isClosed]);
 	};
 
 	/**
@@ -696,7 +697,7 @@
 		if($buttonClose){
 			$buttonClose.addEventListener('click', function (event) {
 				var button = event.target;
-				that.hide(settings, $toast);
+				that.hide(settings, $toast, true);
 			});
 		}
 
