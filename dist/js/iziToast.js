@@ -61,8 +61,238 @@
 	//
 	// Methods
 	//
+	
+	/**
+	 * Title setter
+	 * @param {String} title Toast title
+	 */
+	iziToast.setTitle = function (title) {
+		CONFIG.title = title;
+	}
+	
+	/**
+	 * Message setter
+	 * @param {String} message Toast message
+	 */	
+	iziToast.setMessage = function (message){
+		CONFIG.message = message;
+	}
+	
+	/**
+	 * Color setter
+	 * @param {String} color Toast color
+	 */
+	iziToast.setColor = function (color){
+		if(typeof(color)!=String){
+			return;
+		}
+		CONFIG.color = color;
+	}
+	
+	/**
+	 * RGB color setter
+	 * @param {Integer} R Red
+	 * @param {Integer} G Green
+	 * @param {Integer} B Blue
+	 */
+	iziToast.setColorRGB = function (R,G,B){
+		CONFIG.color = "rgb("+R+","+G+","+B+")";
+	}
+	
+	/**
+	 * Icon setter
+	 * @param {String} icon Toast Icon
+	 */
+	iziToast.setIcon = function (icon){
+		CONFIG.icon = icon;
+	}
+	
+	/**
+	 * Icon text setter
+	 * @param {String} iconText Toast icon text
+	 */
+	iziToast.setIconText = function (iconText){
+		CONFIG.iconText = iconText;
+	}
+	
+	/**
+	 * Icon color setter
+	 * @param {String} iconColor Toast icon color
+	 */
+	iziToast.setIconColor = function (iconColor){
+		CONFIG.iconColor = iconColor;
+	}
+	
+	/**
+	 * Image setter
+	 * @param {String} image Toast image
+	 */
+	iziToast.setImage = function (image){
+		CONFIG.image = image;
+	}
+	
+	/**
+	 * Image width setter
+	 * @param {String} imageWidth Toast image width
+	 */
+	iziToast.setImageWidth = function (imageWidth){
+		CONFIG.imageWidth = imageWidth;
+	}
+	
+	/**
+	 * zindex setter
+	 * @param {String} zindex Toast zindex
+	 */
+	iziToast.setZindex = function (zindex){
+		CONFIG.zindex = zindex;
+	}
+	
+	/**
+	 * Layout setter
+	 * @param {Integer} layout Toast layout
+	 */
+	iziToast.setLayout = function (layout){
+		CONFIG.layout = layout;
+	}
 
+	/**
+	 * Balloon setter
+	 * @param {Boolean} balloon Balloon
+	 */	
+	iziToast.setBalloon = function (balloon){
+		CONFIG.balloon = balloon;
+	}
+	
+	/**
+	 * Close setter
+	 * @param {Boolean} close Close
+	 */
+	iziToast.setClose = function (close){
+		CONFIG.close = close;
+	}
+	
+	/**
+	 * rtl setter
+	 * @param {Boolean} rtl rtl
+	 */
+	iziToast.setRtl = function (rtl){
+		CONFIG.rtl = rtl;
+	}
+	
+	/**
+	 * Position setter
+	 * @param {String} position Toast position
+	 */
+	iziToast.setPosition = function (position) {
+		CONFIG.position = position;
+	}
+	
+	/**
+	 * Target setter
+	 * @param {String} target Toast target
+	 */
+	iziToast.setTarget = function (target) {
+		CONFIG.target = target;
+	}
+	
+	/**
+	 * Timeout setter
+	 * @param {String} timeout Toast timeout
+	 */
+	iziToast.setTimeout = function (timeout) {
+		CONFIG.timeout = timeout;
+	}
+	
+	/**
+	 * Pause on hover setter
+	 * @param {Boolean} pauseOnHover Pause on hover
+	 */
+	iziToast.setPauseOnHover = function (pauseOnHover) {
+		CONFIG.pauseOnHover = pauseOnHover;
+	}
+	
+	/**
+	 * Reset on hover setter
+	 * @param {Boolean} resetOnHover Reset on hover
+	 */
+	iziToast.setResetOnHover = function (resetOnHover) {
+		CONFIG.resetOnHover = resetOnHover;
+	}
+	
+	/**
+	 * Progress Bar display setter
+	 * @param {Boolean} progressBar Progress Bar display?
+	 */
+	iziToast.setProgressBar = function (progressBar){
+		CONFIG.progressBar = progressBar;
+	}
+	
+	/**
+	 * Progress bar color setter
+	 * @param {String} progressBarColor Progress br color
+	 */
+	iziToast.setProgressBarColor = function (progressBarColor){
+		CONFIG.progressBarColor = progressBarColor;
+	}
+	
+	/**
+	 * Animate inside setter
+	 * @param {Boolean} animateInside Animate Inside
+	 */
+	iziToast.setAnimateInside = function (animateInside){
+		CONFIG.animateInside = animateInside;
+	}	
+	
+	/**
+	 * In Transition setter
+	 * @param {String} transitionIn Toast in transition
+	 */
+	iziToast.setTransitionIn = function (transitionIn){
+		CONFIG.transitionIn = transitionIn;
+	}
+	
+	/**
+	 * Out Transition setter
+	 * @param {String} transitionOut Toast out transition
+	 */
+	iziToast.setTransitionOut = function (transitionOut){
+		CONFIG.transitionOut = transitionOut;
+	}
 
+	/**
+	 * Mobile In Transition setter
+	 * @param {String} transitionIn Toast mobile in transition
+	 */		
+	iziToast.setTransitionInMobile = function (transitionInMobile){
+		CONFIG.transitionInMobile = transitionInMobile;
+	}
+	
+	/**
+	 * Mobile Out Transition setter
+	 * @param {String} transitionOut Toast mobile out transition
+	 */
+	iziToast.setTransitionOutMobile = function (transitionOutMobile){
+		CONFIG.transitionOutMobile = transitionOutMobile;
+	}
+	
+	
+	/**
+	 * On open event setter
+	 * @param {Function} onOpen On open function
+	 */
+	iziToast.setOnOpen = function (onOpen){
+		CONFIG.onOpen = onOpen;
+	}
+		
+	/**
+	 * On close event setter
+	 * @param {Function} onClose On close function
+	 */
+	iziToast.setOnClose = function (onClose){
+		CONFIG.onClose = onClose;
+	}
+	
+	
 	/**
 	 * Polyfill for remove() method
 	 */
@@ -264,6 +494,8 @@
 		CONFIG = options;
 		defaults = extend(defaults, options || {});
 	};
+
+	
 
 	/**
 	 * Info theme
