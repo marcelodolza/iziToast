@@ -342,10 +342,10 @@
 	 * @public
 	 * @param {Object} options User settings
 	 */
-	iziToast.hide = function (options, $toast, closed) {
-		var isClosed=closed || false;
+	iziToast.hide = function (options, $toast, closedByButton) {
 		
 		var settings = extend(defaults, options || {});
+		var closedByButton = closed || false;
 
 		if(typeof $toast != 'object'){
 			$toast = document.querySelector($toast);
@@ -400,7 +400,7 @@
 		}
 
 		if(typeof settings.onClose !== "undefined")
-			settings.onClose.apply(null, [isClosed]);
+			settings.onClose.apply(null, [settings, $toast, isClosed]);
 	};
 
 	/**
@@ -641,7 +641,7 @@
 			}
 		}
 
-		settings.onOpen.apply();
+		settings.onOpen.apply(null, [settings, $toast]);
 
 		try {
 			var event;
