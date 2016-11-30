@@ -69,6 +69,7 @@ iziToast.show({
     rtl: false,
     position: 'bottomRight', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
     target: '',
+    targetFirst: false,
     timeout: 5000,
     pauseOnHover: true,
     resetOnHover: false,
