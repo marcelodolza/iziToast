@@ -455,12 +455,6 @@
 			$toast.appendChild($cover);
 		}
 
-		if (!isNaN(settings.zindex)) {
-			$wrapper.style.zIndex = settings.zindex;
-		} else {
-			console.warn("["+PLUGIN_NAME+"] Invalid zIndex.");
-		}
-
 		var $buttonClose;
 		if(settings.close){
 			$buttonClose = document.createElement("button");
@@ -597,9 +591,7 @@
 
 		var position = settings.position,
 			$wrapper;
-
 			
-
 		if(settings.target){
 
 			$wrapper = document.querySelector(settings.target);
@@ -639,6 +631,12 @@
 			} else {
 				$wrapper.appendChild($toastCapsule);
 			}
+		}
+
+		if (!isNaN(settings.zindex)) {
+			$wrapper.style.zIndex = settings.zindex;
+		} else {
+			console.warn("["+PLUGIN_NAME+"] Invalid zIndex.");
 		}
 
 		settings.onOpen.apply(null, [settings, $toast]);
