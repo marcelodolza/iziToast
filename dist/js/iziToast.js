@@ -345,7 +345,7 @@
 	iziToast.hide = function (options, $toast, closedByButton) {
 		
 		var settings = extend(defaults, options || {});
-		var closedByButton = closed || false;
+		var isClosed = closedByButton || false;
 
 		if(typeof $toast != 'object'){
 			$toast = document.querySelector($toast);
