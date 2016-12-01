@@ -456,7 +456,7 @@
 		}
 
 		if (!isNaN(settings.zindex)) {
-			$toast.style.zIndex = settings.zindex;
+			$wrapper.style.zIndex = settings.zindex;
 		} else {
 			console.warn("["+PLUGIN_NAME+"] Invalid zIndex.");
 		}
