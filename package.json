@@ -1,9 +1,9 @@
 {
   "name": "izitoast",
-  "version": "1.0.2a",
+  "version": "1.0.2b",
   "description": "Elegant, responsive, flexible and lightweight notification plugin with no dependencies.",
   "readmeFilename": "README.md",
-  "main": "js/iziToast.js",
+  "main": "dist/js/iziToast.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dolce/iziToast.git"
