@@ -39,7 +39,7 @@ ___
 
 #### [npm](https://www.npmjs.com/package/izitoast)
 ```
-npm install izitoast --save
+npm install izitoast@1.0.2-c --save
 ```
 
 #### bower
