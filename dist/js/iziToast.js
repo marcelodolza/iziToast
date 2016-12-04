@@ -342,9 +342,10 @@
 	 * @public
 	 * @param {Object} options User settings
 	 */
-	iziToast.hide = function (options, $toast) {
+	iziToast.hide = function (options, $toast, closedByButton) {
 		
 		var settings = extend(defaults, options || {});
+		var isClosed = closedByButton || false;
 
 		if(typeof $toast != 'object'){
 			$toast = document.querySelector($toast);
@@ -399,7 +400,7 @@
 		}
 
 		if(typeof settings.onClose !== "undefined")
-			settings.onClose.apply();
+			settings.onClose.apply(null, [settings, $toast, isClosed]);
 	};
 
 	/**
@@ -452,12 +453,6 @@
 			$cover.style.width = settings.imageWidth + "px";
 			$cover.style.backgroundImage = 'url(' + settings.image + ')';
 			$toast.appendChild($cover);
-		}
-
-		if (!isNaN(settings.zindex)) {
-			$toast.style.zIndex = settings.zindex;
-		} else {
-			console.warn("["+PLUGIN_NAME+"] Invalid zIndex.");
 		}
 
 		var $buttonClose;
@@ -596,9 +591,7 @@
 
 		var position = settings.position,
 			$wrapper;
-
 			
-
 		if(settings.target){
 
 			$wrapper = document.querySelector(settings.target);
@@ -640,7 +633,13 @@
 			}
 		}
 
-		settings.onOpen.apply();
+		if (!isNaN(settings.zindex)) {
+			$wrapper.style.zIndex = settings.zindex;
+		} else {
+			console.warn("["+PLUGIN_NAME+"] Invalid zIndex.");
+		}
+
+		settings.onOpen.apply(null, [settings, $toast]);
 
 		try {
 			var event;
@@ -696,7 +695,7 @@
 		if($buttonClose){
 			$buttonClose.addEventListener('click', function (event) {
 				var button = event.target;
-				that.hide(settings, $toast);
+				that.hide(settings, $toast, true);
 			});
 		}
 
