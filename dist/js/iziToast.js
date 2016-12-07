@@ -65,28 +65,40 @@
 	/**
 	 * Title setter
 	 * @param {String} title Toast title
+	 * @param {Object} preset Options preset
 	 */
-	iziToast.setTitle = function (title) {
-		CONFIG.title = title;
+	iziToast.setTitle = function (title, preset=null) {
+		if (preset==null)
+			CONFIG.title = title;
+		else 
+			preset.title = title;
 	}
 	
 	/**
 	 * Message setter
 	 * @param {String} message Toast message
+	 * @param {Object} preset Options preset
 	 */	
-	iziToast.setMessage = function (message){
-		CONFIG.message = message;
+	iziToast.setMessage = function (message, preset=null){
+		if(preset==null)
+			CONFIG.message = message;
+		else 
+			preset.message = message;
 	}
 	
 	/**
 	 * Color setter
 	 * @param {String} color Toast color
+	 * @param {Object} preset Options preset
 	 */
-	iziToast.setColor = function (color){
+	iziToast.setColor = function (color, preset=null){
 		if(typeof(color)!=String){
 			return;
 		}
-		CONFIG.color = color;
+		if(preset==null)
+			CONFIG.color = color;
+		else 
+			preset.color = color;
 	}
 	
 	/**
@@ -94,202 +106,302 @@
 	 * @param {Integer} R Red
 	 * @param {Integer} G Green
 	 * @param {Integer} B Blue
+	 * @param {Object} preset Options preset
 	 */
-	iziToast.setColorRGB = function (R,G,B){
-		CONFIG.color = "rgb("+R+","+G+","+B+")";
-	}
+	iziToast.setColorRGB = function (R,G,B, preset=null){
+		if(preset==null)
+			CONFIG.color = "rgb("+R+","+G+","+B+")";
+		else
+			preset.color = "rgb("+R+","+G+","+B+")";
+	}	
 	
 	/**
 	 * Icon setter
 	 * @param {String} icon Toast Icon
+	 * @param {Object} preset Options preset
 	 */
-	iziToast.setIcon = function (icon){
-		CONFIG.icon = icon;
+	iziToast.setIcon = function (icon, preset=null){
+		if(preset==null)
+			CONFIG.icon = icon;
+		else
+			preset.icon = icon;
 	}
 	
 	/**
 	 * Icon text setter
 	 * @param {String} iconText Toast icon text
+	 * @param {Object} preset Options preset
 	 */
-	iziToast.setIconText = function (iconText){
-		CONFIG.iconText = iconText;
+	iziToast.setIconText = function (iconText, preset=null){
+		if(preset==null)
+			CONFIG.iconText = iconText;
+		else
+			preset.iconText = iconText;
 	}
 	
 	/**
 	 * Icon color setter
 	 * @param {String} iconColor Toast icon color
+	 * @param {Object} preset Options preset
 	 */
-	iziToast.setIconColor = function (iconColor){
-		CONFIG.iconColor = iconColor;
+	iziToast.setIconColor = function (iconColor, preset=null){
+		if(preset==null)
+			CONFIG.iconColor = iconColor;
+		else 
+			preset.iconColor = iconColor;
 	}
 	
 	/**
 	 * Image setter
 	 * @param {String} image Toast image
+	 * @param {Object} preset Options preset
 	 */
-	iziToast.setImage = function (image){
-		CONFIG.image = image;
+	iziToast.setImage = function (image, preset=null){
+		if(preset==null)
+			CONFIG.image = image;
+		else
+			preset.image = image;
 	}
 	
 	/**
 	 * Image width setter
 	 * @param {String} imageWidth Toast image width
+	 * @param {Object} preset Options preset
 	 */
-	iziToast.setImageWidth = function (imageWidth){
-		CONFIG.imageWidth = imageWidth;
+	iziToast.setImageWidth = function (imageWidth, preset=null){
+		if(preset==null)
+			CONFIG.imageWidth = imageWidth;
+		else
+			preset.imageWidth = imageWidth;
 	}
 	
 	/**
 	 * zindex setter
 	 * @param {String} zindex Toast zindex
+	 * @param {Object} preset Options preset
 	 */
-	iziToast.setZindex = function (zindex){
-		CONFIG.zindex = zindex;
+	iziToast.setZindex = function (zindex, preset=null){
+		if(preset==null)
+			CONFIG.zindex = zindex;
+		else
+			preset.zindex = zindex
 	}
 	
 	/**
 	 * Layout setter
 	 * @param {Integer} layout Toast layout
+	 * @param {Object} preset Options preset
 	 */
-	iziToast.setLayout = function (layout){
-		CONFIG.layout = layout;
+	iziToast.setLayout = function (layout, preset=null){
+		if(preset==null)
+			CONFIG.layout = layout;
+		else
+			preset.layout = layout;
 	}
 
 	/**
 	 * Balloon setter
 	 * @param {Boolean} balloon Balloon
+	 * @param {Object} preset Options preset
 	 */	
-	iziToast.setBalloon = function (balloon){
-		CONFIG.balloon = balloon;
+	iziToast.setBalloon = function (balloon, preset=null){
+		if(preset==null)
+			CONFIG.balloon = balloon;
+		else
+			preset.balloon = balloon;
 	}
 	
 	/**
 	 * Close setter
 	 * @param {Boolean} close Close
+	 * @param {Object} preset Options preset
 	 */
-	iziToast.setClose = function (close){
-		CONFIG.close = close;
+	iziToast.setClose = function (close, preset=null){
+		if(preset==null)
+			CONFIG.close = close;
+		else
+			preset.close = close;
 	}
 	
 	/**
 	 * rtl setter
 	 * @param {Boolean} rtl rtl
+	 * @param {Object} preset Options preset
 	 */
-	iziToast.setRtl = function (rtl){
-		CONFIG.rtl = rtl;
+	iziToast.setRtl = function (rtl, preset=null){
+		if(preset==null)
+			CONFIG.rtl = rtl;
+		else
+			preset.rtl = rtl;
 	}
 	
 	/**
 	 * Position setter
 	 * @param {String} position Toast position
+	 * @param {Object} preset Options preset
 	 */
-	iziToast.setPosition = function (position) {
-		CONFIG.position = position;
+	iziToast.setPosition = function (position, preset=null) {
+		if(preset==null)
+			CONFIG.position = position;
+		else
+			preset.position=position;
 	}
 	
 	/**
 	 * Target setter
 	 * @param {String} target Toast target
+	 * @param {Object} preset Options preset
 	 */
-	iziToast.setTarget = function (target) {
-		CONFIG.target = target;
+	iziToast.setTarget = function (target, preset=null) {
+		if(preset==null)
+			CONFIG.target = target;
+		else
+			preset.target = target;
 	}
 	
 	/**
 	 * Timeout setter
 	 * @param {String} timeout Toast timeout
+	 * @param {Object} preset Options preset
 	 */
-	iziToast.setTimeout = function (timeout) {
-		CONFIG.timeout = timeout;
+	iziToast.setTimeout = function (timeout, preset=null) {
+		if(preset==null)
+			CONFIG.timeout = timeout;
+		else
+			preset.timeout = timeout;
 	}
 	
 	/**
 	 * Pause on hover setter
 	 * @param {Boolean} pauseOnHover Pause on hover
+	 * @param {Object} preset Options preset
 	 */
-	iziToast.setPauseOnHover = function (pauseOnHover) {
-		CONFIG.pauseOnHover = pauseOnHover;
+	iziToast.setPauseOnHover = function (pauseOnHover, preset=null) {
+		if(preset==null)
+			CONFIG.pauseOnHover = pauseOnHover;
+		else
+			preset.pauseOnHover = pauseOnHover;
 	}
 	
 	/**
 	 * Reset on hover setter
 	 * @param {Boolean} resetOnHover Reset on hover
+	 * @param {Object} preset Options preset
 	 */
-	iziToast.setResetOnHover = function (resetOnHover) {
-		CONFIG.resetOnHover = resetOnHover;
+	iziToast.setResetOnHover = function (resetOnHover, preset=null) {
+		if(preset==null)
+			CONFIG.resetOnHover = resetOnHover;
+		else
+			preset.resetOnHover = resetOnHover;
 	}
 	
 	/**
 	 * Progress Bar display setter
 	 * @param {Boolean} progressBar Progress Bar display?
+	 * @param {Object} preset Options preset
 	 */
-	iziToast.setProgressBar = function (progressBar){
-		CONFIG.progressBar = progressBar;
+	iziToast.setProgressBar = function (progressBar, preset=null){
+		if(preset==null)
+			CONFIG.progressBar = progressBar;
+		else
+			preset.progressBar = progressBar;
 	}
 	
 	/**
 	 * Progress bar color setter
 	 * @param {String} progressBarColor Progress br color
+	 * @param {Object} preset Options preset
 	 */
-	iziToast.setProgressBarColor = function (progressBarColor){
-		CONFIG.progressBarColor = progressBarColor;
+	iziToast.setProgressBarColor = function (progressBarColor, preset=null){
+		if(preset==null)
+			CONFIG.progressBarColor = progressBarColor;
+		else
+			preset.progressBarColor = progressBarColor;
 	}
 	
 	/**
 	 * Animate inside setter
 	 * @param {Boolean} animateInside Animate Inside
+	 * @param {Object} preset Options preset
 	 */
-	iziToast.setAnimateInside = function (animateInside){
-		CONFIG.animateInside = animateInside;
+	iziToast.setAnimateInside = function (animateInside, preset=null){
+		if(preset==null)
+			CONFIG.animateInside = animateInside;
+		else
+			preset.animateInside = animateInside;
 	}	
 	
 	/**
 	 * In Transition setter
 	 * @param {String} transitionIn Toast in transition
+	 * @param {Object} preset Options preset
 	 */
-	iziToast.setTransitionIn = function (transitionIn){
-		CONFIG.transitionIn = transitionIn;
+	iziToast.setTransitionIn = function (transitionIn, preset=null){
+		if(preset==null)
+			CONFIG.transitionIn = transitionIn;
+		else
+			preset.transitionIn = transitionIn;
 	}
 	
 	/**
 	 * Out Transition setter
 	 * @param {String} transitionOut Toast out transition
+	 * @param {Object} preset Options preset
 	 */
-	iziToast.setTransitionOut = function (transitionOut){
-		CONFIG.transitionOut = transitionOut;
+	iziToast.setTransitionOut = function (transitionOut, preset=null){
+		if(preset==null)
+			CONFIG.transitionOut = transitionOut;
+		else
+			preset.transitionOut = transitionOut;
 	}
 
 	/**
 	 * Mobile In Transition setter
 	 * @param {String} transitionIn Toast mobile in transition
+	 * @param {Object} preset Options preset
 	 */		
-	iziToast.setTransitionInMobile = function (transitionInMobile){
-		CONFIG.transitionInMobile = transitionInMobile;
+	iziToast.setTransitionInMobile = function (transitionInMobile, preset=null){
+		if(preset==null)
+			CONFIG.transitionInMobile = transitionInMobile;
+		else
+			preset.transitionInMobile = transitionInMobile;
 	}
 	
 	/**
 	 * Mobile Out Transition setter
 	 * @param {String} transitionOut Toast mobile out transition
+	 * @param {Object} preset Options preset
 	 */
-	iziToast.setTransitionOutMobile = function (transitionOutMobile){
-		CONFIG.transitionOutMobile = transitionOutMobile;
+	iziToast.setTransitionOutMobile = function (transitionOutMobile, preset=null){
+		if(preset==null)
+			CONFIG.transitionOutMobile = transitionOutMobile;
+		else
+			preset.transitionOutMobile = transitionOutMobile;
 	}
 	
 	
 	/**
 	 * On open event setter
 	 * @param {Function} onOpen On open function
+	 * @param {Object} preset Options preset
 	 */
-	iziToast.setOnOpen = function (onOpen){
-		CONFIG.onOpen = onOpen;
+	iziToast.setOnOpen = function (onOpen, preset=null){
+		if(preset==null)
+			CONFIG.onOpen = onOpen;
+		else
+			preset.onOpen = onOpen;
 	}
 		
 	/**
 	 * On close event setter
 	 * @param {Function} onClose On close function
+	 * @param {Object} preset Options preset
 	 */
-	iziToast.setOnClose = function (onClose){
-		CONFIG.onClose = onClose;
+	iziToast.setOnClose = function (onClose, preset=null){
+		if(preset==null)
+			CONFIG.onClose = onClose;
+		else
+			preset.onClose = onClose;
 	}
 	
 	
