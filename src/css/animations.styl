@@ -1,5 +1,5 @@
 /*
-* iziToast | v1.0.2
+* iziToast | v1.1.0
 * http://izitoast.marcelodolce.com
 * by Marcelo Dolce.
 */
@@ -453,16 +453,17 @@
 }
 
 .fadeOutLeft
-  -webkit-animation: fadeOutLeft $animation-time1 cubic-bezier(0.4, 0.45, 0.15, 0.91) both;
-  animation: fadeOutLeft $animation-time1 cubic-bezier(0.4, 0.45, 0.15, 0.91) both;
+  -webkit-animation: fadeOutLeft 0.5s ease both;
+  animation: fadeOutLeft 0.5s ease both;
+
 @-webkit-keyframes fadeOutLeft {
   from {
     opacity: 1;
   }
   to {
     opacity: 0;
-    -webkit-transform: translate3d(-100%, 0, 0);
-    transform: translate3d(-100%, 0, 0);
+    -webkit-transform: translate3d(-200px, 0, 0);
+    transform: translate3d(-200px, 0, 0);
   }
 }
 @keyframes fadeOutLeft {
@@ -471,22 +472,23 @@
   }
   to {
     opacity: 0;
-    -webkit-transform: translate3d(-100%, 0, 0);
-    transform: translate3d(-100%, 0, 0);
+    -webkit-transform: translate3d(-200px, 0, 0);
+    transform: translate3d(-200px, 0, 0);
   }
 }
 
 .fadeOutRight
-  -webkit-animation: fadeOutRight $animation-time1 cubic-bezier(0.4, 0.45, 0.15, 0.91) both;
-  animation: fadeOutRight $animation-time1 cubic-bezier(0.4, 0.45, 0.15, 0.91) both;
+  -webkit-animation: fadeOutRight 0.5s ease both;
+  animation: fadeOutRight 0.5s ease both;
+
 @-webkit-keyframes fadeOutRight {
   from {
     opacity: 1;
   }
   to {
     opacity: 0;
-    -webkit-transform: translate3d(100%, 0, 0);
-    transform: translate3d(100%, 0, 0);
+    -webkit-transform: translate3d(200px, 0, 0);
+    transform: translate3d(200px, 0, 0);
   }
 }
 @keyframes fadeOutRight {
@@ -495,8 +497,8 @@
   }
   to {
     opacity: 0;
-    -webkit-transform: translate3d(100%, 0, 0);
-    transform: translate3d(100%, 0, 0);
+    -webkit-transform: translate3d(200px, 0, 0);
+    transform: translate3d(200px, 0, 0);
   }
 }
 

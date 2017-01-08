@@ -24,6 +24,15 @@ Fast | Responsive | Animated | Lightweight | Customizable | No dependencies | Re
 ___
 ### Version Log
 
+- **v1.1.0**
+  - ![alt text][new] Drag/Touch support - *Implemented.*
+  - ![alt text][new] ClosedBy param ('drag' or 'button') - *Implemented.*
+  - ![alt text][new] Targetfirst option - *Implemented.*
+  - ![alt text][new] Background & message color options - *Implemented.*
+  - ![alt text][bug] Leap in animation when used Target - *Fixed.*
+  - ![alt text][bug] zIndex, unexpected behavior - *Fixed.*
+  - ![alt text][bug] box-shadow of balloon toast with progressbar not applied correctly - *Fixed.*
+
 - **v1.0.2**
   - ![alt text][new] Original stylus source files - *Implemented.*
   - ![alt text][new] Folder structure - *Modified.*
@@ -55,7 +64,10 @@ ___
 iziToast.show({
     class: '',
     title: '',
+    titleColor: '',
     message: '',
+    messageColor: '',
+    backgroundColor: '',
     color: '', // blue, red, green, yellow
     icon: '',
     iconText: '',
@@ -69,8 +81,9 @@ iziToast.show({
     rtl: false,
     position: 'bottomRight', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
     target: '',
-    targetFirst: false,
+    targetFirst: true,
     timeout: 5000,
+    drag: true,
     pauseOnHover: true,
     resetOnHover: false,
     progressBar: true,
@@ -91,7 +104,15 @@ Argument | Default Value | Description
 :---: | :---: | ---
 **class** | *''* | The class that will be applied to the toast. It may be used as a reference.
 **title** | *''* | Title of the toast.
-**message** | *''* | Message of notification.
+
+**titleColor** | *''* | Title color.
+
+**message** | *''* | Message of the toast.
+
+**messageColor** | *''* | Message color.
+
+**backgroundColor** | *''* | Background color of the Toast.
+
 **color** | *''* | It can be #hexadecimal, pre-defined themes like blue, red, green and yellow or set another class. Create and use like this ".iziToast-color-name"
 **icon** | *''* | Icon class (font-icon of your choice, Icomoon, Fontawesome etc.).
 **iconText** | *''* | Icon text (font-icon using text, Material Icons, etc.).
@@ -105,8 +126,11 @@ Argument | Default Value | Description
 **rtl** | *false* | RTL option
 **position** | *'bottomRight'* | Where it will be shown. It can be bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter or center.
 **target** | *''* | Fixed place where you want to show the toasts. 
-**targetFirst** | *false* | Add to first position
+**targetFirst** | *false* | Add toast to first position
 **timeout** | *5000* | Amount in milliseconds to close the toast or false to disable.
+
+**drag** | *true* | Drag Feature. Is used to close the toast.
+
 **pauseOnHover** | *true* | Pause the toast timeout while the cursor is on it.
 **resetOnHover** | *false* | Reset the toast timeout while the cursor is on it.
 **progressbar** | *true* | Enable timeout progress bar.
@@ -131,13 +155,7 @@ iziToast.settings({
     resetOnHover: true,
     icon: 'material-icons',
     transitionIn: 'flipInX',
-    transitionOut: 'flipOutX',
-    onOpen: function(){
-        console.log('callback abriu!');
-    },
-    onClose: function(){
-        console.log("callback fechou!");
-    }
+    transitionOut: 'flipOutX'
 });
 ```
 
@@ -157,7 +175,13 @@ iziToast.show({
         ['<button>Close</button>', function (instance, toast) {
             instance.hide({ transitionOut: 'fadeOutUp' }, toast);
         }]
-    ]
+    ],
+    onOpen: function(instance, toast){
+        console.info('callback abriu!');
+    },
+    onClose: function(instance, toast, closedBy){
+        console.info('closedBy: ' + closedBy); // tells if it was closed by 'drag' or 'button'
+    }
 });
 ```
 

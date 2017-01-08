@@ -2,8 +2,8 @@
   "name": "izitoast",
   "description": "Elegant, responsive, flexible and lightweight notification plugin with no dependencies.",
   "main": [
-    "js/iziToast.js",
-    "css/iziToast.css"
+    "dist/js/iziToast.js",
+    "dist/js/iziToast.css"
   ],
   "authors": [
     {

@@ -1,8 +1,8 @@
 /*
- * iziToast | v1.0.2
+ * iziToast | v1.1.0
  * http://izitoast.marcelodolce.com
  * by Marcelo Dolce.
- */
+ */ 
 (function (root, factory) {
 	if (typeof define === 'function' && define.amd) {
 		define([], factory(root));
@@ -18,18 +18,43 @@
 	//
 	// Variables
 	//
-	var iziToast = {};
-	var PLUGIN_NAME = 'iziToast';
-	var ISMOBILE = (/Mobi/.test(navigator.userAgent)) ? true : false;
-	var POSITIONS = ['bottomRight','bottomLeft','bottomCenter','topRight','topLeft','topCenter','center'];
-	var MOBILEWIDTH = 568;
-	var CONFIG = {};
+	var $iziToast = {},
+		PLUGIN_NAME = 'iziToast',
+		BODY = document.querySelector('body'),
+		ISMOBILE = (/Mobi/.test(navigator.userAgent)) ? true : false,
+		ISCHROME = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor),
+		ISFIREFOX = typeof InstallTrigger !== 'undefined',
+		ACCEPTSTOUCH = 'ontouchstart' in document.documentElement,
+		POSITIONS = ['bottomRight','bottomLeft','bottomCenter','topRight','topLeft','topCenter','center'],
+		THEMES = {
+			info: {
+				color: "blue",
+				icon: "ico-info"
+			},
+			success: {
+				color: "green",
+				icon: "ico-check",
+			},
+			warning: {
+				color: "yellow",
+				icon: "ico-warning",
+			},
+			error: {
+				color: "red",
+				icon: "ico-error",
+			}
+		},
+		MOBILEWIDTH = 568,
+		CONFIG = {};
 
 	// Default settings
 	var defaults = {
 		class: '',
 		title: '',
+		titleColor: '',
 		message: '',
+		messageColor: '',
+		backgroundColor: '',
 		color: '', // blue, red, green, yellow
 		icon: '',
 		iconText: '',
@@ -43,8 +68,9 @@
 		rtl: false,
 		position: 'bottomRight', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
 		target: '',
-		targetFirst: false,
+		targetFirst: true,
 		timeout: 5000,
+		drag: true,
 		pauseOnHover: true,
 		resetOnHover: false,
 		progressBar: true,
@@ -116,53 +142,6 @@
 		return extended;
 	};
 
-	/**
-	 * Get the closest matching element up the DOM tree
-	 * @private
-	 * @param {Element} elem Starting element
-	 * @param {String} selector Selector to match against (class, ID, or data attribute)
-	 * @return {Boolean|Element} Returns false if not match found
-	 */
-	var getClosest = function (elem, selector) {
-		var firstChar = selector.charAt(0);
-		for (; elem && elem !== document; elem = elem.parentNode) {
-			if (firstChar === '.') {
-				if (elem.classList.contains(selector.substr(1))) {
-					return elem;
-				}
-			} else if (firstChar === '#') {
-				if (elem.id === selector.substr(1)) {
-					return elem;
-				}
-			} else if (firstChar === '[') {
-				if (elem.hasAttribute(selector.substr(1, selector.length - 2))) {
-					return elem;
-				}
-			}
-		}
-		return false;
-	};
-
-	/**
-	 * animationEnd 
-	 * @private
-	 */
-	var whichAnimationEvent = function(){
-		var t,
-			el = document.createElement("fakeelement");
-
-		var animations = {
-			"animation"      : "animationend",
-			"OAnimation"     : "oAnimationEnd",
-			"MozAnimation"   : "animationend",
-			"WebkitAnimation": "webkitAnimationEnd"
-		};
-		for (t in animations){
-			if (el.style[t] !== undefined){
-				return animations[t];
-			}
-		}
-	};
 
 	/**
 	 * Create a fragment DOM elements
@@ -177,6 +156,109 @@
 		}
 		return frag;
 	};
+
+
+	/**
+	 * Check if is a color
+	 * @private
+	 */
+	var isColor = function(color){
+		if( color.substring(0,1) == "#" || color.substring(0,3) == "rgb" || color.substring(0,3) == "hsl" ){
+			return true;
+		} else {
+			return false;
+		}
+	};
+
+
+	/**
+	 * Drag method of toasts
+	 * @private
+	 */
+	var drag = function() {
+	    
+	    return {
+	        move: function(toast, instance, settings, xpos) {
+
+	        	var opacity,
+	        		opacityRange = 0.3,
+	        		distance = 180;
+	            
+	            toast.style.transform = 'translateX('+xpos + 'px)';
+
+	            if(xpos > 0){
+	            	opacity = (distance-xpos) / distance;
+	            	if(opacity < opacityRange){
+						instance.hide(extend(settings, { transitionOut: 'fadeOutRight', transitionOutMobile: 'fadeOutRight' }), toast, 'drag');
+					}
+	            } else {
+	            	opacity = (distance+xpos) / distance;
+	            	if(opacity < opacityRange){
+						instance.hide(extend(settings, { transitionOut: 'fadeOutLeft', transitionOutMobile: 'fadeOutLeft' }), toast, 'drag');
+					}
+	            }
+				toast.style.opacity = opacity;
+		
+				if(opacity < opacityRange){
+
+					if(ISCHROME || ISFIREFOX)
+						toast.style.left = xpos+'px';
+
+					toast.parentNode.style.opacity = opacityRange;
+
+	                this.stopMoving(toast, null);
+				}
+				
+	        },
+	        startMoving: function(toast, instance, settings, e) {
+
+	            e = e || window.event;
+	            var posX = ((ACCEPTSTOUCH) ? e.touches[0].clientX : e.clientX),
+	                toastLeft = toast.style.transform.replace('px)', '');
+	                toastLeft = toastLeft.replace('translateX(', '');
+	            var offsetX = posX - toastLeft;
+
+				toast.classList.remove(settings.transitionIn);
+				toast.classList.remove(settings.transitionInMobile);
+				toast.style.transition = "";
+
+	            if (ACCEPTSTOUCH) {
+	                document.ontouchmove = function(e) {
+	                    e.preventDefault();
+	                    e = e || window.event;
+	                    var posX = e.touches[0].clientX,
+	                        finalX = posX - offsetX;
+                        drag.move(toast, instance, settings, finalX);
+	                };
+	            } else {
+	                document.onmousemove = function(e) {
+	                    e.preventDefault();
+	                    e = e || window.event;
+	                    var posX = e.clientX,
+	                        finalX = posX - offsetX;
+                        drag.move(toast, instance, settings, finalX);
+	                };
+	            }
+
+	        },
+	        stopMoving: function(toast, e) {
+
+	            if (ACCEPTSTOUCH) {
+	                document.ontouchmove = function() {};
+	            } else {
+	            	document.onmousemove = function() {};
+	            }
+				toast.style.transition = "transform 0.4s ease, opacity 0.4s ease";
+				toast.style.opacity = "";
+				toast.style.transform = "";
+				window.setTimeout(function() {
+					toast.style.transition = "";
+				}, 400);
+	        }
+	    };
+
+	}();
+
 
 	/**
 	 * Do the calculation to move the progress bar
@@ -234,7 +316,7 @@
 	 * Destroy the current initialization.
 	 * @public
 	 */
-	iziToast.destroy = function () {
+	$iziToast.destroy = function () {
 
 		forEach(document.querySelectorAll('.'+PLUGIN_NAME+'-wrapper'), function(element, index) {
 			element.remove();
@@ -257,96 +339,43 @@
 	 * @public
 	 * @param {Object} options User settings
 	 */
-	iziToast.settings = function (options) {
+	$iziToast.settings = function (options) {
 
 		// Destroy any existing initializations
-		iziToast.destroy();
+		$iziToast.destroy();
 
 		CONFIG = options;
 		defaults = extend(defaults, options || {});
 	};
 
+
 	/**
-	 * Info theme
+	 * Building themes functions.
 	 * @public
 	 * @param {Object} options User settings
 	 */
-	iziToast.info = function (options) {
+	forEach(THEMES, function (theme, name) {
 
-		var theme = {
-			color: "blue",
-			icon: "ico-info"
+		$iziToast[name] = function (options) {
+
+			var settings = extend(CONFIG, options || {});
+			settings = extend(theme, settings || {});
+
+			this.show(settings);
 		};
 
-		var settings = extend(CONFIG, options || {});
-		settings = extend(theme, settings || {});
+	});
 
-		this.show(settings);
-	};
-
-	/**
-	 * Success theme
-	 * @public
-	 * @param {Object} options User settings
-	 */
-	iziToast.success = function (options) {
-
-		var theme = {
-			color: "green",
-			icon: "ico-check"
-		};
-
-		var settings = extend(CONFIG, options || {});
-		settings = extend(theme, settings || {});
-		
-		this.show(settings);
-	};
-
-	/**
-	 * Warning theme
-	 * @public
-	 * @param {Object} options User settings
-	 */
-	iziToast.warning = function (options) {
-
-		var theme = {
-			color: "yellow",
-			icon: "ico-warning"
-		};
-
-		var settings = extend(CONFIG, options || {});
-		settings = extend(theme, settings || {});
-
-		this.show(settings);
-	};
-
-	/**
-	 * Error theme
-	 * @public
-	 * @param {Object} options User settings
-	 */
-	iziToast.error = function (options) {
-
-		var theme = {
-			color: "red",
-			icon: "ico-error"
-		};
-
-		var settings = extend(CONFIG, options || {});
-		settings = extend(theme, settings || {});
-
-		this.show(settings);
-	};
 
 	/**
 	 * Close the specific Toast
 	 * @public
 	 * @param {Object} options User settings
 	 */
-	iziToast.hide = function (options, $toast, closedByButton) {
-		
+	$iziToast.hide = function (options, $toast, closedBy) {
+
 		var settings = extend(defaults, options || {});
-		var isClosed = closedByButton || false;
+			closedBy = closedBy || false;
 
 		if(typeof $toast != 'object'){
 			$toast = document.querySelector($toast);
@@ -354,45 +383,41 @@
 		$toast.classList.add(PLUGIN_NAME+'-closed');
 
 		if(settings.transitionIn || settings.transitionInMobile){
-			$toast.classList.remove(settings.transitionIn, settings.transitionInMobile);
+			$toast.classList.remove(settings.transitionIn);
+			$toast.classList.remove(settings.transitionInMobile);
 		}
-		if(settings.transitionOut || settings.transitionOutMobile){
 
-			if(ISMOBILE || window.innerWidth <= MOBILEWIDTH){
-				if(settings.transitionOutMobile.length>0)
-					$toast.classList.add(settings.transitionOutMobile);
-			} else{
-				if(settings.transitionOut.length>0)
-					$toast.classList.add(settings.transitionOut);
-			}
-			var H = $toast.parentNode.offsetHeight;
-					$toast.parentNode.style.height = H+'px';
-					$toast.style.pointerEvents = 'none';
-			if(ISMOBILE || window.innerWidth <= MOBILEWIDTH){
-
-			} else {
-				$toast.parentNode.style.transitionDelay = '0.2s';
-			}
-
-			setTimeout(function() {
-				$toast.parentNode.style.height = '0px';
-				window.setTimeout(function(){
-					$toast.parentNode.remove();
-				},1000);
-			},200);
-
-		} else {
-			$toast.parentNode.remove();
+		if(ISMOBILE || window.innerWidth <= MOBILEWIDTH){
+			if(settings.transitionOutMobile)
+				$toast.classList.add(settings.transitionOutMobile);
+		} else{
+			if(settings.transitionOut)
+				$toast.classList.add(settings.transitionOut);
 		}
+		var H = $toast.parentNode.offsetHeight;
+				$toast.parentNode.style.height = H+'px';
+				$toast.style.pointerEvents = 'none';
+		
+		if(!ISMOBILE || window.innerWidth > MOBILEWIDTH){
+			$toast.parentNode.style.transitionDelay = '0.2s';
+		}
+
+		setTimeout(function() {
+			$toast.parentNode.style.height = '0px';
+			$toast.parentNode.style.overflow = '';
+			window.setTimeout(function(){
+				$toast.parentNode.remove();
+			},1000);
+		},200);
 
 		if (settings.class){
 			try {
 				var event;
 				if (window.CustomEvent) {
-					event = new CustomEvent('iziToast-close', {detail: {class: settings.class}});
+					event = new CustomEvent(PLUGIN_NAME+'-close', {detail: {class: settings.class}});
 				} else {
 					event = document.createEvent('CustomEvent');
-					event.initCustomEvent('iziToast-close', true, true, {class: settings.class});
+					event.initCustomEvent(PLUGIN_NAME+'-close', true, true, {class: settings.class});
 				}
 				document.dispatchEvent(event);
 			} catch(ex){
@@ -400,8 +425,9 @@
 			}
 		}
 
-		if(typeof settings.onClose !== "undefined")
-			settings.onClose.apply(null, [settings, $toast, isClosed]);
+		if(typeof settings.onClose !== "undefined"){
+			settings.onClose.apply(null, [settings, $toast, closedBy]);
+		}
 	};
 
 	/**
@@ -409,7 +435,7 @@
 	 * @public
 	 * @param {Object} options User settings
 	 */
-	iziToast.show = function (options) {
+	$iziToast.show = function (options) {
 
 		var that = this;
 
@@ -437,11 +463,14 @@
 
 		if (settings.color.length > 0) { //#, rgb, rgba, hsl
 			
-			if( settings.color.substring(0,1) == "#" || settings.color.substring(0,3) == "rgb" || settings.color.substring(0,3) == "hsl" ){
+			if( isColor(settings.color) ){
 				$toast.style.background = settings.color;
 			} else {
 				$toast.classList.add(PLUGIN_NAME+'-color-'+settings.color);
 			}
+		}
+		if (settings.backgroundColor.length > 0) {
+			$toast.style.background = settings.backgroundColor;
 		}
 
 		if (settings.class){
@@ -492,7 +521,6 @@
 			}, settings.timeout);
 		}
 
-
 		var $toastBody = document.createElement("div");
 			$toastBody.classList.add(PLUGIN_NAME + '-body');
 
@@ -525,12 +553,17 @@
 		}
 
 		var $strong = document.createElement("strong");
-			$strong.appendChild(document.createTextNode(settings.title));
+		if (settings.titleColor.length > 0) {
+			$strong.style.color = settings.titleColor;
+		}
+		$strong.appendChild(createFragElem(settings.title));
 
 		var $p = document.createElement("p");
-			$p.appendChild(document.createTextNode(settings.message));
+		if (settings.messageColor.length > 0) {
+			$p.style.color = settings.messageColor;
+		}
+		$p.appendChild(createFragElem(settings.message));
 
-		
 		if(settings.layout > 1){
 			$toast.classList.add(PLUGIN_NAME+"-layout"+settings.layout);
 		}
@@ -556,21 +589,19 @@
 
 				var $btns = $buttons.childNodes;
 
-				$btns[i].addEventListener('click', function (event) {
-					event.preventDefault();
+				$btns[i].addEventListener('click', function (e) {
+					e.preventDefault();
 					var ts = value[1];
 					return new ts(that, $toast); 
 				});
 
 				i++;
 			});
-
 			$toastBody.appendChild($buttons);
 		}
 
 		$toast.appendChild($toastBody);
 		$toastCapsule.style.visibility = 'hidden';
-		$toastCapsule.style.height = '0px';
 		$toastCapsule.appendChild($toast);
 
 		setTimeout(function() {
@@ -582,21 +613,25 @@
 			var marginBottom = style.marginBottom;
 				marginBottom = marginBottom.split("px");
 				marginBottom = parseInt(marginBottom[0]);
-				
+
 			$toastCapsule.style.visibility = '';
 			$toastCapsule.style.height = (H+marginBottom+marginTop)+'px';
 			setTimeout(function() {
 				$toastCapsule.style.height = 'auto';
+				if(settings.target){
+					$toastCapsule.style.overflow = 'visible';
+				}
 			},1000);
 		}, 100);
 
 		var position = settings.position,
 			$wrapper;
-			
+
 		if(settings.target){
 
 			$wrapper = document.querySelector(settings.target);
 			$wrapper.classList.add(PLUGIN_NAME + '-target');
+
 			if (settings.targetFirst) {
 				$wrapper.insertBefore($toastCapsule, $wrapper.firstChild);
 			} else {
@@ -649,10 +684,10 @@
 		try {
 			var event;
 			if (window.CustomEvent) {
-				event = new CustomEvent('iziToast-open', {detail: {class: settings.class}});
+				event = new CustomEvent(PLUGIN_NAME+'-open', {detail: {class: settings.class}});
 			} else {
 				event = document.createEvent('CustomEvent');
-				event.initCustomEvent('iziToast-open', true, true, {class: settings.class});
+				event.initCustomEvent(PLUGIN_NAME+'-open', true, true, {class: settings.class});
 			}
 			document.dispatchEvent(event);
 		} catch(ex){
@@ -698,31 +733,61 @@
 		}
 		
 		if($buttonClose){
-			$buttonClose.addEventListener('click', function (event) {
-				var button = event.target;
-				that.hide(settings, $toast, true);
+			$buttonClose.addEventListener('click', function (e) {
+				var button = e.target;
+				that.hide(settings, $toast, 'button');
 			});
 		}
 
 		if(settings.pauseOnHover){
 			
-			$toast.addEventListener('mouseenter', function (event) {
+			$toast.addEventListener('mouseenter', function (e) {
 				this.classList.add(PLUGIN_NAME+'-paused');
 			});
-			$toast.addEventListener('mouseleave', function (event) {
+			$toast.addEventListener('mouseleave', function (e) {
 				this.classList.remove(PLUGIN_NAME+'-paused');
 			});
 		}
+
 		if(settings.resetOnHover){
 
-			$toast.addEventListener('mouseenter', function (event) {
+			$toast.addEventListener('mouseenter', function (e) {
 				this.classList.add(PLUGIN_NAME+'-reseted');
 			});
-			$toast.addEventListener('mouseleave', function (event) {
+			$toast.addEventListener('mouseleave', function (e) {
 				this.classList.remove(PLUGIN_NAME+'-reseted');
 			});
 		}
+
+		if(settings.drag){
+
+			if (ACCEPTSTOUCH) {
+
+			    $toast.addEventListener('touchstart', function(e) {
+			    	e.preventDefault();
+			        drag.startMoving(this, that, settings, e);
+			    }, false);
+
+			    $toast.addEventListener('touchend', function(e) {
+			    	e.preventDefault();
+			        drag.stopMoving(this, e);
+			    }, false);
+			} else {
+
+			    $toast.addEventListener('mousedown', function(e) {
+			    	e.preventDefault();
+			        drag.startMoving(this, that, settings, e);
+			    }, false);
+
+			    $toast.addEventListener('mouseup', function(e) {
+			    	e.preventDefault();
+			        drag.stopMoving(this, e);
+			    }, false);
+			}
+		}
+
+
 	};
 
-	return iziToast;
+	return $iziToast;
 });
