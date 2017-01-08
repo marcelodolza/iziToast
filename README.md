@@ -104,16 +104,11 @@ Argument | Default Value | Description
 :---: | :---: | ---
 **class** | *''* | The class that will be applied to the toast. It may be used as a reference.
 **title** | *''* | Title of the toast.
-
 **titleColor** | *''* | Title color.
-
 **message** | *''* | Message of the toast.
-
 **messageColor** | *''* | Message color.
-
 **backgroundColor** | *''* | Background color of the Toast.
-
-**color** | *''* | It can be #hexadecimal, pre-defined themes like blue, red, green and yellow or set another class. Create and use like this ".iziToast-color-name"
+**color** | *''* | It can be #hexadecimal, pre-defined themes like blue, red, green and yellow or set another class. Create and use like this ".iziToast-color-name".
 **icon** | *''* | Icon class (font-icon of your choice, Icomoon, Fontawesome etc.).
 **iconText** | *''* | Icon text (font-icon using text, Material Icons, etc.).
 **iconColor** | *''* | Icon color.
@@ -122,15 +117,13 @@ Argument | Default Value | Description
 **zindex** | *99999* | The z-index CSS attribute of the toast.
 **layout** | *1* | It can be 1 or 2, or use another layout, creating the class like this: ".iziToast-layout3"
 **balloon** | *false* | Applies a balloon like toast.
-**close** | *true* | Show "x" close button
-**rtl** | *false* | RTL option
+**close** | *true* | Show "x" close button.
+**rtl** | *false* | RTL option.
 **position** | *'bottomRight'* | Where it will be shown. It can be bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter or center.
 **target** | *''* | Fixed place where you want to show the toasts. 
 **targetFirst** | *false* | Add toast to first position
 **timeout** | *5000* | Amount in milliseconds to close the toast or false to disable.
-
 **drag** | *true* | Drag Feature. Is used to close the toast.
-
 **pauseOnHover** | *true* | Pause the toast timeout while the cursor is on it.
 **resetOnHover** | *false* | Reset the toast timeout while the cursor is on it.
 **progressbar** | *true* | Enable timeout progress bar.
