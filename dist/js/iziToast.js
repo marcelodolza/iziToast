@@ -43,6 +43,7 @@
 		rtl: false,
 		position: 'bottomRight', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
 		target: '',
+		targetFirst: false,
 		timeout: 5000,
 		pauseOnHover: true,
 		resetOnHover: false,
@@ -596,7 +597,11 @@
 
 			$wrapper = document.querySelector(settings.target);
 			$wrapper.classList.add(PLUGIN_NAME + '-target');
-			$wrapper.appendChild($toastCapsule);
+			if (settings.targetFirst) {
+				$wrapper.insertBefore($toastCapsule, $wrapper.firstChild);
+			} else {
+				$wrapper.appendChild($toastCapsule);
+			}
 
 		} else {
 
