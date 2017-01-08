@@ -29,6 +29,7 @@ ___
   - ![alt text][new] ClosedBy param ('drag' or 'button') - *Implemented.*
   - ![alt text][new] Targetfirst option - *Implemented.*
   - ![alt text][new] Background & message color options - *Implemented.*
+  - ![alt text][new] Write HTML elements in toast messages. - *Implemented.*
   - ![alt text][bug] Leap in animation when used Target - *Fixed.*
   - ![alt text][bug] zIndex, unexpected behavior - *Fixed.*
   - ![alt text][bug] box-shadow of balloon toast with progressbar not applied correctly - *Fixed.*
