@@ -69,6 +69,7 @@ iziToast.show({
     rtl: false,
     position: 'bottomRight', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
     target: '',
+    targetFirst: false,
     timeout: 5000,
     pauseOnHover: true,
     resetOnHover: false,
@@ -104,6 +105,7 @@ Argument | Default Value | Description
 **rtl** | *false* | RTL option
 **position** | *'bottomRight'* | Where it will be shown. It can be bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter or center.
 **target** | *''* | Fixed place where you want to show the toasts. 
+**targetFirst** | *false* | Add to first position
 **timeout** | *5000* | Amount in milliseconds to close the toast or false to disable.
 **pauseOnHover** | *true* | Pause the toast timeout while the cursor is on it.
 **resetOnHover** | *false* | Reset the toast timeout while the cursor is on it.
