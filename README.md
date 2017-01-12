@@ -122,7 +122,7 @@ Argument | Default Value | Description
 **rtl** | *false* | RTL option.
 **position** | *'bottomRight'* | Where it will be shown. It can be bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter or center.
 **target** | *''* | Fixed place where you want to show the toasts. 
-**targetFirst** | *false* | Add toast to first position
+**targetFirst** | *true* | Add toast to first position
 **timeout** | *5000* | Amount in milliseconds to close the toast or false to disable.
 **drag** | *true* | Drag Feature. Is used to close the toast.
 **pauseOnHover** | *true* | Pause the toast timeout while the cursor is on it.
@@ -134,7 +134,7 @@ Argument | Default Value | Description
 **transitionIn** | *'fadeInUp'* | Default toast open animation. It can be: bounceInLeft, bounceInRight, bounceInUp, bounceInDown, fadeIn, fadeInDown, fadeInUp, fadeInLeft, fadeInRight or flipInX.
 **transitionOut** | *'fadeOut'* | Default toast close animation. It can be: fadeOut, fadeOutUp, fadeOutDown, fadeOutLeft, fadeOutRight, flipOutX
 **transitionInMobile** | *'fadeInUp'* | Default toast opening mobile transition.
-**transitionInMobile** | *'fadeOutDown'* | Default toast closing mobile transition.
+**transitionOutMobile** | *'fadeOutDown'* | Default toast closing mobile transition.
 **onOpen** | *function () {}* | Callback function triggered when open the toast.
 **onClose** | *function () {}* | Callback function triggered when close the toast.
 
