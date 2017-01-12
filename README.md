@@ -57,7 +57,6 @@ npm install izitoast --save
 bower install izitoast
 ```
 
-
 ___
 ### Default Options
 
