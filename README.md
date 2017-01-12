@@ -3,10 +3,6 @@ Elegant, responsive, flexible and lightweight notification plugin with no depend
 
 [**izitoast**.marcelodolce.com](http://izitoast.marcelodolce.com)
 
-[![forthebadge](http://forthebadge.com/images/badges/uses-js.svg)](http://forthebadge.com)
-[![forthebadge](http://forthebadge.com/images/badges/uses-css.svg)](http://forthebadge.com)
-[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
-
 ![capa](http://i.imgur.com/NKk7Rxm.png)
 
 [logo]: http://i.imgur.com/hCYIhep.png "Check icon"
