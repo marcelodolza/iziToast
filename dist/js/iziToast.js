@@ -764,12 +764,10 @@
 			if (ACCEPTSTOUCH) {
 
 			    $toast.addEventListener('touchstart', function(e) {
-			    	e.preventDefault();
 			        drag.startMoving(this, that, settings, e);
 			    }, false);
 
 			    $toast.addEventListener('touchend', function(e) {
-			    	e.preventDefault();
 			        drag.stopMoving(this, e);
 			    }, false);
 			} else {

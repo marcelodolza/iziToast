@@ -50,7 +50,7 @@ npm install izitoast --save
 
 #### bower
 ```
-bower install izitoast
+bower install izitoast --save
 ```
 
 ___
