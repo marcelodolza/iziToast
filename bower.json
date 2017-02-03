@@ -3,7 +3,7 @@
   "description": "Elegant, responsive, flexible and lightweight notification plugin with no dependencies.",
   "main": [
     "dist/js/iziToast.js",
-    "dist/js/iziToast.css"
+    "dist/css/iziToast.css"
   ],
   "authors": [
     {
