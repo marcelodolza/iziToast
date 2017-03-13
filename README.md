@@ -122,7 +122,7 @@ Argument | Default Value | Description
 **drag** | *true* | Drag Feature. Is used to close the toast.
 **pauseOnHover** | *true* | Pause the toast timeout while the cursor is on it.
 **resetOnHover** | *false* | Reset the toast timeout while the cursor is on it.
-**progressbar** | *true* | Enable timeout progress bar.
+**progressBar** | *true* | Enable timeout progress bar.
 **progressBarColor** | *''* | Progress bar color.
 **animateInside** | *true* | Enable animations of elements in the toast. 
 **buttons** | *{}* | You can specify an array of buttons.
