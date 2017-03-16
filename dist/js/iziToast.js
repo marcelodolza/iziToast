@@ -101,6 +101,23 @@
 	    };
 	}
 
+	/*
+     * Polyfill for CustomEvent for IE >= 9
+     * https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent#Polyfill
+     */
+    if (typeof window.CustomEvent !== "function") {
+        var CustomEventPolyfill = function (event, params) {
+            params = params || { bubbles: false, cancelable: false, detail: undefined };
+            var evt = document.createEvent('CustomEvent');
+            evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+            return evt;
+        };
+
+        CustomEventPolyfill.prototype = window.Event.prototype;
+
+        window.CustomEvent = CustomEventPolyfill;
+    } 
+
 	/**
 	 * A simple forEach() implementation for Arrays, Objects and NodeLists
 	 * @private
@@ -412,13 +429,7 @@
 
 		if (settings.class){
 			try {
-				var event;
-				if (window.CustomEvent) {
-					event = new CustomEvent(PLUGIN_NAME+'-close', {detail: {class: settings.class}});
-				} else {
-					event = document.createEvent('CustomEvent');
-					event.initCustomEvent(PLUGIN_NAME+'-close', true, true, {class: settings.class});
-				}
+				var event = new CustomEvent(PLUGIN_NAME+'-close', {detail: {class: settings.class}, bubles: true, cancelable: true});
 				document.dispatchEvent(event);
 			} catch(ex){
 				console.warn(ex);
@@ -682,13 +693,7 @@
 		settings.onOpen.apply(null, [settings, $toast]);
 
 		try {
-			var event;
-			if (window.CustomEvent) {
-				event = new CustomEvent(PLUGIN_NAME+'-open', {detail: {class: settings.class}});
-			} else {
-				event = document.createEvent('CustomEvent');
-				event.initCustomEvent(PLUGIN_NAME+'-open', true, true, {class: settings.class});
-			}
+			var event = new CustomEvent(PLUGIN_NAME + '-open', { detail: { class: settings.class }, bubles: true, cancelable: true});
 			document.dispatchEvent(event);
 		} catch(ex){
 			console.warn(ex);
