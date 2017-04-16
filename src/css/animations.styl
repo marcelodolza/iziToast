@@ -4,28 +4,81 @@
 * by Marcelo Dolce.
 */
 
-.revealIn
-  -webkit-animation: revealIn $animation-time3 cubic-bezier(0.25, 1.6, 0.25, 1) both;
-  -moz-animation: revealIn $animation-time3 cubic-bezier(0.25, 1.6, 0.25, 1) both;
-  animation: revealIn $animation-time3 cubic-bezier(0.25, 1.6, 0.25, 1) both;
-@-webkit-keyframes revealIn {
+.iziToast
+  &.revealIn, .revealIn
+    -webkit-animation: iziT-revealIn $animation-time3 cubic-bezier(0.25, 1.6, 0.25, 1) both;
+    -moz-animation: iziT-revealIn $animation-time3 cubic-bezier(0.25, 1.6, 0.25, 1) both;
+    animation: iziT-revealIn $animation-time3 cubic-bezier(0.25, 1.6, 0.25, 1) both;
+  &.slideIn, .slideIn
+    -webkit-animation: iziT-slideIn $animation-time3 cubic-bezier(.16,.81,.32,1) both;
+    -moz-animation: iziT-slideIn $animation-time3 cubic-bezier(.16,.81,.32,1) both;
+    animation: iziT-slideIn $animation-time3 cubic-bezier(.16,.81,.32,1) both;
+  &.bounceInLeft
+    -webkit-animation: iziT-bounceInLeft 0.7s ease-in-out both;
+    animation: iziT-bounceInLeft 0.7s ease-in-out both;
+  &.bounceInRight
+    -webkit-animation: iziT-bounceInRight $animation-time2 ease-in-out both;
+    animation: iziT-bounceInRight $animation-time2 ease-in-out both;
+  &.bounceInDown
+    -webkit-animation: iziT-bounceInDown $animation-time1 ease-in-out both;
+    animation: iziT-bounceInDown $animation-time1 ease-in-out both;
+  &.bounceInUp
+    -webkit-animation: iziT-bounceInUp $animation-time1 ease-in-out both;
+    animation: iziT-bounceInUp $animation-time1 ease-in-out both;
+  &.fadeIn
+    -webkit-animation: iziT-fadeIn 0.5s ease both;
+    animation: iziT-fadeIn 0.5s ease both;
+  &.fadeInUp
+    -webkit-animation: iziT-fadeInUp $animation-time1 ease both;
+    animation: iziT-fadeInUp $animation-time1 ease both;
+  &.fadeInDown
+    -webkit-animation: iziT-fadeInDown $animation-time1 ease both;
+    animation: iziT-fadeInDown $animation-time1 ease both;
+  &.fadeInLeft
+    -webkit-animation: iziT-fadeInLeft $animation-time2 cubic-bezier(.25,.8,.25,1) both;
+    animation: iziT-fadeInLeft $animation-time2 cubic-bezier(.25,.8,.25,1) both;
+  &.fadeInRight
+    -webkit-animation: iziT-fadeInRight $animation-time2 cubic-bezier(.25,.8,.25,1) both;
+    animation: iziT-fadeInRight $animation-time2 cubic-bezier(.25,.8,.25,1) both;
+  &.flipInX
+    -webkit-animation: iziT-flipInX $animation-time2 cubic-bezier(0.35, 0, 0.25, 1) both;
+    animation: iziT-flipInX $animation-time2 cubic-bezier(0.35, 0, 0.25, 1) both;
+  &.fadeOut
+    -webkit-animation: iziT-fadeOut $animation-time1 ease both;
+    animation: iziT-fadeOut $animation-time1 ease both;
+  &.fadeOutDown
+    -webkit-animation: iziT-fadeOutDown $animation-time1 cubic-bezier(0.4, 0.45, 0.15, 0.91) both;
+    animation: iziT-fadeOutDown $animation-time1 cubic-bezier(0.4, 0.45, 0.15, 0.91) both;
+  &.fadeOutUp
+    -webkit-animation: iziT-fadeOutUp $animation-time1 cubic-bezier(0.4, 0.45, 0.15, 0.91) both;
+    animation: iziT-fadeOutUp $animation-time1 cubic-bezier(0.4, 0.45, 0.15, 0.91) both;
+  &.fadeOutLeft
+    -webkit-animation: iziT-fadeOutLeft 0.5s ease both;
+    animation: iziT-fadeOutLeft 0.5s ease both;
+  &.fadeOutRight
+    -webkit-animation: iziT-fadeOutRight 0.5s ease both;
+    animation: iziT-fadeOutRight 0.5s ease both;
+  &.flipOutX
+    -webkit-backface-visibility: visible !important;
+    backface-visibility: visible !important;
+    -webkit-animation: iziT-flipOutX $animation-time1 cubic-bezier(0.4, 0.45, 0.15, 0.91) both;
+    animation: iziT-flipOutX $animation-time1 cubic-bezier(0.4, 0.45, 0.15, 0.91) both;
+
+
+@-webkit-keyframes iziT-revealIn {
   0% { opacity: 0; -webkit-transform: scale3d(0.3,0.3,1); }
   100% { opacity: 1 };
 }
-@-moz-keyframes revealIn {
+@-moz-keyframes iziT-revealIn {
   0% { opacity: 0; -moz-transform: scale3d(0.3,0.3,1); };
   100% { opacity: 1 };
 }
-@keyframes revealIn {
+@keyframes iziT-revealIn {
   0% { opacity: 0; transform: scale3d(0.3,0.3,1); }
   100% { opacity: 1 };
 }
 
-.slideIn
-  -webkit-animation: slideIn $animation-time3 cubic-bezier(.16,.81,.32,1) both;
-  -moz-animation: slideIn $animation-time3 cubic-bezier(.16,.81,.32,1) both;
-  animation: slideIn $animation-time3 cubic-bezier(.16,.81,.32,1) both;
-@-webkit-keyframes slideIn {
+@-webkit-keyframes iziT-slideIn {
   0% {
     opacity: 0;
     -webkit-transform: translateX(50px);
@@ -35,7 +88,7 @@
     -webkit-transform: translateX(0);
   }
 }
-@-moz-keyframes slideIn {
+@-moz-keyframes iziT-slideIn {
   0% {
     opacity: 0;
     -moz-transform: translateX(50px);
@@ -45,7 +98,7 @@
     -moz-transform: translateX(0);
   }
 }
-@keyframes slideIn {
+@keyframes iziT-slideIn {
   0% {
     opacity: 0;
     transform: translateX(50px);
@@ -56,10 +109,7 @@
   }
 }
 
-.bounceInLeft
-  -webkit-animation: bounceInLeft 0.7s ease-in-out both;
-  animation: bounceInLeft 0.7s ease-in-out both;
-@-webkit-keyframes bounceInLeft {
+@-webkit-keyframes iziT-bounceInLeft {
   0% {
     opacity: 0;
     -webkit-transform: translateX(280px);
@@ -75,7 +125,7 @@
     -webkit-transform: translateX(0);
   }
 }
-@keyframes bounceInLeft {
+@keyframes iziT-bounceInLeft {
   0% {
     opacity: 0;
     transform: translateX(280px);
@@ -92,10 +142,7 @@
   }
 }
 
-.bounceInRight
-  -webkit-animation: bounceInRight $animation-time2 ease-in-out both;
-  animation: bounceInRight $animation-time2 ease-in-out both;
-@-webkit-keyframes bounceInRight {
+@-webkit-keyframes iziT-bounceInRight {
   0% {
     opacity: 0;
     -webkit-transform: translateX(-280px);
@@ -111,7 +158,7 @@
     -webkit-transform: translateX(0);
   }
 }
-@keyframes bounceInRight {
+@keyframes iziT-bounceInRight {
   0% {
     opacity: 0;
     transform: translateX(-280px);
@@ -128,10 +175,7 @@
   }
 }
 
-.bounceInDown
-  -webkit-animation: bounceInDown $animation-time1 ease-in-out both;
-  animation: bounceInDown $animation-time1 ease-in-out both;
-@-webkit-keyframes bounceInDown {
+@-webkit-keyframes iziT-bounceInDown {
   0% {
     opacity: 0;
     -webkit-transform: translateY(-200px);
@@ -147,7 +191,7 @@
     -webkit-transform: translateY(0);
   }
 }
-@keyframes bounceInDown {
+@keyframes iziT-bounceInDown {
   0% {
     opacity: 0;
     transform: translateY(-200px);
@@ -164,10 +208,7 @@
   }
 }
 
-.bounceInUp
-  -webkit-animation: bounceInUp $animation-time1 ease-in-out both;
-  animation: bounceInUp $animation-time1 ease-in-out both;
-@-webkit-keyframes bounceInUp {
+@-webkit-keyframes iziT-bounceInUp {
   0% {
     opacity: 0;
     -webkit-transform: translateY(200px);
@@ -183,7 +224,7 @@
     -webkit-transform: translateY(0);
   }
 }
-@keyframes bounceInUp {
+@keyframes iziT-bounceInUp {
   0% {
     opacity: 0;
     transform: translateY(200px);
@@ -200,10 +241,7 @@
   }
 }
 
-.fadeIn
-  -webkit-animation: fadeIn 0.5s ease both;
-  animation: fadeIn 0.5s ease both;
-@-webkit-keyframes fadeIn {
+@-webkit-keyframes iziT-fadeIn {
   from {
     opacity: 0;
   }
@@ -211,7 +249,7 @@
     opacity: 1;
   }
 }
-@keyframes fadeIn {
+@keyframes iziT-fadeIn {
   from {
     opacity: 0;
   }
@@ -220,10 +258,7 @@
   }
 }
   
-.fadeInUp
-  -webkit-animation: fadeInUp $animation-time1 ease both;
-  animation: fadeInUp $animation-time1 ease both;
-@-webkit-keyframes fadeInUp {
+@-webkit-keyframes iziT-fadeInUp {
   from {
     opacity: 0;
     -webkit-transform: translate3d(0, 100%, 0);
@@ -235,7 +270,7 @@
     transform: none;
   }
 }
-@keyframes fadeInUp {
+@keyframes iziT-fadeInUp {
   from {
     opacity: 0;
     -webkit-transform: translate3d(0, 100%, 0);
@@ -248,10 +283,7 @@
   }
 }
 
-.fadeInDown
-  -webkit-animation: fadeInDown $animation-time1 ease both;
-  animation: fadeInDown $animation-time1 ease both;
-@-webkit-keyframes fadeInDown {
+@-webkit-keyframes iziT-fadeInDown {
   from {
     opacity: 0;
     -webkit-transform: translate3d(0, -100%, 0);
@@ -263,7 +295,7 @@
     transform: none;
   }
 }
-@keyframes fadeInDown {
+@keyframes iziT-fadeInDown {
   from {
     opacity: 0;
     -webkit-transform: translate3d(0, -100%, 0);
@@ -276,10 +308,7 @@
   }
 }
 
-.fadeInLeft
-  -webkit-animation: fadeInLeft $animation-time2 cubic-bezier(.25,.8,.25,1) both;
-  animation: fadeInLeft $animation-time2 cubic-bezier(.25,.8,.25,1) both;
-@-webkit-keyframes fadeInLeft {
+@-webkit-keyframes iziT-fadeInLeft {
   from {
     opacity: 0;
     -webkit-transform: translate3d(300px, 0, 0);
@@ -291,7 +320,7 @@
     transform: none;
   }
 }
-@keyframes fadeInLeft {
+@keyframes iziT-fadeInLeft {
   from {
     opacity: 0;
     -webkit-transform: translate3d(300px, 0, 0);
@@ -304,10 +333,7 @@
   }
 }
 
-.fadeInRight
-  -webkit-animation: fadeInRight $animation-time2 cubic-bezier(.25,.8,.25,1) both;
-  animation: fadeInRight $animation-time2 cubic-bezier(.25,.8,.25,1) both;
-@-webkit-keyframes fadeInRight {
+@-webkit-keyframes iziT-fadeInRight {
   from {
     opacity: 0;
     -webkit-transform: translate3d(-300px, 0, 0);
@@ -319,7 +345,7 @@
     transform: none;
   }
 }
-@keyframes fadeInRight {
+@keyframes iziT-fadeInRight {
   from {
     opacity: 0;
     -webkit-transform: translate3d(-300px, 0, 0);
@@ -332,10 +358,7 @@
   }
 }
 
-.flipInX
-  -webkit-animation: flipInX $animation-time2 cubic-bezier(0.35, 0, 0.25, 1) both;
-  animation: flipInX $animation-time2 cubic-bezier(0.35, 0, 0.25, 1) both;
-@-webkit-keyframes flipInX {
+@-webkit-keyframes iziT-flipInX {
   from {
     -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
     transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
@@ -359,7 +382,7 @@
     transform: perspective(400px);
   }
 }
-@keyframes flipInX {
+@keyframes iziT-flipInX {
   from {
     -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
     transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
@@ -384,10 +407,7 @@
   }
 }
 
-.fadeOut
-  -webkit-animation: fadeOut $animation-time1 ease both;
-  animation: fadeOut $animation-time1 ease both;
-@-webkit-keyframes fadeOut {
+@-webkit-keyframes iziT-fadeOut {
   from {
     opacity: 1;
   }
@@ -395,7 +415,7 @@
     opacity: 0;
   }
 }
-@keyframes fadeOut {
+@keyframes iziT-fadeOut {
   from {
     opacity: 1;
   }
@@ -404,10 +424,7 @@
   }
 }
 
-.fadeOutDown
-  -webkit-animation: fadeOutDown $animation-time1 cubic-bezier(0.4, 0.45, 0.15, 0.91) both;
-  animation: fadeOutDown $animation-time1 cubic-bezier(0.4, 0.45, 0.15, 0.91) both;
-@-webkit-keyframes fadeOutDown {
+@-webkit-keyframes iziT-fadeOutDown {
   from {
     opacity: 1;
   }
@@ -417,7 +434,7 @@
     transform: translate3d(0, 100%, 0);
   }
 }
-@keyframes fadeOutDown {
+@keyframes iziT-fadeOutDown {
   from {
     opacity: 1;
   }
@@ -428,10 +445,7 @@
   }
 }
 
-.fadeOutUp
-  -webkit-animation: fadeOutUp $animation-time1 cubic-bezier(0.4, 0.45, 0.15, 0.91) both;
-  animation: fadeOutUp $animation-time1 cubic-bezier(0.4, 0.45, 0.15, 0.91) both;
-@-webkit-keyframes fadeOutUp {
+@-webkit-keyframes iziT-fadeOutUp {
   from {
     opacity: 1;
   }
@@ -441,7 +455,7 @@
     transform: translate3d(0, -100%, 0);
   }
 }
-@keyframes fadeOutUp {
+@keyframes iziT-fadeOutUp {
   from {
     opacity: 1;
   }
@@ -452,11 +466,7 @@
   }
 }
 
-.fadeOutLeft
-  -webkit-animation: fadeOutLeft 0.5s ease both;
-  animation: fadeOutLeft 0.5s ease both;
-
-@-webkit-keyframes fadeOutLeft {
+@-webkit-keyframes iziT-fadeOutLeft {
   from {
     opacity: 1;
   }
@@ -466,7 +476,7 @@
     transform: translate3d(-200px, 0, 0);
   }
 }
-@keyframes fadeOutLeft {
+@keyframes iziT-fadeOutLeft {
   from {
     opacity: 1;
   }
@@ -477,11 +487,7 @@
   }
 }
 
-.fadeOutRight
-  -webkit-animation: fadeOutRight 0.5s ease both;
-  animation: fadeOutRight 0.5s ease both;
-
-@-webkit-keyframes fadeOutRight {
+@-webkit-keyframes iziT-fadeOutRight {
   from {
     opacity: 1;
   }
@@ -491,7 +497,7 @@
     transform: translate3d(200px, 0, 0);
   }
 }
-@keyframes fadeOutRight {
+@keyframes iziT-fadeOutRight {
   from {
     opacity: 1;
   }
@@ -502,12 +508,7 @@
   }
 }
 
-.flipOutX
-  -webkit-backface-visibility: visible !important;
-  backface-visibility: visible !important;
-  -webkit-animation: flipOutX $animation-time1 cubic-bezier(0.4, 0.45, 0.15, 0.91) both;
-  animation: flipOutX $animation-time1 cubic-bezier(0.4, 0.45, 0.15, 0.91) both;
-@-webkit-keyframes flipOutX {
+@-webkit-keyframes iziT-flipOutX {
   from {
     -webkit-transform: perspective(400px);
     transform: perspective(400px);
@@ -523,7 +524,7 @@
     opacity: 0;
   }
 }
-@keyframes flipOutX {
+@keyframes iziT-flipOutX {
   from {
     -webkit-transform: perspective(400px);
     transform: perspective(400px);
