@@ -609,7 +609,7 @@
 				if( !isNaN(settings.titleSize) ){
 					$DOM.strong.style.fontSize = settings.titleSize+'px';
 				} else {
-					$DOM.strong.style.fontSize = settings.titleSize
+					$DOM.strong.style.fontSize = settings.titleSize;
 				}
 			}
 			if (settings.titleLineHeight.toString().length > 0) {
