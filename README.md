@@ -24,7 +24,7 @@ ___
 - ### [Methods](http://izitoast.marcelodolce.com/#Methods)
 - ### [Events](http://izitoast.marcelodolce.com/#Events)
 - ### [Use](http://izitoast.marcelodolce.com/#Start)
-
+___
 #### [npm](https://www.npmjs.com/package/izitoast)
 ```
 npm install izitoast --save
