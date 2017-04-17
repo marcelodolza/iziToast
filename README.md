@@ -25,17 +25,6 @@ ___
 - ### [Events](http://izitoast.marcelodolce.com/#Events)
 - ### [Use](http://izitoast.marcelodolce.com/#Start)
 
-___
-### Changelog
-___
-### Options
-___
-### Methods
-___
-### Events
-___
-### Use
-
 #### [npm](https://www.npmjs.com/package/izitoast)
 ```
 npm install izitoast --save
