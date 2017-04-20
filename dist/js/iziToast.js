@@ -65,6 +65,7 @@
 		iconColor: '',
 		image: '',
 		imageWidth: 50,
+		maxWidth: null,
 		zindex: null,
 		layout: 1,
 		balloon: false,
@@ -505,6 +506,14 @@
 			if(settings.layout > 1){ $DOM.toast.classList.add(PLUGIN_NAME+"-layout"+settings.layout); }
 
 			if(settings.balloon){ $DOM.toast.classList.add(PLUGIN_NAME+"-balloon"); }
+
+			if(settings.maxWidth){
+				if( !isNaN(settings.maxWidth) ){
+					$DOM.toast.style.maxWidth = settings.maxWidth+'px';
+				} else {
+					$DOM.toast.style.maxWidth = settings.maxWidth;
+				}
+			}
 
 			if (settings.color.length > 0) { //#, rgb, rgba, hsl
 				

@@ -171,17 +171,18 @@
   margin: 10px 0 -10px 0;
   line-height: 16px;
   font-size: 14px;
+  text-align: left;
   float: left;
   color: #000;
 }
 .iziToast > .iziToast-body > p {
-  color: rgba(0,0,0,0.6);
   padding: 0;
   margin: 10px 0;
   font-size: 14px;
   line-height: 16px;
   text-align: left;
   float: left;
+  color: rgba(0,0,0,0.6);
 }
 .iziToast.iziToast-animateInside p,
 .iziToast.iziToast-animateInside strong,
