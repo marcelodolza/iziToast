@@ -49,6 +49,7 @@
 
 	// Default settings
 	var defaults = {
+		id: '', 
 		class: '',
 		title: '',
 		titleColor: '',
@@ -438,13 +439,12 @@
 			},1000);
 		},200);
 
-		if (settings.class){
-			try {
-				var event = new CustomEvent(PLUGIN_NAME+'-close', {detail: {class: settings.class}, bubles: true, cancelable: true});
-				document.dispatchEvent(event);
-			} catch(ex){
-				console.warn(ex);
-			}
+		try {
+			settings.closedBy = closedBy;
+			var event = new CustomEvent(PLUGIN_NAME+'-close', {detail: settings, bubles: true, cancelable: true});
+			document.dispatchEvent(event);
+		} catch(ex){
+			console.warn(ex);
 		}
 
 		if(typeof settings.onClose !== "undefined"){
@@ -487,19 +487,27 @@
 
 		// CSS Settings
 		(function(){
-			$DOM.toastCapsule.classList.add(PLUGIN_NAME+"-capsule");
+
 			$DOM.toast.classList.add(PLUGIN_NAME);
+			$DOM.toastCapsule.classList.add(PLUGIN_NAME+"-capsule");
 			$DOM.toastBody.classList.add(PLUGIN_NAME + '-body');
 
 			if(ISMOBILE || window.innerWidth <= MOBILEWIDTH){
-				if(settings.transitionInMobile.length>0)
+				if(settings.transitionInMobile)
 					$DOM.toast.classList.add(settings.transitionInMobile);
 			} else {
-				if(settings.transitionIn.length>0)
+				if(settings.transitionIn)
 					$DOM.toast.classList.add(settings.transitionIn);
 			}
 
-			if (settings.class){ $DOM.toast.classList.add(settings.class); }
+			if(settings.class){
+				var classes = settings.class.split(" ");
+				forEach(classes, function (value, index) {
+					$DOM.toast.classList.add(value);
+				});
+			}
+
+			if(settings.id){ $DOM.toast.id = settings.id; }
 
 			if(settings.rtl){ $DOM.toast.classList.add(PLUGIN_NAME + '-rtl'); }
 
@@ -515,7 +523,7 @@
 				}
 			}
 
-			if (settings.color.length > 0) { //#, rgb, rgba, hsl
+			if (settings.color) { //#, rgb, rgba, hsl
 				
 				if( isColor(settings.color) ){
 					$DOM.toast.style.background = settings.color;
@@ -524,7 +532,7 @@
 				}
 			}
 
-			if (settings.backgroundColor.length > 0) {
+			if (settings.backgroundColor) {
 				$DOM.toast.style.background = settings.backgroundColor;
 				if(settings.balloon){
 					$DOM.toast.style.borderColor = settings.backgroundColor;				
@@ -611,17 +619,17 @@
 
 		// Title
 		(function(){
-			if (settings.titleColor.length > 0) {
+			if (settings.titleColor) {
 				$DOM.strong.style.color = settings.titleColor;
 			}
-			if (settings.titleSize.toString().length > 0) {
+			if (settings.titleSize) {
 				if( !isNaN(settings.titleSize) ){
 					$DOM.strong.style.fontSize = settings.titleSize+'px';
 				} else {
 					$DOM.strong.style.fontSize = settings.titleSize;
 				}
 			}
-			if (settings.titleLineHeight.toString().length > 0) {
+			if (settings.titleLineHeight) {
 				if( !isNaN(settings.titleSize) ){
 					$DOM.strong.style.lineHeight = settings.titleLineHeight+'px';
 				} else {
@@ -633,17 +641,17 @@
 		
 		// Message
 		(function(){
-			if (settings.messageColor.length > 0) {
+			if (settings.messageColor) {
 				$DOM.p.style.color = settings.messageColor;
 			}
-			if (settings.messageSize.toString().length > 0) {
+			if (settings.messageSize) {
 				if( !isNaN(settings.titleSize) ){
 					$DOM.p.style.fontSize = settings.messageSize+'px';
 				} else {
 					$DOM.p.style.fontSize = settings.messageSize;
 				}
 			}
-			if (settings.messageLineHeight.toString().length > 0) {
+			if (settings.messageLineHeight) {
 				
 				if( !isNaN(settings.titleSize) ){
 					$DOM.p.style.lineHeight = settings.messageLineHeight+'px';
@@ -809,7 +817,7 @@
 		settings.onOpen.apply(null, [settings, $DOM.toast]);
 
 		try {
-			var event = new CustomEvent(PLUGIN_NAME + '-open', { detail: { class: settings.class }, bubles: true, cancelable: true});
+			var event = new CustomEvent(PLUGIN_NAME + '-open', {detail: settings, bubles: true, cancelable: true});
 			document.dispatchEvent(event);
 		} catch(ex){
 			console.warn(ex);
