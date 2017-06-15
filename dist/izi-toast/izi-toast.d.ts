@@ -1,3 +1,8 @@
+// Type definitions for IziToast
+// Project https://github.com/dolce/iziToast
+// Definitions by: Tarık İNCE <incetarik@hotmail.com>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped 
+
 type IziToastPosition = "bottomRight" | "bottomLeft" | "topRight" | "topLeft" | "topCenter" | "bottomCenter" | "center"
 type IziToastTransitionIn = "bounceInLeft" | "bounceInRight" | "bounceInUp" | "bounceInDown" | "fadeIn" | "fadeInDown" | "fadeInUp" | "fadeInLeft" | "fadeInRight" | "flipInX"
 type IziToastTransitionOut = "fadeOut" | "fadeOutUp" | "fadeOutDown" | "fadeOutLeft" | "fadeOutRight" | "flipOutX"
