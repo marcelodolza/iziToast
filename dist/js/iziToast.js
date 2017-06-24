@@ -436,20 +436,19 @@
 			$toast.parentNode.style.overflow = '';
 			window.setTimeout(function(){
 				$toast.parentNode.remove();
+				try {
+					settings.closedBy = closedBy;
+					var event = new CustomEvent(PLUGIN_NAME+'-close', {detail: settings, bubles: true, cancelable: true});
+					document.dispatchEvent(event);
+				} catch(ex){
+					console.warn(ex);
+				}
+
+				if(typeof settings.onClose !== "undefined"){
+					settings.onClose.apply(null, [settings, $toast, closedBy]);
+				}
 			},1000);
 		},200);
-
-		try {
-			settings.closedBy = closedBy;
-			var event = new CustomEvent(PLUGIN_NAME+'-close', {detail: settings, bubles: true, cancelable: true});
-			document.dispatchEvent(event);
-		} catch(ex){
-			console.warn(ex);
-		}
-
-		if(typeof settings.onClose !== "undefined"){
-			settings.onClose.apply(null, [settings, $toast, closedBy]);
-		}
 	};
 
 	/**
