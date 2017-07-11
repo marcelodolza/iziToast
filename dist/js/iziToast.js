@@ -1,5 +1,5 @@
 /*
-* iziToast | v1.1.2
+* iziToast | v1.1.3
 * http://izitoast.marcelodolce.com
 * by Marcelo Dolce.
 */
@@ -329,6 +329,8 @@
 					var percentage = ((progressBar.hideEta - (progressBar.currentTime)) / progressBar.maxHideTime) * 100;
 					$elem.style.width = percentage + '%';
 
+					timerTimeout = setTimeout(progressBar.updateProgress, 10);
+
 					if(Math.round(percentage) < 0 || typeof toast != 'object'){
 						clearTimeout(timerTimeout);
 						callback.apply();
@@ -341,7 +343,7 @@
 		if (settings.timeout > 0) {
 			progressBar.maxHideTime = parseFloat(settings.timeout);
 			progressBar.hideEta = new Date().getTime() + progressBar.maxHideTime;
-			timerTimeout = setInterval(progressBar.updateProgress, 10);
+			progressBar.updateProgress();
 		}
 	};
 
