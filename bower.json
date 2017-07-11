@@ -17,6 +17,8 @@
     "izitoast",
     "notification",
     "toaster",
+    "toast",
+    "message",
     "alert",
     "confirm",
     "js"

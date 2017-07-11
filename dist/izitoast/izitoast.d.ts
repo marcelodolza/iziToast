@@ -1,6 +1,6 @@
 // Type definitions for IziToast
 // Project https://github.com/dolce/iziToast
-// Definitions by: Tarık İNCE <incetarik@hotmail.com>
+// Definitions by: Tarık İNCE <incetarik@hotmail.com> and Marcelo Dolce <dolcemarcelo@gmail.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped 
 
 type IziToastPosition = "bottomRight" | "bottomLeft" | "topRight" | "topLeft" | "topCenter" | "bottomCenter" | "center"
@@ -121,6 +121,10 @@ interface IziToastSettings {
      * Default value: true
      */
     targetFirst?: boolean,
+    /**
+     * Waits for another toast to be closed on 'onClosed' function. You'll need an ID to use it.
+     */
+    toastOnce?: boolean,
     /** 
      * Amount in milliseconds to close the toast or false to disable. 
      * Default value: 5000
@@ -181,18 +185,32 @@ interface IziToastSettings {
      */
     transitionOutMobile?: IziToastTransitionOut,
     /** 
-     * Callback function triggered when open the toast. 
+     * Callback function triggered when opening the toast. 
      * @param settings Settings of opening toast.
      * @param toast Toast DOM element.
      */
-    onOpen?: (settings: IziToastSettings, toast: HTMLDivElement) => void,
+    onOpening?: (settings: IziToastSettings, toast: HTMLDivElement) => void,
     /** 
-     * Callback function triggered when close the toast. 
+     * Callback function triggered when opened the toast. 
+     * @param settings Settings of opening toast.
+     * @param toast Toast DOM element.
+     */
+    onOpened?: (settings: IziToastSettings, toast: HTMLDivElement) => void,
+    /** 
+     * Callback function triggered when closing the toast. 
      * @param settings Settings of closing toast.
      * @param toast Toast DOM element.
      * @param closedBy Closed by info set by hide method.
      */
-    onClose?: (settings: IziToastSettings, toast: HTMLDivElement, closedBy: string) => void,
+    onClosing?: (settings: IziToastSettings, toast: HTMLDivElement, closedBy: string) => void,
+    /** 
+     * Callback function triggered when closed the toast. 
+     * @param settings Settings of closing toast.
+     * @param toast Toast DOM element.
+     * @param closedBy Closed by info set by hide method.
+     */
+    onClosed?: (settings: IziToastSettings, toast: HTMLDivElement, closedBy: string) => void,
+
 }
 
 interface IziToast {

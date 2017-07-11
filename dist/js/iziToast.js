@@ -11,7 +11,7 @@
 	} else {
 		root.iziToast = factory(root);
 	}
-})(typeof global !== "undefined" ? global : this.window || this.global, function (root) {
+})(typeof global !== "undefined" ? global : window || this.window || this.global, function (root) {
 
 	'use strict';
 
@@ -49,7 +49,7 @@
 
 	// Default settings
 	var defaults = {
-		id: '', 
+		id: null, 
 		class: '',
 		title: '',
 		titleColor: '',
@@ -60,6 +60,7 @@
 		messageSize: '',
 		messageLineHeight: '',
 		backgroundColor: '',
+		theme: 'light', // dark
 		color: '', // blue, red, green, yellow
 		icon: '',
 		iconText: '',
@@ -75,6 +76,7 @@
 		position: 'bottomRight', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
 		target: '',
 		targetFirst: true,
+		toastOnce: false,
 		timeout: 5000,
 		drag: true,
 		pauseOnHover: true,
@@ -87,8 +89,10 @@
 		transitionOut: 'fadeOut', // fadeOut, fadeOutUp, fadeOutDown, fadeOutLeft, fadeOutRight, flipOutX
 		transitionInMobile: 'fadeInUp',
 		transitionOutMobile: 'fadeOutDown',
-		onOpen: function () {},
-		onClose: function () {}
+		onOpening: function () {},
+		onOpened: function () {},
+		onClosing: function () {},
+		onClosed: function () {}
 	};
 
 	//
@@ -356,8 +360,10 @@
 		});
 
 		// Remove event listeners
-		document.removeEventListener(PLUGIN_NAME+'-open', {}, false);
-		document.removeEventListener(PLUGIN_NAME+'-close', {}, false);
+		document.removeEventListener(PLUGIN_NAME+'-opened', {}, false);
+		document.removeEventListener(PLUGIN_NAME+'-opening', {}, false);
+		document.removeEventListener(PLUGIN_NAME+'-closing', {}, false);
+		document.removeEventListener(PLUGIN_NAME+'-closed', {}, false);
 
 		// Reset variables
 		CONFIG = {};
@@ -431,24 +437,40 @@
 			$toast.parentNode.style.transitionDelay = '0.2s';
 		}
 
-		setTimeout(function() {
-			$toast.parentNode.style.height = '0px';
-			$toast.parentNode.style.overflow = '';
-			window.setTimeout(function(){
-				$toast.parentNode.remove();
-			},1000);
-		},200);
-
 		try {
 			settings.closedBy = closedBy;
-			var event = new CustomEvent(PLUGIN_NAME+'-close', {detail: settings, bubles: true, cancelable: true});
+			var event = new CustomEvent(PLUGIN_NAME+'-closing', {detail: settings, bubles: true, cancelable: true});
 			document.dispatchEvent(event);
 		} catch(ex){
 			console.warn(ex);
 		}
 
-		if(typeof settings.onClose !== "undefined"){
-			settings.onClose.apply(null, [settings, $toast, closedBy]);
+		setTimeout(function() {
+			
+			$toast.parentNode.style.height = '0px';
+			$toast.parentNode.style.overflow = '';
+
+			window.setTimeout(function(){
+				
+				$toast.parentNode.remove();
+				try {
+					settings.closedBy = closedBy;
+					var event = new CustomEvent(PLUGIN_NAME+'-closed', {detail: settings, bubles: true, cancelable: true});
+					document.dispatchEvent(event);
+				} catch(ex){
+					console.warn(ex);
+				}
+
+				if(typeof settings.onClosed !== "undefined"){
+					settings.onClosed.apply(null, [settings, $toast, closedBy]);
+				}
+
+			}, 1000);
+		}, 200);
+
+
+		if(typeof settings.onClosing !== "undefined"){
+			settings.onClosing.apply(null, [settings, $toast, closedBy]);
 		}
 	};
 
@@ -464,6 +486,10 @@
 		// Merge user options with defaults
 		var settings = extend(CONFIG, options || {});
 			settings = extend(defaults, settings);
+
+		if(settings.toastOnce && settings.id && document.querySelectorAll('.'+PLUGIN_NAME+'#'+settings.id).length > 0){
+			return false;
+		}
 
 		var $DOM = {
 			toast: document.createElement("div"),
@@ -521,6 +547,11 @@
 				} else {
 					$DOM.toast.style.maxWidth = settings.maxWidth;
 				}
+			}
+
+			if (settings.theme !== '' || settings.theme !== 'light') {
+
+				$DOM.toast.classList.add(PLUGIN_NAME+'-theme-'+settings.theme);
 			}
 
 			if (settings.color) { //#, rgb, rgba, hsl
@@ -586,7 +617,7 @@
 					moveProgress($DOM.toast, settings, function(){
 						that.hide(settings, $DOM.toast);
 					});
-				},300);
+				}, 300);
 			}
 			else if( settings.progressBar === false && settings.timeout > 0){
 				setTimeout(function() {
@@ -712,7 +743,7 @@
 					if(settings.target){
 						$DOM.toastCapsule.style.overflow = 'visible';
 					}
-				},1000);
+				}, 1000);
 			}, 100);
 		})();
 
@@ -778,27 +809,23 @@
 			if(settings.animateInside){
 				$DOM.toast.classList.add(PLUGIN_NAME+'-animateInside');
 			
-				var timeAnimation1 = 200,
-					timeAnimation2 = 100,
-					timeAnimation3 = 300;
+				var animationTimes = [200, 100, 300];
 				if(settings.transitionIn == "bounceInLeft"){
-					timeAnimation1 = 400;
-					timeAnimation2 = 200;
-					timeAnimation3 = 400;
+					animationTimes = [400, 200, 400];
 				}
 
 				window.setTimeout(function(){
 					$DOM.strong.classList.add('slideIn');
-				},timeAnimation1);
+				}, animationTimes[0]);
 
 				window.setTimeout(function(){
 					$DOM.p.classList.add('slideIn');
-				},timeAnimation2);
+				}, animationTimes[1]);
 
 				if (settings.icon) {
 					window.setTimeout(function(){
 						$DOM.icon.classList.add('revealIn');
-					},timeAnimation3);
+					}, animationTimes[2]);
 				}
 
 				if (settings.buttons.length > 0 && $DOM.buttons) {
@@ -807,21 +834,33 @@
 
 						window.setTimeout(function(){
 							element.classList.add('revealIn');
-						},counter);
+						}, counter);
 						counter = counter + counter;
 					});
 				}
 			}
 		})();
 
-		settings.onOpen.apply(null, [settings, $DOM.toast]);
+		settings.onOpening.apply(null, [settings, $DOM.toast]);
 
 		try {
-			var event = new CustomEvent(PLUGIN_NAME + '-open', {detail: settings, bubles: true, cancelable: true});
+			var event = new CustomEvent(PLUGIN_NAME + '-opening', {detail: settings, bubles: true, cancelable: true});
 			document.dispatchEvent(event);
 		} catch(ex){
 			console.warn(ex);
 		}
+
+		setTimeout(function() {
+			try {
+				var event = new CustomEvent(PLUGIN_NAME + '-opened', {detail: settings, bubles: true, cancelable: true});
+				document.dispatchEvent(event);
+			} catch(ex){
+				console.warn(ex);
+			}
+
+			settings.onOpened.apply(null, [settings, $DOM.toast]);
+		}, 1000);
+
 
 		if(settings.pauseOnHover){
 			
