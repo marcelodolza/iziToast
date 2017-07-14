@@ -1,5 +1,5 @@
 /*
-* iziToast | v1.1.3
+* iziToast | v1.1.4
 * http://izitoast.marcelodolce.com
 * by Marcelo Dolce.
 */
@@ -295,7 +295,7 @@
 
 		var $elem = toast.querySelector("."+PLUGIN_NAME+"-progressbar div");
 
-		var timerTimeout = null;
+		var timer = null;
 
 		var is = {
 			Paused: false,
@@ -314,25 +314,22 @@
 				is.Closed = toast.classList.contains(PLUGIN_NAME+'-closed') ? true : false;
 
 				if(is.Reseted){
-					clearTimeout(timerTimeout);
+					clearInterval(timer);
 					$elem.style.width = '100%';
 					moveProgress(toast, settings, callback);
 					toast.classList.remove(PLUGIN_NAME+'-reseted');
 				}
 				if(is.Closed){
-					clearTimeout(timerTimeout);
+					clearInterval(timer);
 					toast.classList.remove(PLUGIN_NAME+'-closed');
 				}
-
 				if(!is.Paused && !is.Reseted && !is.Closed){
 					progressBar.currentTime = progressBar.currentTime+10;
 					var percentage = ((progressBar.hideEta - (progressBar.currentTime)) / progressBar.maxHideTime) * 100;
 					$elem.style.width = percentage + '%';
 
-					timerTimeout = setTimeout(progressBar.updateProgress, 10);
-
 					if(Math.round(percentage) < 0 || typeof toast != 'object'){
-						clearTimeout(timerTimeout);
+						clearInterval(timer);
 						callback.apply();
 					}
 				}
@@ -343,7 +340,7 @@
 		if (settings.timeout > 0) {
 			progressBar.maxHideTime = parseFloat(settings.timeout);
 			progressBar.hideEta = new Date().getTime() + progressBar.maxHideTime;
-			progressBar.updateProgress();
+			timer = setInterval(progressBar.updateProgress, 10);
 		}
 	};
 
