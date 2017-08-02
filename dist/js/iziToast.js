@@ -1,5 +1,5 @@
 /*
-* iziToast | v1.1.4
+* iziToast | v1.1.5
 * http://izitoast.marcelodolce.com
 * by Marcelo Dolce.
 */
@@ -337,7 +337,7 @@
 			}
 		};
 
-		if (settings.timeout > 0) {
+		if (settings.timeout) {
 			progressBar.maxHideTime = parseFloat(settings.timeout);
 			progressBar.hideEta = new Date().getTime() + progressBar.maxHideTime;
 			timer = setInterval(progressBar.updateProgress, 10);
@@ -438,7 +438,7 @@
 
 		try {
 			settings.closedBy = closedBy;
-			var event = new CustomEvent(PLUGIN_NAME+'-closing', {detail: settings, bubles: true, cancelable: true});
+			var event = new CustomEvent(PLUGIN_NAME+'-closing', {detail: settings, bubbles: true, cancelable: true});
 			document.dispatchEvent(event);
 		} catch(ex){
 			console.warn(ex);
@@ -454,7 +454,7 @@
 				$toast.parentNode.remove();
 				try {
 					settings.closedBy = closedBy;
-					var event = new CustomEvent(PLUGIN_NAME+'-closed', {detail: settings, bubles: true, cancelable: true});
+					var event = new CustomEvent(PLUGIN_NAME+'-closed', {detail: settings, bubbles: true, cancelable: true});
 					document.dispatchEvent(event);
 				} catch(ex){
 					console.warn(ex);
@@ -496,17 +496,10 @@
 			toastCapsule: document.createElement("div"),
 			icon: document.createElement("i"),
 			cover: document.createElement("div"),
-			strong: document.createElement("strong"),
-			p: document.createElement("p"),
-			progressBar: document.createElement("div"),
-			progressBarDiv: document.createElement("div"),
-			buttonClose: document.createElement("button"),
 			buttons: document.createElement("div"),
 			wrapper: null
 		};
 
-		$DOM.toastBody.appendChild($DOM.strong);
-		$DOM.toastBody.appendChild($DOM.p);
 		$DOM.toast.appendChild($DOM.toastBody);
 		$DOM.toastCapsule.appendChild($DOM.toast);
 
@@ -589,6 +582,9 @@
 		// Button close
 		(function(){
 			if(settings.close){
+				
+				$DOM.buttonClose = document.createElement("button");
+
 				$DOM.buttonClose.classList.add(PLUGIN_NAME + '-close');
 				$DOM.buttonClose.addEventListener('click', function (e) {
 					var button = e.target;
@@ -606,7 +602,11 @@
 
 		// Progress Bar
 		(function(){
-			if (settings.progressBar) {
+			if (settings.progressBar && settings.timeout) {
+
+				$DOM.progressBar = document.createElement("div");
+				$DOM.progressBarDiv = document.createElement("div");
+
 				$DOM.progressBar.classList.add(PLUGIN_NAME + '-progressbar');
 				$DOM.progressBarDiv.style.background = settings.progressBarColor;
 				$DOM.progressBar.appendChild($DOM.progressBarDiv);
@@ -618,7 +618,7 @@
 					});
 				}, 300);
 			}
-			else if( settings.progressBar === false && settings.timeout > 0){
+			else if( settings.progressBar === false && settings.timeout){
 				setTimeout(function() {
 					that.hide(settings, $DOM.toast);
 				}, settings.timeout);
@@ -649,48 +649,64 @@
 
 		// Title
 		(function(){
-			if (settings.titleColor) {
-				$DOM.strong.style.color = settings.titleColor;
-			}
-			if (settings.titleSize) {
-				if( !isNaN(settings.titleSize) ){
-					$DOM.strong.style.fontSize = settings.titleSize+'px';
-				} else {
-					$DOM.strong.style.fontSize = settings.titleSize;
+			if (settings.title.length > 0) {
+
+				$DOM.strong = document.createElement("strong");
+				$DOM.strong.appendChild(createFragElem(settings.title));
+				$DOM.toastBody.appendChild($DOM.strong);
+
+				if (settings.titleColor) {
+					$DOM.strong.style.color = settings.titleColor;
+				}
+				if (settings.titleSize) {
+					if( !isNaN(settings.titleSize) ){
+						$DOM.strong.style.fontSize = settings.titleSize+'px';
+					} else {
+						$DOM.strong.style.fontSize = settings.titleSize;
+					}
+				}
+				if (settings.titleLineHeight) {
+					if( !isNaN(settings.titleSize) ){
+						$DOM.strong.style.lineHeight = settings.titleLineHeight+'px';
+					} else {
+						$DOM.strong.style.lineHeight = settings.titleLineHeight;
+					}
 				}
 			}
-			if (settings.titleLineHeight) {
-				if( !isNaN(settings.titleSize) ){
-					$DOM.strong.style.lineHeight = settings.titleLineHeight+'px';
-				} else {
-					$DOM.strong.style.lineHeight = settings.titleLineHeight;
-				}
-			}
-			$DOM.strong.appendChild(createFragElem(settings.title));
 		})();
 		
 		// Message
 		(function(){
-			if (settings.messageColor) {
-				$DOM.p.style.color = settings.messageColor;
-			}
-			if (settings.messageSize) {
-				if( !isNaN(settings.titleSize) ){
-					$DOM.p.style.fontSize = settings.messageSize+'px';
-				} else {
-					$DOM.p.style.fontSize = settings.messageSize;
+			if (settings.message.length > 0) {
+
+				$DOM.p = document.createElement("p");
+				$DOM.p.appendChild(createFragElem(settings.message));
+				$DOM.toastBody.appendChild($DOM.p);
+
+				if (settings.messageColor) {
+					$DOM.p.style.color = settings.messageColor;
+				}
+				if (settings.messageSize) {
+					if( !isNaN(settings.titleSize) ){
+						$DOM.p.style.fontSize = settings.messageSize+'px';
+					} else {
+						$DOM.p.style.fontSize = settings.messageSize;
+					}
+				}
+				if (settings.messageLineHeight) {
+					
+					if( !isNaN(settings.titleSize) ){
+						$DOM.p.style.lineHeight = settings.messageLineHeight+'px';
+					} else {
+						$DOM.p.style.lineHeight = settings.messageLineHeight;
+					}
 				}
 			}
-			if (settings.messageLineHeight) {
-				
-				if( !isNaN(settings.titleSize) ){
-					$DOM.p.style.lineHeight = settings.messageLineHeight+'px';
-				} else {
-					$DOM.p.style.lineHeight = settings.messageLineHeight;
-				}
-			}
-			$DOM.p.appendChild(createFragElem(settings.message));
 		})();
+
+		if (settings.title.length > 0 && settings.message.length > 0) {
+			$DOM.strong.style.paddingRight = 10+'px';
+		}
 
 		// Buttons
 		(function(){
@@ -698,10 +714,12 @@
 
 				$DOM.buttons.classList.add(PLUGIN_NAME + '-buttons');
 
-				if(settings.rtl){
-					$DOM.p.style.marginLeft = '15px';
-				} else {
-					$DOM.p.style.marginRight = '15px';
+				if (settings.message.length > 0) {
+					if(settings.rtl){
+						$DOM.p.style.marginLeft = '15px';
+					} else {
+						$DOM.p.style.marginRight = '15px';
+					}
 				}
 
 				var i = 0;
@@ -813,13 +831,17 @@
 					animationTimes = [400, 200, 400];
 				}
 
-				window.setTimeout(function(){
-					$DOM.strong.classList.add('slideIn');
-				}, animationTimes[0]);
+				if (settings.title.length > 0) {
+					window.setTimeout(function(){
+						$DOM.strong.classList.add('slideIn');
+					}, animationTimes[0]);
+				}
 
-				window.setTimeout(function(){
-					$DOM.p.classList.add('slideIn');
-				}, animationTimes[1]);
+				if (settings.message.length > 0) {
+					window.setTimeout(function(){
+						$DOM.p.classList.add('slideIn');
+					}, animationTimes[1]);
+				}
 
 				if (settings.icon) {
 					window.setTimeout(function(){
@@ -843,7 +865,7 @@
 		settings.onOpening.apply(null, [settings, $DOM.toast]);
 
 		try {
-			var event = new CustomEvent(PLUGIN_NAME + '-opening', {detail: settings, bubles: true, cancelable: true});
+			var event = new CustomEvent(PLUGIN_NAME + '-opening', {detail: settings, bubbles: true, cancelable: true});
 			document.dispatchEvent(event);
 		} catch(ex){
 			console.warn(ex);
@@ -851,7 +873,7 @@
 
 		setTimeout(function() {
 			try {
-				var event = new CustomEvent(PLUGIN_NAME + '-opened', {detail: settings, bubles: true, cancelable: true});
+				var event = new CustomEvent(PLUGIN_NAME + '-opened', {detail: settings, bubbles: true, cancelable: true});
 				document.dispatchEvent(event);
 			} catch(ex){
 				console.warn(ex);

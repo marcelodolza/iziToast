@@ -1,5 +1,5 @@
 /*
-* iziToast | v1.1.4
+* iziToast | v1.1.5
 * http://izitoast.marcelodolce.com
 * by Marcelo Dolce.
 */
@@ -12,16 +12,19 @@
   backface-visibility: hidden;
   transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), height 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
+.iziToast-capsule,
+.iziToast-capsule * {
+  box-sizing: border-box;
+}
 .iziToast {
   display: inline-block;
   clear: both;
   position: relative;
   font-family: 'Lato', arial;
   font-size: 14px;
-  padding: 8px 42px 9px 0;
+  padding: 8px 45px 9px 0;
   background: rgba(238,238,238,0.9);
   border-color: rgba(238,238,238,0.9);
-  min-height: 54px;
   width: 100%;
   pointer-events: all;
   cursor: default;
@@ -32,6 +35,7 @@
   -moz-user-select: none /* Firefox */;
   -ms-user-select: none /* Internet Explorer/Edge */;
   user-select: none;
+  min-height: 54px;
 }
 .iziToast > .iziToast-progressbar {
   position: absolute;
@@ -167,7 +171,7 @@
   height: 24px;
 }
 .iziToast > .iziToast-body > strong {
-  padding: 0 10px 0 0;
+  padding: 0;
   margin: 10px 0 -10px 0;
   line-height: 16px;
   font-size: 14px;
