@@ -324,7 +324,7 @@
 					toast.classList.remove(PLUGIN_NAME+'-closed');
 				}
 				if(!is.Paused && !is.Reseted && !is.Closed){
-					progressBar.currentTime = progressBar.currentTime+10;
+					if (settings.timeout > 10000) progressBar.currentTime = progressBar.currentTime+1000; else progressBar.currentTime = progressBar.currentTime+10;
 					var percentage = ((progressBar.hideEta - (progressBar.currentTime)) / progressBar.maxHideTime) * 100;
 					$elem.style.width = percentage + '%';
 
@@ -340,7 +340,10 @@
 		if (settings.timeout) {
 			progressBar.maxHideTime = parseFloat(settings.timeout);
 			progressBar.hideEta = new Date().getTime() + progressBar.maxHideTime;
-			timer = setInterval(progressBar.updateProgress, 10);
+			if (settings.timeout > 10000) {
+				toast.classList.add(PLUGIN_NAME+'-long');
+				timer = setInterval(progressBar.updateProgress, 1000);
+			} else timer = setInterval(progressBar.updateProgress, 10);
 		}
 	};
 
