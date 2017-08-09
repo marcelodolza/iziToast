@@ -51,6 +51,9 @@
   background: rgba(0,0,0,0.3);
   border-radius: 0 0 3px 3px;
 }
+.iziToast-long > .iziToast-progressbar > div {
+  transition: width 1s;
+}
 .iziToast.iziToast-balloon:before {
   content: '';
   position: absolute;
