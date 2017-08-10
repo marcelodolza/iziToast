@@ -328,7 +328,7 @@
 					var percentage = ((progressBar.hideEta - (progressBar.currentTime)) / progressBar.maxHideTime) * 100;
 					$elem.style.width = percentage + '%';
 
-					if(Math.round(percentage) < 0 || typeof toast != 'object'){
+					if(Math.round(percentage) <= 0 || typeof toast != 'object'){
 						clearInterval(timer);
 						callback.apply();
 					}
