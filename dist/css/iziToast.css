@@ -104,7 +104,7 @@
 .iziToast > .iziToast-body {
   position: relative;
   padding: 0 0 0 10px;
-  height: 100%;
+  height: auto;
   min-height: 36px;
   margin: 0 0 0 15px;
 }
