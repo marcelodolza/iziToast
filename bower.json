@@ -15,12 +15,16 @@
   "license": "Apache-2.0",
   "keywords": [
     "izitoast",
-    "notification",
     "toaster",
     "toast",
     "message",
+    "notification",
     "alert",
+    "info,",
+    "success",
+    "warning",
     "confirm",
+    "question",
     "js"
   ],
   "homepage": "http://izitoast.marcelodolce.com",

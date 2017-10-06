@@ -10,12 +10,16 @@
   },
   "keywords": [
     "izitoast",
-    "notification",
     "toaster",
     "toast",
     "message",
+    "notification",
     "alert",
+    "info,",
+    "success",
+    "warning",
     "confirm",
+    "question",
     "js"
   ],
   "author": {
