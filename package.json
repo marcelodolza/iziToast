@@ -23,6 +23,7 @@
     "email": "dolcemarcelo@gmail.com",
     "homepage": "http://www.marcelodolce.com"
   },
+  "typings": "dist/izitoast/izitoast.d.ts",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/dolce/iziToast/issues"

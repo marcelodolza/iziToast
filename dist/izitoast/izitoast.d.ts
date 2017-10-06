@@ -3,9 +3,9 @@
 // Definitions by: Tarık İNCE <incetarik@hotmail.com> and Marcelo Dolce <dolcemarcelo@gmail.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped 
 
-type IziToastPosition = "bottomRight" | "bottomLeft" | "topRight" | "topLeft" | "topCenter" | "bottomCenter" | "center"
-type IziToastTransitionIn = "bounceInLeft" | "bounceInRight" | "bounceInUp" | "bounceInDown" | "fadeIn" | "fadeInDown" | "fadeInUp" | "fadeInLeft" | "fadeInRight" | "flipInX"
-type IziToastTransitionOut = "fadeOut" | "fadeOutUp" | "fadeOutDown" | "fadeOutLeft" | "fadeOutRight" | "flipOutX"
+type IziToastPosition = "bottomRight" | "bottomLeft" | "topRight" | "topLeft" | "topCenter" | "bottomCenter" | "center";
+type IziToastTransitionIn = "bounceInLeft" | "bounceInRight" | "bounceInUp" | "bounceInDown" | "fadeIn" | "fadeInDown" | "fadeInUp" | "fadeInLeft" | "fadeInRight" | "flipInX";
+type IziToastTransitionOut = "fadeOut" | "fadeOutUp" | "fadeOutDown" | "fadeOutLeft" | "fadeOutRight" | "flipOutX";
 
 interface IziToastSettings {
     /**
@@ -258,4 +258,10 @@ interface IziToast {
     settings(settings: IziToastSettings): void;
 }
 
-declare var iziToast: IziToast
+declare var iziToast: IziToast;
+
+declare module "iziToast"
+{
+    export = iziToast;
+    
+}
