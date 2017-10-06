@@ -53,7 +53,12 @@ interface IziToastSettings {
      */
     backgroundColor?: string,
     /** 
-     * It can be #hexadecimal, pre-defined themes like blue, red, green and yellow or set another class. Create and use like this ".iziToast-color-name" 
+     * It can be light or dark or set another class. Create and use like this ".iziToast-theme-name"
+     * Default value: light
+     */
+    theme?: string, 
+    /** 
+     * It can be #hexadecimal, pre-defined themes like blue, red, green and yellow or set another class. Create and use like this ".iziToast-color-name"
      */
     color?: string, 
     /** 
@@ -74,13 +79,11 @@ interface IziToastSettings {
     image?: string,
     /**
      * Width of cover image. 
-     * Example 100(px)
      * Default value: null
      */
     imageWidth?: number | null,
     /**
      * Sets maxWidth of toast. 
-     * Example 500px 
      * Default value: null
      */
     maxWidth?: number | null,
@@ -104,6 +107,11 @@ interface IziToastSettings {
      * Default value: true
      */
     close?: boolean,
+    /**
+     * Allows to close toast using the Esc key.
+     * Default value: false
+     */
+    closeOnEscape ?: boolean,
     /**
      * RTL option
      * Default value: false
@@ -154,6 +162,26 @@ interface IziToastSettings {
      * Progress bar color. 
      */
     progressBarColor?: string,
+    /**    
+     * Animation Easing of progress bar.
+     * Default value: linear
+     */
+    progressBarEasing?: string,
+    /**    
+     * Enables display the Overlay layer on the page.
+     * Default value: false
+     */
+    overlay?: boolean,
+    /**    
+     * Allows to close toast clicking on the Overlay.
+     * Default value: false
+     */
+    overlayClose?: boolean,
+    /**    
+     * Overlay background color.
+     * Default value: rgba(0, 0, 0, 0.6)
+     */
+    overlayColor?: string,
     /**
      * Enable animations of elements in the toast.
      * Default value: true
@@ -245,6 +273,11 @@ interface IziToast {
      * @param settings Settings for this toast.
      */
     success(settings: IziToastSettings): void
+    /**
+     * Shows a question toast.
+     * @param settings Settings for this toast.
+     */
+    question(settings: IziToastSettings): void
 
     /**
      * Destroys all toasts.

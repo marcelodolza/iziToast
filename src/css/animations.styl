@@ -1,5 +1,5 @@
 /*
-* iziToast | v1.1.5
+* iziToast | v1.2.0
 * http://izitoast.marcelodolce.com
 * by Marcelo Dolce.
 */
@@ -63,6 +63,14 @@
     backface-visibility: visible !important;
     -webkit-animation: iziT-flipOutX $animation-time1 cubic-bezier(0.4, 0.45, 0.15, 0.91) both;
     animation: iziT-flipOutX $animation-time1 cubic-bezier(0.4, 0.45, 0.15, 0.91) both;
+
+.iziToast-overlay
+  &.fadeIn
+    -webkit-animation: iziT-fadeIn 0.5s ease both;
+    animation: iziT-fadeIn 0.5s ease both;
+  &.fadeOut
+    -webkit-animation: iziT-fadeOut $animation-time1 ease both;
+    animation: iziT-fadeOut $animation-time1 ease both;
 
 
 @-webkit-keyframes iziT-revealIn {

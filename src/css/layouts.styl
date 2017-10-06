@@ -1,5 +1,5 @@
 /*
-* iziToast | v1.1.5
+* iziToast | v1.2.0
 * http://izitoast.marcelodolce.com
 * by Marcelo Dolce.
 */
@@ -7,12 +7,18 @@
 .iziToast
 
 	&.iziToast-layout2
-		& .iziToast-body > p
-			width 100%
-	
+		& .iziToast-body
+			& .iziToast-message
+				width 100%
+
+	&.iziToast-layout3
+		border-radius: 2px;
+		&::after
+			display none
+
 /*
  * EXAMPLE new layouts
  *
-	&.iziToast-layout3
+	&.iziToast-layout4
 		margin 20px
 */
