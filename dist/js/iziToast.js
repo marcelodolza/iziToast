@@ -33,19 +33,19 @@
 			},
 			success: {
 				color: 'green',
-				icon: 'ico-success',
+				icon: 'ico-success'
 			},
 			warning: {
 				color: 'orange',
-				icon: 'ico-warning',
+				icon: 'ico-warning'
 			},
 			error: {
 				color: 'red',
-				icon: 'ico-error',
+				icon: 'ico-error'
 			},
 			question: {
 				color: 'yellow',
-				icon: 'ico-question',
+				icon: 'ico-question'
 			}
 		},
 		MOBILEWIDTH = 568,
@@ -485,7 +485,7 @@
 			$toast = document.querySelector($toast);
 		}
 
-		if($toast.classList.contains(PLUGIN_NAME+'-opening'))
+		if($toast.classList.contains(PLUGIN_NAME+'-opening') && closedBy !== 'timeout')
 			return false;
 
 		$toast.classList.add(PLUGIN_NAME+'-closing');
@@ -914,7 +914,7 @@
 					if(settings.target){
 						$DOM.toastCapsule.style.overflow = 'visible';
 					}
-				}, 1000);
+				}, 500);
 
 				if(settings.timeout) {
 					that.progress($DOM.toast).start();
