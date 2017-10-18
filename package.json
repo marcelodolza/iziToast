@@ -4,7 +4,7 @@
   "description": "Elegant, responsive, flexible and lightweight notification plugin with no dependencies.",
   "readmeFilename": "README.md",
   "main": "dist/js/iziToast.js",
-  "typings": "types/izitoast.d.ts",
+  "typings": "types/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dolce/iziToast.git"
