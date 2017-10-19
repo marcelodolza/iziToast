@@ -4,6 +4,7 @@
   "description": "Elegant, responsive, flexible and lightweight notification plugin with no dependencies.",
   "readmeFilename": "README.md",
   "main": "dist/js/iziToast.js",
+  "typings": "types/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dolce/iziToast.git"
@@ -27,7 +28,6 @@
     "email": "dolcemarcelo@gmail.com",
     "homepage": "http://www.marcelodolce.com"
   },
-  "typings": "dist/izitoast/izitoast.d.ts",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/dolce/iziToast/issues"
