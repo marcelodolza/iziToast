@@ -16,86 +16,89 @@ interface IziToastSettings {
      * The class that will be applied to the toast. It may be used as a reference.
      */
     class?: string;
-    /**
+    /** 
      * Title of the toast.
      */
     title?: string;
-    /**
-     * Title color.
+    /**	
+     * Title color. 
      */
     titleColor?: string;
-    /**
-     * Title fontSize.
+    /** 
+     * Title fontSize. 
      */
     titleSize?: string;
-    /**
-     * Title lineHeight.
+    /** 
+     * Title lineHeight. 
      */
     titleLineHeight?: string;
-    /**
-     * Message of notification.
+    /** 
+     * Message of notification. 
      */
     message: string,
-    /**
-     * Message color.
+    /**	
+     * Message color. 
      */
     messageColor?: string;
-    /**
-     * Message fontSize.
+    /**	
+     * Message fontSize. 
      */
     messageSize?: string;
-    /**
-     * Message lineHeight.
+    /** 
+     * Message lineHeight. 
      */
     messageLineHeight?: string;
-    /**
-     * Background color of the Toast
+    /** 
+     * Background color of the Toast 
      */
     backgroundColor?: string;
-    /**
+    /** 
+     * It can be light or dark or set another class. Create and use like this ".iziToast-theme-name"
+     * Default value: light
+     */
+    theme?: string;
+    /** 
      * It can be #hexadecimal, pre-defined themes like blue, red, green and yellow or set another class. Create and use like this ".iziToast-color-name"
      */
     color?: string;
-    /**
-     * Icon class (font-icon of your choice, Icomoon, Fontawesome etc.).
+    /** 
+     * Icon class (font-icon of your choice, Icomoon, Fontawesome etc.). 
      */
     icon?: string;
-    /**
-     * Icon text (font-icon using text, Material Icons, etc.).
+    /** 
+     * Icon text (font-icon using text, Material Icons, etc.). 
      */
     iconText?: string;
-    /**
-     * Icon color.
+    /** 
+     * Icon color. 
      */
     iconColor?: string;
-    /**
-     * Cover image.
+    /**	
+     * Cover image. 
      */
     image?: string;
     /**
-     * Width of cover image.
-     * Example 100(px)
+     * Width of cover image. 
      * Default value: null
      */
     imageWidth?: number | null;
     /**
-     * Sets maxWidth of toast.
-     * Example 500px
+     * Sets maxWidth of toast. 
      * Default value: null
      */
     maxWidth?: number | null;
-    /**
+    /**	
      * The z-index CSS attribute of the toast
      * Default value: null
      */
     zindex?: number | null;
-    /**
-     * It can be 1 or 2, or use another layout, creating the class like this: ".iziToast-layout3"
+    /** 
+     * It can be 1 or 2, or use another layout, creating the class like this: ".iziToast-layout3" 
      * Default value: 1
      */
     layout?: number;
     /**
-     * Applies a balloon like toast.
+     * Applies a balloon like toast. 
      * Default value: false
     */
     balloon?: boolean;
@@ -105,19 +108,24 @@ interface IziToastSettings {
      */
     close?: boolean;
     /**
+     * Allows to close toast using the Esc key.
+     * Default value: false
+     */
+    closeOnEscape ?: boolean;
+    /**
      * RTL option
      * Default value: false
      */
     rtl?: boolean;
     /**
-     * Where it will be shown.
+     * Where it will be shown. 
      * Default value: bottomRight
      */
     position?: IziToastPosition;
     /** Fixed place where you want to show the toasts. */
     target?: string;
-    /**
-     * Add toast to first position.
+    /**	
+     * Add toast to first position. 
      * Default value: true
      */
     targetFirst?: boolean;
@@ -125,41 +133,61 @@ interface IziToastSettings {
      * Waits for another toast to be closed on 'onClosed' function. You'll need an ID to use it.
      */
     toastOnce?: boolean;
-    /**
-     * Amount in milliseconds to close the toast or false to disable.
+    /** 
+     * Amount in milliseconds to close the toast or false to disable. 
      * Default value: 5000
      */
     timeout?: boolean | number;
     /**
      * Drag feature used to close the toast.
-     * Default value: true
+     * Default value: true 
      */
     drag?: boolean;
-    /**
-     * Pause the toast timeout while the cursor is on it.
+    /** 
+     * Pause the toast timeout while the cursor is on it. 
      * Default value: true
      */
     pauseOnHover?: boolean;
     /**
-     * Reset the toast timeout while the cursor is on it.
+     * Reset the toast timeout while the cursor is on it. 
      * Default value: false
      */
     resetOnHover?: boolean;
-    /**
-     * Enable timeout progress bar.
+    /**	
+     * Enable timeout progress bar. 
      * Default value: true
      */
     progressBar?: boolean;
-    /**
-     * Progress bar color.
+    /**	
+     * Progress bar color. 
      */
     progressBarColor?: string;
+    /**    
+     * Animation Easing of progress bar.
+     * Default value: linear
+     */
+    progressBarEasing?: string;
+    /**    
+     * Enables display the Overlay layer on the page.
+     * Default value: false
+     */
+    overlay?: boolean;
+    /**    
+     * Allows to close toast clicking on the Overlay.
+     * Default value: false
+     */
+    overlayClose?: boolean;
+    /**    
+     * Overlay background color.
+     * Default value: rgba(0, 0, 0, 0.6)
+     */
+    overlayColor?: string;
     /**
      * Enable animations of elements in the toast.
      * Default value: true
      */
     animateInside?: boolean;
-    /**
+    /** 
      * Array of buttons.
      * Array is an array of array that contains (string, function (instance, toast)) types.
      */
@@ -170,52 +198,51 @@ interface IziToastSettings {
      */
     transitionIn?: IziToastTransitionIn;
     /**
-     * Default toast close animation.
+     * Default toast close animation. 
      * Default value: 'fadeOut'
      */
     transitionOut?: IziToastTransitionOut;
     /**
-     * Default toast opening mobile transition.
+     * Default toast opening mobile transition. 
      * Default value: 'fadeInUp'
      */
     transitionInMobile?: IziToastTransitionIn;
     /**
-     * Default toast closing mobile transition.
+     * Default toast closing mobile transition. 
      * Default value: 'fadeOutDown'
      */
     transitionOutMobile?: IziToastTransitionOut;
-    /**
-     * Callback function triggered when opening the toast.
+    /** 
+     * Callback function triggered when opening the toast. 
      * @param settings Settings of opening toast.
      * @param toast Toast DOM element.
      */
     onOpening?: (settings: IziToastSettings, toast: HTMLDivElement) => void;
-    /**
-     * Callback function triggered when opened the toast.
+    /** 
+     * Callback function triggered when opened the toast. 
      * @param settings Settings of opening toast.
      * @param toast Toast DOM element.
      */
     onOpened?: (settings: IziToastSettings, toast: HTMLDivElement) => void;
-    /**
-     * Callback function triggered when closing the toast.
+    /** 
+     * Callback function triggered when closing the toast. 
      * @param settings Settings of closing toast.
      * @param toast Toast DOM element.
      * @param closedBy Closed by info set by hide method.
      */
     onClosing?: (settings: IziToastSettings, toast: HTMLDivElement, closedBy: string) => void;
-    /**
-     * Callback function triggered when closed the toast.
+    /** 
+     * Callback function triggered when closed the toast. 
      * @param settings Settings of closing toast.
      * @param toast Toast DOM element.
      * @param closedBy Closed by info set by hide method.
      */
     onClosed?: (settings: IziToastSettings, toast: HTMLDivElement, closedBy: string) => void;
-
 }
 
 interface IziToast {
     /**
-     * Opens the toast.
+     * Opens the toast. 
      */
     show(settings: IziToastSettings): void;
     /**
@@ -245,6 +272,11 @@ interface IziToast {
      * @param settings Settings for this toast.
      */
     success(settings: IziToastSettings): void;
+    /**
+     * Shows a question toast.
+     * @param settings Settings for this toast.
+     */
+    question(settings: IziToastSettings): void;
     /**
      * Destroys all toasts.
      */
