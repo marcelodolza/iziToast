@@ -886,7 +886,7 @@
 					$btns[index].addEventListener('click', function (e) {
 						e.preventDefault();
 						var ts = value[1];
-						return new ts(that, $DOM.toast);
+						return ts(that, $DOM.toast);
 					});
 				});
 			}

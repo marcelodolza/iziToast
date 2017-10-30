@@ -18,10 +18,10 @@
 .iziToast-overlay {
   display: block;
   position: fixed;
-  top: 0;
+  top: -100px;
   left: 0;
-  height: 100%;
-  width: 100%;
+  right: 0;
+  bottom: -100px;
   z-index: 997;
 }
 .iziToast {
