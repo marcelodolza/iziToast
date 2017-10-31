@@ -594,9 +594,7 @@
 			return false;
 		}
 
-		settings.REF = new Date().getTime();
-
-		that.settings = settings;
+		settings.REF = new Date().getTime() + Math.floor((Math.random() * 10000000) + 1);
 
 		var $DOM = {
 			body: document.querySelector('body'),
@@ -917,7 +915,7 @@
 				}, 500);
 
 				if(settings.timeout) {
-					that.progress($DOM.toast).start();
+					that.progress($DOM.toast, settings).start();
 				}
 			}, 100);
 		})();
