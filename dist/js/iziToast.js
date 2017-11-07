@@ -209,6 +209,19 @@
 
 
 	/**
+	 * Check if is a Base64 string
+	 * @private
+	 */
+	var isBase64 = function(str) {
+	    try {
+	        return btoa(atob(str)) == str;
+	    } catch (err) {
+	        return false;
+	    }
+	};
+
+
+	/**
 	 * Drag method of toasts
 	 * @private
 	 */
@@ -680,7 +693,12 @@
 			if(settings.image) {
 				$DOM.cover.classList.add(PLUGIN_NAME + '-cover');
 				$DOM.cover.style.width = settings.imageWidth + 'px';
-				$DOM.cover.style.backgroundImage = 'url(' + settings.image + ')';
+
+				if(isBase64(settings.image)){
+					$DOM.cover.style.backgroundImage = 'url(data:image/png;base64,' + settings.image + ')';
+				} else {
+					$DOM.cover.style.backgroundImage = 'url(' + settings.image + ')';
+				}
 
 				if(settings.rtl){
 					$DOM.toastBody.style.marginRight = (settings.imageWidth + 10) + 'px';
