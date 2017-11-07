@@ -25,6 +25,19 @@ ___
 - ### [Events](http://izitoast.marcelodolce.com/#Events)
 - ### [Use](http://izitoast.marcelodolce.com/#Start)
 ___
+
+#### Gulp Tasks
+The default build task
+```
+gulp
+```
+Rerun the build task when a file changes
+```
+gulp watch
+```
+___
+
+
 #### [npm](https://www.npmjs.com/package/izitoast)
 ```
 npm install izitoast --save
