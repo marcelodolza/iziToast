@@ -38,12 +38,15 @@ gulp watch
 ___
 
 
-#### [npm](https://www.npmjs.com/package/izitoast)
+#### [NPM](https://www.npmjs.com/package/izitoast)
 ```
 npm install izitoast --save
 ```
-
-#### bower
+#### Yarn
+```
+yarn add izitoast --save
+```
+#### Bower
 ```
 bower install izitoast --save
 ```
