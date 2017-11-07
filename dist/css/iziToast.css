@@ -250,7 +250,7 @@
   float: left;
 }
 .iziToast-wrapper {
-  z-index: 999;
+  z-index: 99999;
   position: fixed;
   width: 100%;
   pointer-events: none;
