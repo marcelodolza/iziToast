@@ -498,9 +498,6 @@
 			$toast = document.querySelector($toast);
 		}
 
-		if($toast.classList.contains(PLUGIN_NAME+'-opening') && closedBy !== 'timeout')
-			return false;
-
 		$toast.classList.add(PLUGIN_NAME+'-closing');
 
 		settings.closedBy = closedBy;
@@ -694,8 +691,8 @@
 				$DOM.cover.classList.add(PLUGIN_NAME + '-cover');
 				$DOM.cover.style.width = settings.imageWidth + 'px';
 
-				if(isBase64(settings.image)){
-					$DOM.cover.style.backgroundImage = 'url(data:image/png;base64,' + settings.image + ')';
+				if(isBase64(settings.image.replace(/ /g,''))){
+					$DOM.cover.style.backgroundImage = 'url(data:image/png;base64,' + settings.image.replace(/ /g,'') + ')';
 				} else {
 					$DOM.cover.style.backgroundImage = 'url(' + settings.image + ')';
 				}
@@ -718,7 +715,7 @@
 				$DOM.buttonClose.classList.add(PLUGIN_NAME + '-close');
 				$DOM.buttonClose.addEventListener('click', function (e) {
 					var button = e.target;
-					that.hide($DOM.toast, {}, 'button');
+					that.hide($DOM.toast, settings, 'button');
 				});
 				$DOM.toast.appendChild($DOM.buttonClose);
 			} else {
@@ -1024,7 +1021,7 @@
 
 					$DOM.overlay.removeEventListener('click', {});
 					$DOM.overlay.addEventListener('click', function (e) {
-						that.hide($DOM.toast, {}, 'overlay');
+						that.hide($DOM.toast, settings, 'overlay');
 					});
 				} else {
 					$DOM.overlay.removeEventListener('click', {});
@@ -1129,7 +1126,7 @@
 			document.addEventListener('keyup', function (evt) {
 				evt = evt || window.event;
 				if(evt.keyCode == 27) {
-				    that.hide($DOM.toast, {}, 'esc');
+				    that.hide($DOM.toast, settings, 'esc');
 				}
 			});
 		}
