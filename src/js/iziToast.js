@@ -896,11 +896,40 @@
 						}, 300);
 					}
 
-					$btns[index].addEventListener('click', function (e) {
-						e.preventDefault();
-						var ts = value[1];
-						return ts(that, $DOM.toast);
-					});
+					function isRadioOrCheckbox (type) {
+						return type === 'radio' || type === 'checkbox';
+					}
+
+					if ($btns[index].tagName === 'INPUT') {
+						$btns[index].addEventListener('click', function (e) {
+							$btns[index].focus();
+						});
+
+						var type = $btns[index].type;
+						if (isRadioOrCheckbox(type)) {
+							$btns[index].addEventListener('change', function (e) {
+								if (type === 'radio') {
+									that[$btns[index].name + 'Value'] = e.target.value;	
+								} else if (type === 'checkbox') {
+									that[$btns[index].name + 'Value'] = e.target.checked ? e.target.value : '';
+								}
+								var ts = value[1];
+								return ts(that, $DOM.toast);
+						   });
+						}
+						$btns[index].addEventListener('input', function (e) {
+							that[$btns[index].id + 'Value'] = e.target.value;
+							var ts = value[1];
+							return ts(that, $DOM.toast);
+						});
+					} else if ($btns[index].tagName === 'BUTTON') {
+						$btns[index].addEventListener('click', function (e) {
+							e.preventDefault();
+							var ts = value[1];
+							return ts(that, $DOM.toast);
+						});
+					}
+
 				});
 			}
 			$DOM.toastBody.appendChild($DOM.buttons);
