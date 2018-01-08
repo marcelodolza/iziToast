@@ -1,5 +1,5 @@
 /*
-* iziToast | v1.2.0
+* iziToast | v1.3.0
 * http://izitoast.marcelodolce.com
 * by Marcelo Dolce.
 */
@@ -99,6 +99,7 @@
 		transitionInMobile: 'fadeInUp',
 		transitionOutMobile: 'fadeOutDown',
 		buttons: {},
+		inputs: {},
 		onOpening: function () {},
 		onOpened: function () {},
 		onClosing: function () {},
@@ -243,12 +244,12 @@
 		            if(xpos > 0){
 		            	opacity = (distance-xpos) / distance;
 		            	if(opacity < opacityRange){
-							instance.hide(toast, extend(settings, { transitionOut: 'fadeOutRight', transitionOutMobile: 'fadeOutRight' }), 'drag');
+							instance.hide(extend(settings, { transitionOut: 'fadeOutRight', transitionOutMobile: 'fadeOutRight' }), toast, 'drag');
 						}
 		            } else {
 		            	opacity = (distance+xpos) / distance;
 		            	if(opacity < opacityRange){
-							instance.hide(toast, extend(settings, { transitionOut: 'fadeOutLeft', transitionOutMobile: 'fadeOutLeft' }), 'drag');
+							instance.hide(extend(settings, { transitionOut: 'fadeOutLeft', transitionOutMobile: 'fadeOutLeft' }), toast, 'drag');
 						}
 		            }
 					toast.style.opacity = opacity;
@@ -386,7 +387,7 @@
 	 * Do the calculation to move the progress bar
 	 * @private
 	 */
-	 $iziToast.progress = function ($toast, options, callback) {
+	$iziToast.progress = function (options, $toast, callback) {
 
 		var that = this,
 			settings = extend(that.settings, options || {}),
@@ -407,7 +408,7 @@
 
 					if(!$toast.classList.contains(PLUGIN_NAME+'-closing')){
 
-						that.hide($toast, settings, 'timeout');
+						that.hide(settings, $toast, 'timeout');
 
 						if(typeof callback === 'function'){
 							callback.apply(that);
@@ -452,7 +453,7 @@
 
 					if(!$toast.classList.contains(PLUGIN_NAME+'-closing')){
 
-						that.hide($toast, settings, 'timeout');
+						that.hide(settings, $toast, 'timeout');
 
 						if(typeof callback === 'function'){
 							callback.apply(that);
@@ -489,7 +490,7 @@
 	 * @public
 	 * @param {Object} options User settings
 	 */
-	$iziToast.hide = function ($toast, options, closedBy) {
+	$iziToast.hide = function (options, $toast, closedBy) {
 
 		var settings = extend(this.settings, options || {});
 			closedBy = closedBy || null;
@@ -616,6 +617,7 @@
 			icon: document.createElement('i'),
 			cover: document.createElement('div'),
 			buttons: document.createElement('div'),
+			inputs: document.createElement('div'),
 			wrapper: null
 		};
 
@@ -715,14 +717,14 @@
 				$DOM.buttonClose.classList.add(PLUGIN_NAME + '-close');
 				$DOM.buttonClose.addEventListener('click', function (e) {
 					var button = e.target;
-					that.hide($DOM.toast, settings, 'button');
+					that.hide(settings, $DOM.toast, 'button');
 				});
 				$DOM.toast.appendChild($DOM.buttonClose);
 			} else {
 				if(settings.rtl){
-					$DOM.toast.style.paddingLeft = '20px';
+					$DOM.toast.style.paddingLeft = '18px';
 				} else {
-					$DOM.toast.style.paddingRight = '20px';
+					$DOM.toast.style.paddingRight = '18px';
 				}
 			}
 		})();
@@ -745,12 +747,12 @@
 					$DOM.toast.addEventListener('mouseenter', function (e) {
 						this.classList.add(PLUGIN_NAME+'-paused');
 
-						that.progress($DOM.toast, settings).pause();
+						that.progress(settings, $DOM.toast).pause();
 					});
 					$DOM.toast.addEventListener('mouseleave', function (e) {
 						this.classList.remove(PLUGIN_NAME+'-paused');
 
-						that.progress($DOM.toast, settings).resume();
+						that.progress(settings, $DOM.toast).resume();
 					});
 				}
 
@@ -759,12 +761,12 @@
 					$DOM.toast.addEventListener('mouseenter', function (e) {
 						this.classList.add(PLUGIN_NAME+'-reseted');
 
-						that.progress($DOM.toast, settings).reset();
+						that.progress(settings, $DOM.toast).reset();
 					});
 					$DOM.toast.addEventListener('mouseleave', function (e) {
 						this.classList.remove(PLUGIN_NAME+'-reseted');
 
-						that.progress($DOM.toast, settings).start();
+						that.progress(settings, $DOM.toast).start();
 					});
 				}
 			}
@@ -861,27 +863,40 @@
 
 		$DOM.toastBody.appendChild($DOM.toastTexts);
 
+		// Inputs
+		var $inputs;
+		(function(){
+			if(settings.inputs.length > 0) {
+
+				$DOM.inputs.classList.add(PLUGIN_NAME + '-inputs');
+
+				forEach(settings.inputs, function (value, index) {
+					$DOM.inputs.appendChild(createFragElem(value[0]));
+
+					$inputs = $DOM.inputs.childNodes;
+
+					$inputs[index].classList.add(PLUGIN_NAME + '-inputs-child');
+
+					if(value[3]){
+						setTimeout(function() {
+							$inputs[index].focus();
+						}, 300);
+					}
+
+					$inputs[index].addEventListener(value[1], function (e) {
+						var ts = value[2];
+						return ts(that, $DOM.toast, this, e);
+					});
+				});
+			}
+			$DOM.toastBody.appendChild($DOM.inputs);
+		})();
+
 		// Buttons
 		(function(){
 			if(settings.buttons.length > 0) {
 
 				$DOM.buttons.classList.add(PLUGIN_NAME + '-buttons');
-
-				if(settings.title.length > 0 && settings.message.length === 0) {
-					if(settings.rtl){
-						$DOM.strong.style.marginLeft = '15px';
-					} else {
-						$DOM.strong.style.marginRight = '15px';
-					}
-				}
-				if(settings.message.length > 0) {
-					if(settings.rtl){
-						$DOM.p.style.marginLeft = '15px';
-					} else {
-						$DOM.p.style.marginRight = '15px';
-					}
-					$DOM.p.style.marginBottom = '0';
-				}
 
 				forEach(settings.buttons, function (value, index) {
 					$DOM.buttons.appendChild(createFragElem(value[0]));
@@ -899,12 +914,31 @@
 					$btns[index].addEventListener('click', function (e) {
 						e.preventDefault();
 						var ts = value[1];
-						return ts(that, $DOM.toast);
+						return ts(that, $DOM.toast, this, e, $inputs);
 					});
 				});
 			}
 			$DOM.toastBody.appendChild($DOM.buttons);
 		})();
+
+		if(settings.message.length > 0 && (settings.inputs.length > 0 || settings.buttons.length > 0)) {
+			$DOM.p.style.marginBottom = '0';
+		}
+
+		if(settings.inputs.length > 0 || settings.buttons.length > 0){
+			if(settings.rtl){
+				$DOM.toastTexts.style.marginLeft = '10px';
+			} else {
+				$DOM.toastTexts.style.marginRight = '10px';
+			}
+			if(settings.inputs.length > 0 && settings.buttons.length > 0){
+				if(settings.rtl){
+					$DOM.inputs.style.marginLeft = '8px';
+				} else {
+					$DOM.inputs.style.marginRight = '8px';
+				}
+			}
+		}
 
 		// Target
 		(function(){
@@ -930,7 +964,7 @@
 				}, 500);
 
 				if(settings.timeout) {
-					that.progress($DOM.toast, settings).start();
+					that.progress(settings, $DOM.toast).start();
 				}
 			}, 100);
 		})();
@@ -1021,7 +1055,7 @@
 
 					$DOM.overlay.removeEventListener('click', {});
 					$DOM.overlay.addEventListener('click', function (e) {
-						that.hide($DOM.toast, settings, 'overlay');
+						that.hide(settings, $DOM.toast, 'overlay');
 					});
 				} else {
 					$DOM.overlay.removeEventListener('click', {});
@@ -1037,7 +1071,7 @@
 				$DOM.toast.classList.add(PLUGIN_NAME+'-animateInside');
 			
 				var animationTimes = [200, 100, 300];
-				if(settings.transitionIn == 'bounceInLeft'){
+				if(settings.transitionIn == 'bounceInLeft' || settings.transitionIn == 'bounceInRight'){
 					animationTimes = [400, 200, 400];
 				}
 
@@ -1059,9 +1093,25 @@
 					}, animationTimes[2]);
 				}
 
+				var counter = 150;
 				if(settings.buttons.length > 0 && $DOM.buttons) {
-					var counter = 150;
-					forEach($DOM.buttons.childNodes, function(element, index) {
+
+					setTimeout(function(){
+
+						forEach($DOM.buttons.childNodes, function(element, index) {
+
+							setTimeout(function(){
+								element.classList.add('revealIn');
+							}, counter);
+							counter = counter + 150;
+						});
+
+					}, settings.inputs.length > 0 ? 150 : 0);
+				}
+
+				if(settings.inputs.length > 0 && $DOM.inputs) {
+					counter = 150;
+					forEach($DOM.inputs.childNodes, function(element, index) {
 
 						setTimeout(function(){
 							element.classList.add('revealIn');
@@ -1126,7 +1176,7 @@
 			document.addEventListener('keyup', function (evt) {
 				evt = evt || window.event;
 				if(evt.keyCode == 27) {
-				    that.hide($DOM.toast, settings, 'esc');
+				    that.hide(settings, $DOM.toast, 'esc');
 				}
 			});
 		}

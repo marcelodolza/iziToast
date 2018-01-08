@@ -1,5 +1,5 @@
 /*
-* iziToast | v1.2.0
+* iziToast | v1.3.0
 * http://izitoast.marcelodolce.com
 * by Marcelo Dolce.
 */
@@ -117,15 +117,40 @@
   margin: 0 0 0 15px;
   text-align: left;
 }
-.iziToast > .iziToast-body::after {
+.iziToast > .iziToast-body:after {
   content: "";
   display: table;
   clear: both;
 }
 .iziToast > .iziToast-body .iziToast-texts {
   margin: 10px 0 0 0;
+  padding-right: 2px;
   display: inline-block;
   float: left;
+}
+.iziToast > .iziToast-body .iziToast-inputs {
+  min-height: 19px;
+  float: left;
+  margin: 3px -2px;
+}
+.iziToast > .iziToast-body .iziToast-inputs > input,
+.iziToast > .iziToast-body .iziToast-inputs > select {
+  position: relative;
+  display: inline-block;
+  margin: 2px;
+  border-radius: 2px;
+  border: 0;
+  padding: 4px 7px;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  background: rgba(0,0,0,0.1);
+  color: #000;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
+  min-height: 26px;
+}
+.iziToast > .iziToast-body .iziToast-inputs > input:focus,
+.iziToast > .iziToast-body .iziToast-inputs > select:focus {
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.6);
 }
 .iziToast > .iziToast-body .iziToast-buttons {
   min-height: 17px;
@@ -226,7 +251,8 @@
 .iziToast.iziToast-animateInside .iziToast-title,
 .iziToast.iziToast-animateInside .iziToast-message,
 .iziToast.iziToast-animateInside .iziToast-icon,
-.iziToast.iziToast-animateInside .iziToast-buttons-child {
+.iziToast.iziToast-animateInside .iziToast-buttons-child,
+.iziToast.iziToast-animateInside .iziToast-inputs-child {
   opacity: 0;
 }
 .iziToast-target {
@@ -336,6 +362,7 @@
   text-align: right;
 }
 .iziToast-rtl .iziToast-body .iziToast-buttons,
+.iziToast-rtl .iziToast-body .iziToast-inputs,
 .iziToast-rtl .iziToast-body .iziToast-texts,
 .iziToast-rtl .iziToast-body .iziToast-title,
 .iziToast-rtl .iziToast-body .iziToast-message {
@@ -358,7 +385,7 @@
     border-radius: 3px;
     width: auto;
   }
-  .iziToast::after {
+  .iziToast:after {
     content: '';
     z-index: -1;
     position: absolute;
@@ -369,16 +396,16 @@
     border-radius: 3px;
     box-shadow: inset 0 -10px 20px -10px rgba(0,0,0,0.2), inset 0 0 5px rgba(0,0,0,0.1), 0 8px 8px -5px rgba(0,0,0,0.25);
   }
-  .iziToast.iziToast-color-dark::after {
+  .iziToast.iziToast-color-dark:after {
     box-shadow: inset 0 -10px 20px -10px rgba(255,255,255,0.3), 0 10px 10px -5px rgba(0,0,0,0.25);
   }
   .iziToast.iziToast-balloon .iziToast-progressbar {
     background: transparent;
   }
-  .iziToast.iziToast-balloon::after {
+  .iziToast.iziToast-balloon:after {
     box-shadow: 0 10px 10px -5px rgba(0,0,0,0.25), inset 0 10px 20px -5px rgba(0,0,0,0.25);
   }
-  .iziToast-target .iziToast::after {
+  .iziToast-target .iziToast:after {
     box-shadow: inset 0 -10px 20px -10px rgba(0,0,0,0.2), inset 0 0 5px rgba(0,0,0,0.1);
   }
 }
@@ -456,6 +483,7 @@
   background: rgba(166,239,184,0.9);
   border-color: rgba(166,239,184,0.9);
 }
+.iziToast.iziToast-layout2 .iziToast-body .iziToast-texts,
 .iziToast.iziToast-layout2 .iziToast-body .iziToast-message {
   width: 100%;
 }
@@ -493,7 +521,8 @@
   -webkit-animation: iziT-bounceInUp 0.7s ease-in-out both;
   animation: iziT-bounceInUp 0.7s ease-in-out both;
 }
-.iziToast.fadeIn {
+.iziToast.fadeIn,
+.iziToast .fadeIn {
   -webkit-animation: iziT-fadeIn 0.5s ease both;
   animation: iziT-fadeIn 0.5s ease both;
 }

@@ -189,9 +189,16 @@ interface IziToastSettings {
     animateInside?: boolean;
     /** 
      * Array of buttons.
-     * Array is an array of array that contains (string, function (instance, toast)) types.
+     * Array is an array of array that contains (string, function (instance, toast, button, event, inputs)) types.
+     * The last parameter is a boolean that defines whether there will be focus or not.
      */
-    buttons?: ([string, (instance: IziToast, toast: HTMLDivElement) => void])[];
+    buttons?: ([string, (instance: IziToast, toast: HTMLDivElement, button: HTMLDivElement, event: Event, inputs: Array<HTMLDivElement>) => void, boolean])[];
+    /** 
+     * Array of inputs.
+     * Array is an array of array that contains (string, function (instance, toast, input, event )) types.
+     * The last parameter is a boolean that defines whether there will be focus or not.
+     */
+    inputs?: ([string, (instance: IziToast, toast: HTMLDivElement, input: HTMLDivElement, event: Event) => void, boolean])[];
     /**
      * Default toast open animation.
      * Default value: 'fadeInUp'

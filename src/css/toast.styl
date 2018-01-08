@@ -1,5 +1,5 @@
 /*
-* iziToast | v1.2.0
+* iziToast | v1.3.0
 * http://izitoast.marcelodolce.com
 * by Marcelo Dolce.
 */
@@ -116,16 +116,40 @@
     margin 0 0 0 15px
     text-align left
     
-    &::after
+    &:after
       content ""
       display table
       clear both
       
     & .iziToast-texts
       margin 10px 0 0 0
+      padding-right 2px
       display inline-block
       float left
     
+    & .iziToast-inputs
+      min-height 19px
+      float left
+      margin 3px -2px
+      
+      & > input, & > select
+        position relative
+        display inline-block
+        margin 2px
+        border-radius 2px
+        border 0
+        padding 4px 7px
+        font-size 13px
+        letter-spacing 0.02em
+        background rgba(0, 0, 0, 0.1)
+        color rgb(0, 0, 0)
+        box-shadow 0 0 0 1px rgba(0, 0, 0, 0.2);
+        min-height 26px
+        &:hover
+          // background rgba(0, 0, 0, 0.2)
+        &:focus
+          box-shadow 0 0 0 1px rgba(0, 0, 0, 0.6);
+
     & .iziToast-buttons
       min-height 17px
       float left
@@ -146,10 +170,10 @@
         &:hover
           background rgba(0, 0, 0, 0.2)
         &:focus
-          box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.6);
+          box-shadow 0 0 0 1px rgba(0, 0, 0, 0.6);
         &:active
-          top 1px          
-          
+          top 1px
+        
     & .iziToast-icon
       height 100%
       position absolute
@@ -208,7 +232,7 @@
       white-space normal
       
   &.iziToast-animateInside
-    .iziToast-title, .iziToast-message, .iziToast-icon, .iziToast-buttons-child
+    .iziToast-title, .iziToast-message, .iziToast-icon, .iziToast-buttons-child, .iziToast-inputs-child
       opacity 0
 
 .iziToast-target
@@ -306,7 +330,7 @@
     padding 0 10px 0 0
     margin 0 16px 0 0
     text-align right
-    & .iziToast-buttons, & .iziToast-texts, & .iziToast-title, & .iziToast-message
+    & .iziToast-buttons, & .iziToast-inputs, & .iziToast-texts, & .iziToast-title, & .iziToast-message
       float right
       text-align right
     & .iziToast-icon
@@ -326,7 +350,7 @@
     margin 5px 0
     border-radius 3px
     width auto
-    &::after
+    &:after
       content ''
       z-index -1
       position absolute
@@ -338,15 +362,15 @@
       box-shadow inset 0 -10px 20px -10px rgba(0,0,0,0.2),inset 0 0 5px rgba(0,0,0,0.1),0 8px 8px -5px rgba(0, 0, 0, 0.25)
       
     &.iziToast-color-dark
-      &::after
+      &:after
         box-shadow inset 0 -10px 20px -10px rgba(255, 255, 255, 0.3),0 10px 10px -5px rgba(0, 0, 0, 0.25)
       
     &.iziToast-balloon
       & .iziToast-progressbar
         background transparent
-      &::after
+      &:after
         box-shadow 0 10px 10px -5px rgba(0,0,0,0.25), inset 0 10px 20px -5px rgba(0,0,0,0.25)
 
   .iziToast-target .iziToast
-    &::after
+    &:after
       box-shadow inset 0 -10px 20px -10px rgba(0,0,0,.2), inset 0 0 5px rgba(0,0,0,.1)
