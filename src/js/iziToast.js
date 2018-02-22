@@ -78,6 +78,7 @@
 		balloon: false,
 		close: true,
 		closeOnEscape: false,
+		closeOnClick: false,
 		rtl: false,
 		position: 'bottomRight', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
 		target: '',
@@ -1178,6 +1179,12 @@
 				if(evt.keyCode == 27) {
 				    that.hide(settings, $DOM.toast, 'esc');
 				}
+			});
+		}
+		
+		if(settings.closeOnClick) {
+			$DOM.toast.addEventListener('click', function (evt) {
+				that.hide($DOM.toast, settings, 'toast');
 			});
 		}
 
