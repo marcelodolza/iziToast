@@ -113,6 +113,11 @@ interface IziToastSettings {
      */
     closeOnEscape ?: boolean;
     /**
+     * Allows to close toast by clicking itself.
+     * Default value: false
+     */
+    closeOnClick ?: boolean;
+    /**
      * RTL option
      * Default value: false
      */
