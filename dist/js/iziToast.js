@@ -78,6 +78,7 @@
 		balloon: false,
 		close: true,
 		closeOnEscape: false,
+		closeOnClick: false,
 		rtl: false,
 		position: 'bottomRight', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
 		target: '',
@@ -100,6 +101,7 @@
 		transitionOutMobile: 'fadeOutDown',
 		buttons: {},
 		inputs: {},
+		TIME: {},
 		onOpening: function () {},
 		onOpened: function () {},
 		onClosing: function () {},
@@ -390,83 +392,104 @@
 	$iziToast.progress = function (options, $toast, callback) {
 
 		var that = this,
-			settings = extend(that.settings, options || {}),
+			settings = extend(defaults, options || {}),
 			$elem = $toast.querySelector('.'+PLUGIN_NAME+'-progressbar div');
 
 	    return {
 	        start: function() {
 
-	        	if($elem !== null){
-					$elem.style.transition = 'width '+ settings.timeout +'ms '+settings.progressBarEasing;
-					$elem.style.width = '0%';
-				}
-	        	settings.TIME.START = new Date().getTime();
-	        	settings.TIME.END = settings.TIME.START + settings.timeout;
-				settings.TIME.TIMER = setTimeout(function() {
+	        	if(typeof settings.TIME.REMAINING == 'undefined'){
 
-					clearTimeout(settings.TIME.TIMER);
+	        		$toast.classList.remove(PLUGIN_NAME+'-reseted');
 
-					if(!$toast.classList.contains(PLUGIN_NAME+'-closing')){
-
-						that.hide(settings, $toast, 'timeout');
-
-						if(typeof callback === 'function'){
-							callback.apply(that);
-						}
+		        	if($elem !== null){
+						$elem.style.transition = 'width '+ settings.timeout +'ms '+settings.progressBarEasing;
+						$elem.style.width = '0%';
 					}
 
-				}, settings.timeout);
-				
+		        	settings.TIME.START = new Date().getTime();
+		        	settings.TIME.END = settings.TIME.START + settings.timeout;
+					settings.TIME.TIMER = setTimeout(function() {
+
+						clearTimeout(settings.TIME.TIMER);
+
+						if(!$toast.classList.contains(PLUGIN_NAME+'-closing')){
+
+							that.hide(settings, $toast, 'timeout');
+
+							if(typeof callback === 'function'){
+								callback.apply(that);
+							}
+						}
+
+					}, settings.timeout);			
+	        	}
 	        },
 	        pause: function() {
 
-				settings.TIME.REMAINING = settings.TIME.END - new Date().getTime();
+	        	if(!$toast.classList.contains(PLUGIN_NAME+'-paused') && !$toast.classList.contains(PLUGIN_NAME+'-reseted')){
 
-				clearTimeout(settings.TIME.TIMER);
+        			$toast.classList.add(PLUGIN_NAME+'-paused');
 
-				if($elem !== null){
-					var computedStyle = window.getComputedStyle($elem),
-						propertyWidth = computedStyle.getPropertyValue('width');
-
-					$elem.style.transition = 'none';
-					$elem.style.width = propertyWidth;					
-				}
-
-				if(typeof callback === 'function'){
-					setTimeout(function() {
-						callback.apply(that);						
-					}, 10);
-				}
-
-	        },
-	        resume: function() {
-
-	        	if($elem !== null){
-					$elem.style.transition = 'width '+ settings.TIME.REMAINING +'ms '+settings.progressBarEasing;
-					$elem.style.width = '0%';
-				}
-
-	        	settings.TIME.END = new Date().getTime() + settings.TIME.REMAINING;
-				settings.TIME.TIMER = setTimeout(function() {
+					settings.TIME.REMAINING = settings.TIME.END - new Date().getTime();
 
 					clearTimeout(settings.TIME.TIMER);
 
-					if(!$toast.classList.contains(PLUGIN_NAME+'-closing')){
+					if($elem !== null){
+						var computedStyle = window.getComputedStyle($elem),
+							propertyWidth = computedStyle.getPropertyValue('width');
 
-						that.hide(settings, $toast, 'timeout');
-
-						if(typeof callback === 'function'){
-							callback.apply(that);
-						}
+						$elem.style.transition = 'none';
+						$elem.style.width = propertyWidth;					
 					}
 
+					if(typeof callback === 'function'){
+						setTimeout(function() {
+							callback.apply(that);						
+						}, 10);
+					}
+        		}
+	        },
+	        resume: function() {
 
-				}, settings.TIME.REMAINING);
+				if(typeof settings.TIME.REMAINING !== 'undefined'){
 
+					$toast.classList.remove(PLUGIN_NAME+'-paused');
+
+		        	if($elem !== null){
+						$elem.style.transition = 'width '+ settings.TIME.REMAINING +'ms '+settings.progressBarEasing;
+						$elem.style.width = '0%';
+					}
+
+		        	settings.TIME.END = new Date().getTime() + settings.TIME.REMAINING;
+					settings.TIME.TIMER = setTimeout(function() {
+
+						clearTimeout(settings.TIME.TIMER);
+
+						if(!$toast.classList.contains(PLUGIN_NAME+'-closing')){
+
+							that.hide(settings, $toast, 'timeout');
+
+							if(typeof callback === 'function'){
+								callback.apply(that);
+							}
+						}
+
+
+					}, settings.TIME.REMAINING);
+				} else {
+					this.start();
+				}
 	        },
 	        reset: function(){
 
 				clearTimeout(settings.TIME.TIMER);
+
+				delete settings.TIME.REMAINING;
+
+				$toast.classList.add(PLUGIN_NAME+'-reseted');
+
+				$toast.classList.remove(PLUGIN_NAME+'-paused');
 
 				if($elem !== null){
 					$elem.style.transition = 'none';
@@ -478,7 +501,6 @@
 						callback.apply(that);						
 					}, 10);
 				}
-
 	        }
 	    };
 
@@ -492,12 +514,14 @@
 	 */
 	$iziToast.hide = function (options, $toast, closedBy) {
 
-		var settings = extend(this.settings, options || {});
+		var settings = extend(defaults, options || {});
 			closedBy = closedBy || null;
 
 		if(typeof $toast != 'object'){
 			$toast = document.querySelector($toast);
 		}
+
+		delete settings.TIME.REMAINING;
 
 		$toast.classList.add(PLUGIN_NAME+'-closing');
 
@@ -599,8 +623,6 @@
 		var settings = extend(CONFIG, options || {});
 			settings = extend(defaults, settings);
 
-			settings.TIME = {};
-
 		if(settings.toastOnce && settings.id && document.querySelectorAll('.'+PLUGIN_NAME+'#'+settings.id).length > 0){
 			return false;
 		}
@@ -651,7 +673,10 @@
 
 			if(settings.id){ $DOM.toast.id = settings.id; }
 
-			if(settings.rtl){ $DOM.toast.classList.add(PLUGIN_NAME + '-rtl'); }
+			if(settings.rtl){
+				$DOM.toast.classList.add(PLUGIN_NAME + '-rtl');
+				$DOM.toast.setAttribute('dir', 'rtl');
+			}
 
 			if(settings.layout > 1){ $DOM.toast.classList.add(PLUGIN_NAME+'-layout'+settings.layout); }
 
@@ -731,27 +756,24 @@
 
 		// Progress Bar & Timeout
 		(function(){
-			if(settings.timeout) {
 
-				if(settings.progressBar){
-					$DOM.progressBar = document.createElement('div');
-					$DOM.progressBarDiv = document.createElement('div');
-					$DOM.progressBar.classList.add(PLUGIN_NAME + '-progressbar');
-					$DOM.progressBarDiv.style.background = settings.progressBarColor;
-					$DOM.progressBar.appendChild($DOM.progressBarDiv);
-					$DOM.toast.appendChild($DOM.progressBar);
-				}
+			if(settings.progressBar){
+				$DOM.progressBar = document.createElement('div');
+				$DOM.progressBarDiv = document.createElement('div');
+				$DOM.progressBar.classList.add(PLUGIN_NAME + '-progressbar');
+				$DOM.progressBarDiv.style.background = settings.progressBarColor;
+				$DOM.progressBar.appendChild($DOM.progressBarDiv);
+				$DOM.toast.appendChild($DOM.progressBar);
+			}
+
+			if(settings.timeout) {
 
 				if(settings.pauseOnHover && !settings.resetOnHover){
 					
 					$DOM.toast.addEventListener('mouseenter', function (e) {
-						this.classList.add(PLUGIN_NAME+'-paused');
-
 						that.progress(settings, $DOM.toast).pause();
 					});
 					$DOM.toast.addEventListener('mouseleave', function (e) {
-						this.classList.remove(PLUGIN_NAME+'-paused');
-
 						that.progress(settings, $DOM.toast).resume();
 					});
 				}
@@ -759,13 +781,9 @@
 				if(settings.resetOnHover){
 
 					$DOM.toast.addEventListener('mouseenter', function (e) {
-						this.classList.add(PLUGIN_NAME+'-reseted');
-
 						that.progress(settings, $DOM.toast).reset();
 					});
 					$DOM.toast.addEventListener('mouseleave', function (e) {
-						this.classList.remove(PLUGIN_NAME+'-reseted');
-
 						that.progress(settings, $DOM.toast).start();
 					});
 				}
@@ -888,8 +906,8 @@
 						return ts(that, $DOM.toast, this, e);
 					});
 				});
+				$DOM.toastBody.appendChild($DOM.inputs);
 			}
-			$DOM.toastBody.appendChild($DOM.inputs);
 		})();
 
 		// Buttons
@@ -1178,6 +1196,12 @@
 				if(evt.keyCode == 27) {
 				    that.hide(settings, $DOM.toast, 'esc');
 				}
+			});
+		}
+
+		if(settings.closeOnClick) {
+			$DOM.toast.addEventListener('click', function (evt) {
+				that.hide(settings, $DOM.toast, 'toast');
 			});
 		}
 

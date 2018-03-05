@@ -294,6 +294,7 @@
 .iziToast-wrapper-bottomLeft {
   left: 0;
   bottom: 0;
+  text-align: left;
 }
 .iziToast-wrapper-bottomLeft .iziToast.iziToast-balloon:before {
   border-right: 15px solid transparent;
@@ -309,6 +310,7 @@
 .iziToast-wrapper-topLeft {
   left: 0;
   top: 0;
+  text-align: left;
 }
 .iziToast-wrapper-topLeft .iziToast.iziToast-balloon:before {
   border-right: 15px solid transparent;
