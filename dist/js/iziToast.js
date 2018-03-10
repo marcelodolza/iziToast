@@ -51,6 +51,7 @@
 		MOBILEWIDTH = 568,
 		CONFIG = {};
 
+	$iziToast.childrens = {};
 
 	// Default settings
 	var defaults = {
@@ -101,7 +102,7 @@
 		transitionOutMobile: 'fadeOutDown',
 		buttons: {},
 		inputs: {},
-		TIME: {},
+		time: {},
 		onOpening: function () {},
 		onOpened: function () {},
 		onClosing: function () {},
@@ -139,7 +140,7 @@
         CustomEventPolyfill.prototype = window.Event.prototype;
 
         window.CustomEvent = CustomEventPolyfill;
-    } 
+    }
 
 	/**
 	 * A simple forEach() implementation for Arrays, Objects and NodeLists
@@ -327,6 +328,23 @@
 	}();
 
 
+
+
+
+	$iziToast.setSetting = function (ref, option, value) {
+
+		$iziToast.childrens[ref][option] = value;
+
+	};
+
+
+	$iziToast.getSetting = function (ref, option) {
+
+		return $iziToast.childrens[ref][option];
+
+	};
+
+
 	/**
 	 * Destroy the current initialization.
 	 * @public
@@ -391,14 +409,16 @@
 	 */
 	$iziToast.progress = function (options, $toast, callback) {
 
+
 		var that = this,
-			settings = extend(defaults, options || {}),
+			ref = $toast.getAttribute('data-iziToast-ref'),
+			settings = extend(this.childrens[ref], options || {}),
 			$elem = $toast.querySelector('.'+PLUGIN_NAME+'-progressbar div');
 
 	    return {
 	        start: function() {
 
-	        	if(typeof settings.TIME.REMAINING == 'undefined'){
+	        	if(typeof settings.time.REMAINING == 'undefined'){
 
 	        		$toast.classList.remove(PLUGIN_NAME+'-reseted');
 
@@ -407,11 +427,11 @@
 						$elem.style.width = '0%';
 					}
 
-		        	settings.TIME.START = new Date().getTime();
-		        	settings.TIME.END = settings.TIME.START + settings.timeout;
-					settings.TIME.TIMER = setTimeout(function() {
+		        	settings.time.START = new Date().getTime();
+		        	settings.time.END = settings.time.START + settings.timeout;
+					settings.time.TIMER = setTimeout(function() {
 
-						clearTimeout(settings.TIME.TIMER);
+						clearTimeout(settings.time.TIMER);
 
 						if(!$toast.classList.contains(PLUGIN_NAME+'-closing')){
 
@@ -423,17 +443,20 @@
 						}
 
 					}, settings.timeout);			
+		        	that.setSetting(ref, 'time', settings.time);
 	        	}
 	        },
 	        pause: function() {
 
-	        	if(!$toast.classList.contains(PLUGIN_NAME+'-paused') && !$toast.classList.contains(PLUGIN_NAME+'-reseted')){
+	        	if(typeof settings.time.START !== 'undefined' && !$toast.classList.contains(PLUGIN_NAME+'-paused') && !$toast.classList.contains(PLUGIN_NAME+'-reseted')){
 
         			$toast.classList.add(PLUGIN_NAME+'-paused');
 
-					settings.TIME.REMAINING = settings.TIME.END - new Date().getTime();
+					settings.time.REMAINING = settings.time.END - new Date().getTime();
 
-					clearTimeout(settings.TIME.TIMER);
+					clearTimeout(settings.time.TIMER);
+
+					that.setSetting(ref, 'time', settings.time);
 
 					if($elem !== null){
 						var computedStyle = window.getComputedStyle($elem),
@@ -452,19 +475,19 @@
 	        },
 	        resume: function() {
 
-				if(typeof settings.TIME.REMAINING !== 'undefined'){
+				if(typeof settings.time.REMAINING !== 'undefined'){
 
 					$toast.classList.remove(PLUGIN_NAME+'-paused');
 
 		        	if($elem !== null){
-						$elem.style.transition = 'width '+ settings.TIME.REMAINING +'ms '+settings.progressBarEasing;
+						$elem.style.transition = 'width '+ settings.time.REMAINING +'ms '+settings.progressBarEasing;
 						$elem.style.width = '0%';
 					}
 
-		        	settings.TIME.END = new Date().getTime() + settings.TIME.REMAINING;
-					settings.TIME.TIMER = setTimeout(function() {
+		        	settings.time.END = new Date().getTime() + settings.time.REMAINING;
+					settings.time.TIMER = setTimeout(function() {
 
-						clearTimeout(settings.TIME.TIMER);
+						clearTimeout(settings.time.TIMER);
 
 						if(!$toast.classList.contains(PLUGIN_NAME+'-closing')){
 
@@ -476,16 +499,20 @@
 						}
 
 
-					}, settings.TIME.REMAINING);
+					}, settings.time.REMAINING);
+
+					that.setSetting(ref, 'time', settings.time);
 				} else {
 					this.start();
 				}
 	        },
 	        reset: function(){
 
-				clearTimeout(settings.TIME.TIMER);
+				clearTimeout(settings.time.TIMER);
 
-				delete settings.TIME.REMAINING;
+				delete settings.time.REMAINING;
+
+				that.setSetting(ref, 'time', settings.time);
 
 				$toast.classList.add(PLUGIN_NAME+'-reseted');
 
@@ -514,19 +541,17 @@
 	 */
 	$iziToast.hide = function (options, $toast, closedBy) {
 
-		var settings = extend(defaults, options || {});
-			closedBy = closedBy || null;
+		var that = this,
+			settings = extend(this.childrens[$toast.getAttribute('data-iziToast-ref')], options || {});
+			settings.closedBy = closedBy || null;
+
+		delete settings.time.REMAINING;
 
 		if(typeof $toast != 'object'){
 			$toast = document.querySelector($toast);
-		}
-
-		delete settings.TIME.REMAINING;
+		}		
 
 		$toast.classList.add(PLUGIN_NAME+'-closing');
-
-		settings.closedBy = closedBy;
-		settings.REF = $toast.getAttribute('data-iziToast-ref');
 
 		// Overlay
 		(function(){
@@ -535,7 +560,7 @@
 			if($overlay !== null){
 				var refs = $overlay.getAttribute('data-iziToast-ref');		
 					refs = refs.split(',');
-				var index = refs.indexOf(settings.REF);
+				var index = refs.indexOf(String(settings.ref));
 
 				if(index !== -1){
 					refs.splice(index, 1);			
@@ -574,7 +599,6 @@
 		}
 
 		try {
-			settings.closedBy = closedBy;
 			var event = new CustomEvent(PLUGIN_NAME+'-closing', {detail: settings, bubbles: true, cancelable: true});
 			document.dispatchEvent(event);
 		} catch(ex){
@@ -588,9 +612,11 @@
 
 			setTimeout(function(){
 				
+				delete that.childrens[settings.ref];
+
 				$toast.parentNode.remove();
+
 				try {
-					settings.closedBy = closedBy;
 					var event = new CustomEvent(PLUGIN_NAME+'-closed', {detail: settings, bubbles: true, cancelable: true});
 					document.dispatchEvent(event);
 				} catch(ex){
@@ -622,12 +648,15 @@
 		// Merge user options with defaults
 		var settings = extend(CONFIG, options || {});
 			settings = extend(defaults, settings);
+			settings.time = {};
 
 		if(settings.toastOnce && settings.id && document.querySelectorAll('.'+PLUGIN_NAME+'#'+settings.id).length > 0){
 			return false;
 		}
 
-		settings.REF = new Date().getTime() + Math.floor((Math.random() * 10000000) + 1);
+		settings.ref = new Date().getTime() + Math.floor((Math.random() * 10000000) + 1);
+
+		$iziToast.childrens[settings.ref] = settings;
 
 		var $DOM = {
 			body: document.querySelector('body'),
@@ -643,7 +672,7 @@
 			wrapper: null
 		};
 
-		$DOM.toast.setAttribute('data-iziToast-ref', settings.REF);
+		$DOM.toast.setAttribute('data-iziToast-ref', settings.ref);
 		$DOM.toast.appendChild($DOM.toastBody);
 		$DOM.toastCapsule.appendChild($DOM.toast);
 
@@ -812,7 +841,7 @@
 			}
 		})();
 
-		// Title
+		// Title & Message
 		(function(){
 			if(settings.title.length > 0) {
 
@@ -839,10 +868,7 @@
 					}
 				}
 			}
-		})();
-		
-		// Message
-		(function(){
+
 			if(settings.message.length > 0) {
 
 				$DOM.p = document.createElement('p');
@@ -869,15 +895,15 @@
 					}
 				}
 			}
-		})();
 
-		if(settings.title.length > 0 && settings.message.length > 0) {
-			if(settings.rtl){
-				$DOM.strong.style.marginLeft = '10px';
-			} else if(settings.layout !== 2 && !settings.rtl) {
-				$DOM.strong.style.marginRight = '10px';	
+			if(settings.title.length > 0 && settings.message.length > 0) {
+				if(settings.rtl){
+					$DOM.strong.style.marginLeft = '10px';
+				} else if(settings.layout !== 2 && !settings.rtl) {
+					$DOM.strong.style.marginRight = '10px';	
+				}
 			}
-		}
+		})();
 
 		$DOM.toastBody.appendChild($DOM.toastTexts);
 
@@ -958,7 +984,7 @@
 			}
 		}
 
-		// Target
+		// Wrap
 		(function(){
 			$DOM.toastCapsule.style.visibility = 'hidden';
 			setTimeout(function() {
@@ -1052,17 +1078,18 @@
 				if( document.querySelector('.'+PLUGIN_NAME+'-overlay.fadeIn') !== null ){
 
 					$DOM.overlay = document.querySelector('.'+PLUGIN_NAME+'-overlay');
-					$DOM.overlay.setAttribute('data-iziToast-ref', $DOM.overlay.getAttribute('data-iziToast-ref') + ',' + settings.REF);
+					$DOM.overlay.setAttribute('data-iziToast-ref', $DOM.overlay.getAttribute('data-iziToast-ref') + ',' + settings.ref);
 
 					if(!isNaN(settings.zindex) && settings.zindex !== null) {
 						$DOM.overlay.style.zIndex = settings.zindex-1;
 					}
+
 				} else {
 
 					$DOM.overlay.classList.add(PLUGIN_NAME+'-overlay');
 					$DOM.overlay.classList.add('fadeIn');
 					$DOM.overlay.style.background = settings.overlayColor;
-					$DOM.overlay.setAttribute('data-iziToast-ref', settings.REF);
+					$DOM.overlay.setAttribute('data-iziToast-ref', settings.ref);
 					if(!isNaN(settings.zindex) && settings.zindex !== null) {
 						$DOM.overlay.style.zIndex = settings.zindex-1;
 					}

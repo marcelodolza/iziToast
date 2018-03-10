@@ -133,7 +133,7 @@
   float: left;
   margin: 3px -2px;
 }
-.iziToast > .iziToast-body .iziToast-inputs > input,
+.iziToast > .iziToast-body .iziToast-inputs > input:not([type=checkbox]):not([type=radio]),
 .iziToast > .iziToast-body .iziToast-inputs > select {
   position: relative;
   display: inline-block;
@@ -148,7 +148,7 @@
   box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
   min-height: 26px;
 }
-.iziToast > .iziToast-body .iziToast-inputs > input:focus,
+.iziToast > .iziToast-body .iziToast-inputs > input:not([type=checkbox]):not([type=radio]):focus,
 .iziToast > .iziToast-body .iziToast-inputs > select:focus {
   box-shadow: 0 0 0 1px rgba(0,0,0,0.6);
 }
@@ -159,7 +159,7 @@
 }
 .iziToast > .iziToast-body .iziToast-buttons > a,
 .iziToast > .iziToast-body .iziToast-buttons > button,
-.iziToast > .iziToast-body .iziToast-buttons > input {
+.iziToast > .iziToast-body .iziToast-buttons > input:not([type=checkbox]):not([type=radio]) {
   position: relative;
   display: inline-block;
   margin: 2px;
@@ -174,17 +174,17 @@
 }
 .iziToast > .iziToast-body .iziToast-buttons > a:hover,
 .iziToast > .iziToast-body .iziToast-buttons > button:hover,
-.iziToast > .iziToast-body .iziToast-buttons > input:hover {
+.iziToast > .iziToast-body .iziToast-buttons > input:not([type=checkbox]):not([type=radio]):hover {
   background: rgba(0,0,0,0.2);
 }
 .iziToast > .iziToast-body .iziToast-buttons > a:focus,
 .iziToast > .iziToast-body .iziToast-buttons > button:focus,
-.iziToast > .iziToast-body .iziToast-buttons > input:focus {
+.iziToast > .iziToast-body .iziToast-buttons > input:not([type=checkbox]):not([type=radio]):focus {
   box-shadow: 0 0 0 1px rgba(0,0,0,0.6);
 }
 .iziToast > .iziToast-body .iziToast-buttons > a:active,
 .iziToast > .iziToast-body .iziToast-buttons > button:active,
-.iziToast > .iziToast-body .iziToast-buttons > input:active {
+.iziToast > .iziToast-body .iziToast-buttons > input:not([type=checkbox]):not([type=radio]):active {
   top: 1px;
 }
 .iziToast > .iziToast-body .iziToast-icon {

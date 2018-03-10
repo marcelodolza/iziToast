@@ -131,8 +131,8 @@
       min-height 19px
       float left
       margin 3px -2px
-      
-      & > input, & > select
+
+      & > input:not([type=checkbox]):not([type=radio]), & > select
         position relative
         display inline-block
         margin 2px
@@ -155,7 +155,7 @@
       float left
       margin 4px -2px
       
-      & > a, & > button, & > input
+      & > a, & > button, & > input:not([type=checkbox]):not([type=radio])
         position relative
         display inline-block
         margin 2px
