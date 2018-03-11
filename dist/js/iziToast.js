@@ -102,7 +102,6 @@
 		transitionOutMobile: 'fadeOutDown',
 		buttons: {},
 		inputs: {},
-		time: {},
 		onOpening: function () {},
 		onOpened: function () {},
 		onClosing: function () {},
