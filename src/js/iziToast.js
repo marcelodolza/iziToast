@@ -51,7 +51,7 @@
 		MOBILEWIDTH = 568,
 		CONFIG = {};
 
-	$iziToast.childrens = {};
+	$iziToast.children = {};
 
 	// Default settings
 	var defaults = {
@@ -332,14 +332,14 @@
 
 	$iziToast.setSetting = function (ref, option, value) {
 
-		$iziToast.childrens[ref][option] = value;
+		$iziToast.children[ref][option] = value;
 
 	};
 
 
 	$iziToast.getSetting = function (ref, option) {
 
-		return $iziToast.childrens[ref][option];
+		return $iziToast.children[ref][option];
 
 	};
 
@@ -411,7 +411,7 @@
 
 		var that = this,
 			ref = $toast.getAttribute('data-iziToast-ref'),
-			settings = extend(this.childrens[ref], options || {}),
+			settings = extend(this.children[ref], options || {}),
 			$elem = $toast.querySelector('.'+PLUGIN_NAME+'-progressbar div');
 
 	    return {
@@ -541,7 +541,7 @@
 	$iziToast.hide = function (options, $toast, closedBy) {
 
 		var that = this,
-			settings = extend(this.childrens[$toast.getAttribute('data-iziToast-ref')], options || {});
+			settings = extend(this.children[$toast.getAttribute('data-iziToast-ref')], options || {});
 			settings.closedBy = closedBy || null;
 
 		delete settings.time.REMAINING;
@@ -611,7 +611,7 @@
 
 			setTimeout(function(){
 				
-				delete that.childrens[settings.ref];
+				delete that.children[settings.ref];
 
 				$toast.parentNode.remove();
 
@@ -655,7 +655,7 @@
 
 		settings.ref = new Date().getTime() + Math.floor((Math.random() * 10000000) + 1);
 
-		$iziToast.childrens[settings.ref] = settings;
+		$iziToast.children[settings.ref] = settings;
 
 		var $DOM = {
 			body: document.querySelector('body'),
