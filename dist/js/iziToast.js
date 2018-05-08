@@ -368,6 +368,7 @@
 
 		// Reset variables
 		CONFIG = {};
+		iziLoaded = false;
 	};
 
 	/**
@@ -386,6 +387,7 @@
 
 			iziLoaded = true;
 		}
+		 
 	};
 
 
