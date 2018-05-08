@@ -57,6 +57,13 @@ bower install izitoast --save
 npm install ng2-izitoast --save
 ```
 
+#### Vue 2 ([NPM](https://www.npmjs.com/package/vue-izitoast), [Github](https://github.com/arthurvasconcelos/vue-izitoast))
+
+```
+npm install vue-izitoast --save
+yarn add vue-izitoast
+```
+
 #### [GEM](https://github.com/BadAllOff/iziToast-rails)
 ```
 https://github.com/BadAllOff/iziToast-rails

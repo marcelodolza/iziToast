@@ -51,6 +51,7 @@
 		MOBILEWIDTH = 568,
 		CONFIG = {};
 
+	$iziToast.children = {};
 
 	// Default settings
 	var defaults = {
@@ -78,6 +79,7 @@
 		balloon: false,
 		close: true,
 		closeOnEscape: false,
+		closeOnClick: false,
 		rtl: false,
 		position: 'bottomRight', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
 		target: '',
@@ -137,7 +139,7 @@
         CustomEventPolyfill.prototype = window.Event.prototype;
 
         window.CustomEvent = CustomEventPolyfill;
-    } 
+    }
 
 	/**
 	 * A simple forEach() implementation for Arrays, Objects and NodeLists
@@ -325,6 +327,23 @@
 	}();
 
 
+
+
+
+	$iziToast.setSetting = function (ref, option, value) {
+
+		$iziToast.children[ref][option] = value;
+
+	};
+
+
+	$iziToast.getSetting = function (ref, option) {
+
+		return $iziToast.children[ref][option];
+
+	};
+
+
 	/**
 	 * Destroy the current initialization.
 	 * @public
@@ -389,84 +408,114 @@
 	 */
 	$iziToast.progress = function (options, $toast, callback) {
 
+
 		var that = this,
-			settings = extend(that.settings, options || {}),
+			ref = $toast.getAttribute('data-iziToast-ref'),
+			settings = extend(this.children[ref], options || {}),
 			$elem = $toast.querySelector('.'+PLUGIN_NAME+'-progressbar div');
 
 	    return {
 	        start: function() {
 
-	        	if($elem !== null){
-					$elem.style.transition = 'width '+ settings.timeout +'ms '+settings.progressBarEasing;
-					$elem.style.width = '0%';
-				}
-	        	settings.TIME.START = new Date().getTime();
-	        	settings.TIME.END = settings.TIME.START + settings.timeout;
-				settings.TIME.TIMER = setTimeout(function() {
+	        	if(typeof settings.time.REMAINING == 'undefined'){
 
-					clearTimeout(settings.TIME.TIMER);
+	        		$toast.classList.remove(PLUGIN_NAME+'-reseted');
 
-					if(!$toast.classList.contains(PLUGIN_NAME+'-closing')){
-
-						that.hide(settings, $toast, 'timeout');
-
-						if(typeof callback === 'function'){
-							callback.apply(that);
-						}
+		        	if($elem !== null){
+						$elem.style.transition = 'width '+ settings.timeout +'ms '+settings.progressBarEasing;
+						$elem.style.width = '0%';
 					}
 
-				}, settings.timeout);
-				
+		        	settings.time.START = new Date().getTime();
+		        	settings.time.END = settings.time.START + settings.timeout;
+					settings.time.TIMER = setTimeout(function() {
+
+						clearTimeout(settings.time.TIMER);
+
+						if(!$toast.classList.contains(PLUGIN_NAME+'-closing')){
+
+							that.hide(settings, $toast, 'timeout');
+
+							if(typeof callback === 'function'){
+								callback.apply(that);
+							}
+						}
+
+					}, settings.timeout);			
+		        	that.setSetting(ref, 'time', settings.time);
+	        	}
 	        },
 	        pause: function() {
 
-				settings.TIME.REMAINING = settings.TIME.END - new Date().getTime();
+	        	if(typeof settings.time.START !== 'undefined' && !$toast.classList.contains(PLUGIN_NAME+'-paused') && !$toast.classList.contains(PLUGIN_NAME+'-reseted')){
 
-				clearTimeout(settings.TIME.TIMER);
+        			$toast.classList.add(PLUGIN_NAME+'-paused');
 
-				if($elem !== null){
-					var computedStyle = window.getComputedStyle($elem),
-						propertyWidth = computedStyle.getPropertyValue('width');
+					settings.time.REMAINING = settings.time.END - new Date().getTime();
 
-					$elem.style.transition = 'none';
-					$elem.style.width = propertyWidth;					
-				}
+					clearTimeout(settings.time.TIMER);
 
-				if(typeof callback === 'function'){
-					setTimeout(function() {
-						callback.apply(that);						
-					}, 10);
-				}
+					that.setSetting(ref, 'time', settings.time);
 
+					if($elem !== null){
+						var computedStyle = window.getComputedStyle($elem),
+							propertyWidth = computedStyle.getPropertyValue('width');
+
+						$elem.style.transition = 'none';
+						$elem.style.width = propertyWidth;					
+					}
+
+					if(typeof callback === 'function'){
+						setTimeout(function() {
+							callback.apply(that);						
+						}, 10);
+					}
+        		}
 	        },
 	        resume: function() {
 
-	        	if($elem !== null){
-					$elem.style.transition = 'width '+ settings.TIME.REMAINING +'ms '+settings.progressBarEasing;
-					$elem.style.width = '0%';
-				}
+				if(typeof settings.time.REMAINING !== 'undefined'){
 
-	        	settings.TIME.END = new Date().getTime() + settings.TIME.REMAINING;
-				settings.TIME.TIMER = setTimeout(function() {
+					$toast.classList.remove(PLUGIN_NAME+'-paused');
 
-					clearTimeout(settings.TIME.TIMER);
-
-					if(!$toast.classList.contains(PLUGIN_NAME+'-closing')){
-
-						that.hide(settings, $toast, 'timeout');
-
-						if(typeof callback === 'function'){
-							callback.apply(that);
-						}
+		        	if($elem !== null){
+						$elem.style.transition = 'width '+ settings.time.REMAINING +'ms '+settings.progressBarEasing;
+						$elem.style.width = '0%';
 					}
 
+		        	settings.time.END = new Date().getTime() + settings.time.REMAINING;
+					settings.time.TIMER = setTimeout(function() {
 
-				}, settings.TIME.REMAINING);
+						clearTimeout(settings.time.TIMER);
 
+						if(!$toast.classList.contains(PLUGIN_NAME+'-closing')){
+
+							that.hide(settings, $toast, 'timeout');
+
+							if(typeof callback === 'function'){
+								callback.apply(that);
+							}
+						}
+
+
+					}, settings.time.REMAINING);
+
+					that.setSetting(ref, 'time', settings.time);
+				} else {
+					this.start();
+				}
 	        },
 	        reset: function(){
 
-				clearTimeout(settings.TIME.TIMER);
+				clearTimeout(settings.time.TIMER);
+
+				delete settings.time.REMAINING;
+
+				that.setSetting(ref, 'time', settings.time);
+
+				$toast.classList.add(PLUGIN_NAME+'-reseted');
+
+				$toast.classList.remove(PLUGIN_NAME+'-paused');
 
 				if($elem !== null){
 					$elem.style.transition = 'none';
@@ -478,7 +527,6 @@
 						callback.apply(that);						
 					}, 10);
 				}
-
 	        }
 	    };
 
@@ -492,17 +540,17 @@
 	 */
 	$iziToast.hide = function (options, $toast, closedBy) {
 
-		var settings = extend(this.settings, options || {});
-			closedBy = closedBy || null;
+		var that = this,
+			settings = extend(this.children[$toast.getAttribute('data-iziToast-ref')], options || {});
+			settings.closedBy = closedBy || null;
+
+		delete settings.time.REMAINING;
 
 		if(typeof $toast != 'object'){
 			$toast = document.querySelector($toast);
-		}
+		}		
 
 		$toast.classList.add(PLUGIN_NAME+'-closing');
-
-		settings.closedBy = closedBy;
-		settings.REF = $toast.getAttribute('data-iziToast-ref');
 
 		// Overlay
 		(function(){
@@ -511,7 +559,7 @@
 			if($overlay !== null){
 				var refs = $overlay.getAttribute('data-iziToast-ref');		
 					refs = refs.split(',');
-				var index = refs.indexOf(settings.REF);
+				var index = refs.indexOf(String(settings.ref));
 
 				if(index !== -1){
 					refs.splice(index, 1);			
@@ -550,7 +598,6 @@
 		}
 
 		try {
-			settings.closedBy = closedBy;
 			var event = new CustomEvent(PLUGIN_NAME+'-closing', {detail: settings, bubbles: true, cancelable: true});
 			document.dispatchEvent(event);
 		} catch(ex){
@@ -564,9 +611,11 @@
 
 			setTimeout(function(){
 				
+				delete that.children[settings.ref];
+
 				$toast.parentNode.remove();
+
 				try {
-					settings.closedBy = closedBy;
 					var event = new CustomEvent(PLUGIN_NAME+'-closed', {detail: settings, bubbles: true, cancelable: true});
 					document.dispatchEvent(event);
 				} catch(ex){
@@ -598,14 +647,15 @@
 		// Merge user options with defaults
 		var settings = extend(CONFIG, options || {});
 			settings = extend(defaults, settings);
-
-			settings.TIME = {};
+			settings.time = {};
 
 		if(settings.toastOnce && settings.id && document.querySelectorAll('.'+PLUGIN_NAME+'#'+settings.id).length > 0){
 			return false;
 		}
 
-		settings.REF = new Date().getTime() + Math.floor((Math.random() * 10000000) + 1);
+		settings.ref = new Date().getTime() + Math.floor((Math.random() * 10000000) + 1);
+
+		$iziToast.children[settings.ref] = settings;
 
 		var $DOM = {
 			body: document.querySelector('body'),
@@ -621,7 +671,7 @@
 			wrapper: null
 		};
 
-		$DOM.toast.setAttribute('data-iziToast-ref', settings.REF);
+		$DOM.toast.setAttribute('data-iziToast-ref', settings.ref);
 		$DOM.toast.appendChild($DOM.toastBody);
 		$DOM.toastCapsule.appendChild($DOM.toast);
 
@@ -651,7 +701,10 @@
 
 			if(settings.id){ $DOM.toast.id = settings.id; }
 
-			if(settings.rtl){ $DOM.toast.classList.add(PLUGIN_NAME + '-rtl'); }
+			if(settings.rtl){
+				$DOM.toast.classList.add(PLUGIN_NAME + '-rtl');
+				$DOM.toast.setAttribute('dir', 'rtl');
+			}
 
 			if(settings.layout > 1){ $DOM.toast.classList.add(PLUGIN_NAME+'-layout'+settings.layout); }
 
@@ -731,27 +784,24 @@
 
 		// Progress Bar & Timeout
 		(function(){
-			if(settings.timeout) {
 
-				if(settings.progressBar){
-					$DOM.progressBar = document.createElement('div');
-					$DOM.progressBarDiv = document.createElement('div');
-					$DOM.progressBar.classList.add(PLUGIN_NAME + '-progressbar');
-					$DOM.progressBarDiv.style.background = settings.progressBarColor;
-					$DOM.progressBar.appendChild($DOM.progressBarDiv);
-					$DOM.toast.appendChild($DOM.progressBar);
-				}
+			if(settings.progressBar){
+				$DOM.progressBar = document.createElement('div');
+				$DOM.progressBarDiv = document.createElement('div');
+				$DOM.progressBar.classList.add(PLUGIN_NAME + '-progressbar');
+				$DOM.progressBarDiv.style.background = settings.progressBarColor;
+				$DOM.progressBar.appendChild($DOM.progressBarDiv);
+				$DOM.toast.appendChild($DOM.progressBar);
+			}
+
+			if(settings.timeout) {
 
 				if(settings.pauseOnHover && !settings.resetOnHover){
 					
 					$DOM.toast.addEventListener('mouseenter', function (e) {
-						this.classList.add(PLUGIN_NAME+'-paused');
-
 						that.progress(settings, $DOM.toast).pause();
 					});
 					$DOM.toast.addEventListener('mouseleave', function (e) {
-						this.classList.remove(PLUGIN_NAME+'-paused');
-
 						that.progress(settings, $DOM.toast).resume();
 					});
 				}
@@ -759,13 +809,9 @@
 				if(settings.resetOnHover){
 
 					$DOM.toast.addEventListener('mouseenter', function (e) {
-						this.classList.add(PLUGIN_NAME+'-reseted');
-
 						that.progress(settings, $DOM.toast).reset();
 					});
 					$DOM.toast.addEventListener('mouseleave', function (e) {
-						this.classList.remove(PLUGIN_NAME+'-reseted');
-
 						that.progress(settings, $DOM.toast).start();
 					});
 				}
@@ -794,7 +840,7 @@
 			}
 		})();
 
-		// Title
+		// Title & Message
 		(function(){
 			if(settings.title.length > 0) {
 
@@ -821,10 +867,7 @@
 					}
 				}
 			}
-		})();
-		
-		// Message
-		(function(){
+
 			if(settings.message.length > 0) {
 
 				$DOM.p = document.createElement('p');
@@ -851,15 +894,15 @@
 					}
 				}
 			}
-		})();
 
-		if(settings.title.length > 0 && settings.message.length > 0) {
-			if(settings.rtl){
-				$DOM.strong.style.marginLeft = '10px';
-			} else if(settings.layout !== 2 && !settings.rtl) {
-				$DOM.strong.style.marginRight = '10px';	
+			if(settings.title.length > 0 && settings.message.length > 0) {
+				if(settings.rtl){
+					$DOM.strong.style.marginLeft = '10px';
+				} else if(settings.layout !== 2 && !settings.rtl) {
+					$DOM.strong.style.marginRight = '10px';	
+				}
 			}
-		}
+		})();
 
 		$DOM.toastBody.appendChild($DOM.toastTexts);
 
@@ -888,8 +931,8 @@
 						return ts(that, $DOM.toast, this, e);
 					});
 				});
+				$DOM.toastBody.appendChild($DOM.inputs);
 			}
-			$DOM.toastBody.appendChild($DOM.inputs);
 		})();
 
 		// Buttons
@@ -940,7 +983,7 @@
 			}
 		}
 
-		// Target
+		// Wrap
 		(function(){
 			$DOM.toastCapsule.style.visibility = 'hidden';
 			setTimeout(function() {
@@ -1034,17 +1077,18 @@
 				if( document.querySelector('.'+PLUGIN_NAME+'-overlay.fadeIn') !== null ){
 
 					$DOM.overlay = document.querySelector('.'+PLUGIN_NAME+'-overlay');
-					$DOM.overlay.setAttribute('data-iziToast-ref', $DOM.overlay.getAttribute('data-iziToast-ref') + ',' + settings.REF);
+					$DOM.overlay.setAttribute('data-iziToast-ref', $DOM.overlay.getAttribute('data-iziToast-ref') + ',' + settings.ref);
 
 					if(!isNaN(settings.zindex) && settings.zindex !== null) {
 						$DOM.overlay.style.zIndex = settings.zindex-1;
 					}
+
 				} else {
 
 					$DOM.overlay.classList.add(PLUGIN_NAME+'-overlay');
 					$DOM.overlay.classList.add('fadeIn');
 					$DOM.overlay.style.background = settings.overlayColor;
-					$DOM.overlay.setAttribute('data-iziToast-ref', settings.REF);
+					$DOM.overlay.setAttribute('data-iziToast-ref', settings.ref);
 					if(!isNaN(settings.zindex) && settings.zindex !== null) {
 						$DOM.overlay.style.zIndex = settings.zindex-1;
 					}
@@ -1178,6 +1222,12 @@
 				if(evt.keyCode == 27) {
 				    that.hide(settings, $DOM.toast, 'esc');
 				}
+			});
+		}
+
+		if(settings.closeOnClick) {
+			$DOM.toast.addEventListener('click', function (evt) {
+				that.hide(settings, $DOM.toast, 'toast');
 			});
 		}
 
