@@ -19,6 +19,7 @@
 	// Variables
 	//
 	var $iziToast = {},
+	    iziLoaded = false,
 		PLUGIN_NAME = 'iziToast',
 		BODY = document.querySelector('body'),
 		ISMOBILE = (/Mobi/.test(navigator.userAgent)) ? true : false,
@@ -377,10 +378,14 @@
 	$iziToast.settings = function (options) {
 
 		// Destroy any existing initializations
-		$iziToast.destroy();
+		if (!iziLoaded) {
+			$iziToast.destroy();
 
-		CONFIG = options;
-		defaults = extend(defaults, options || {});
+			CONFIG = options;
+			defaults = extend(defaults, options || {});
+
+			iziLoaded = true;
+		}
 	};
 
 
