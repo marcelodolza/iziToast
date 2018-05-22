@@ -35,7 +35,7 @@ interface IziToastSettings {
     /** 
      * Message of notification. 
      */
-    message: string,
+    message?: string,
     /**	
      * Message color. 
      */
