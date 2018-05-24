@@ -767,6 +767,7 @@
 				
 				$DOM.buttonClose = document.createElement('button');
 
+				$DOM.buttonClose.type = 'button';
 				$DOM.buttonClose.classList.add(PLUGIN_NAME + '-close');
 				$DOM.buttonClose.addEventListener('click', function (e) {
 					var button = e.target;
