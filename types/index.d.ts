@@ -265,22 +265,21 @@ export interface IziToastProgress {
     start(): void;
 }
 
-export interface IziToast {
-    /**
++export interface IziToast {
+     /**
      * Sets default values.
      * @param settings Settings to set as default.
      */
-    settings(settings: IziToastSettings): void;
-    /**
+     settings(settings: IziToastSettings): void;
+     /**
      * Destroys all toasts.
      */
-    destroy(): void;
-    /**
+     destroy(): void;
+     /**
      * Opens the toast.
-     * @returns Returns false if toast can not be opened.
      */
-    show(settings: IziToastSettings): void | boolean;
-    /**
+      show(settings: IziToastSettings): void;
+      /**
      * Closes the specific toast.
      * @param settings Settings for this toast.
      * @param toast Toast element to hide.
