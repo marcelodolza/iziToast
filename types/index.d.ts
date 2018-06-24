@@ -254,9 +254,9 @@ interface IziToastSettings {
 
 interface IziToast {
     /**
-     * Opens the toast. 
+     * Opens the toast. Returns false if toast can not be opened.
      */
-    show(settings: IziToastSettings): void;
+    show(settings: IziToastSettings): void | boolean;
     /**
      * Closes the specific toast.
      * @param settings Settings for this toast.
