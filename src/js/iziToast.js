@@ -540,15 +540,15 @@
 	 */
 	$iziToast.hide = function (options, $toast, closedBy) {
 
+		if(typeof $toast != 'object'){
+			$toast = document.querySelector($toast);
+		}		
+
 		var that = this,
 			settings = extend(this.children[$toast.getAttribute('data-iziToast-ref')], options || {});
 			settings.closedBy = closedBy || null;
 
 		delete settings.time.REMAINING;
-
-		if(typeof $toast != 'object'){
-			$toast = document.querySelector($toast);
-		}		
 
 		$toast.classList.add(PLUGIN_NAME+'-closing');
 
