@@ -265,24 +265,25 @@ export interface IziToastProgress {
     start(): void;
 }
 
-+export interface IziToast {
-     /**
-     * Sets default values.
-     * @param settings Settings to set as default.
-     */
-     settings(settings: IziToastSettings): void;
-     /**
-     * Destroys all toasts.
-     */
-     destroy(): void;
-     /**
-     * Opens the toast.
-     */
-      show(settings: IziToastSettings): void;
-      /**
+export interface IziToast {
+    /**
+    * Sets default values.
+    * @param settings Settings to set as default.
+    */
+    settings(settings: IziToastSettings): void;
+    /**
+    * Destroys all toasts.
+    */
+    destroy(): void;
+    /**
+    * Opens the toast.
+    * @returns Returns false if toast can not be opened.
+    */
+    show(settings: IziToastSettings): void | boolean;
+    /**
      * Closes the specific toast.
      * @param settings Settings for this toast.
-     * @param toast Toast element to hide.
+     * @param toast Toast element or selector to hide.
      * @param closedBy Custom closed by info to use in other functions.
      */
     hide(settings: IziToastSettings, toast: HTMLDivElement | string, closedBy: string): void;
