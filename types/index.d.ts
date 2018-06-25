@@ -286,14 +286,14 @@ export interface IziToast {
      * @param toast Toast element or selector to hide.
      * @param closedBy Custom closed by info to use in other functions.
      */
-    hide(settings: IziToastSettings, toast: HTMLDivElement | string, closedBy: string): void;
+    hide(settings: IziToastSettings, toast: HTMLDivElement | string, closedBy?: string): void;
     /**
      * Control progress bar time.
      * @param settings Settings for this toast.
      * @param toast Toast element
      * @param callback Callback function triggered when invoke IziToastProgress
      */
-    progress(settings: IziToastSettings, toast: HTMLDivElement, callback: () => void): IziToastProgress;
+    progress(settings: IziToastSettings, toast: HTMLDivElement, callback?: () => void): IziToastProgress;
     /**
      * Shows an info toast.
      * @param settings Settings for this toast.
