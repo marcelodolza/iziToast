@@ -16,8 +16,7 @@ var catchError = function(err) {
 * Styl task
 **/
 gulp.task('styl', function () {
-
-    gulp.src('./src/css/style.styl')
+    return gulp.src('./src/css/style.styl')
         .pipe(stylus())
         .on('error', catchError)
         .pipe( concat( 'iziToast.css' ) )
@@ -46,9 +45,7 @@ gulp.task( 'scripts', function() {
 /**
 * Watch task
 **/
-
 gulp.task('watch', ['styl','scripts'], function() {
-
     gulp.watch('./src/css/**/*.styl', [ 'styl' ])    // watch for changes and run the css task
     gulp.watch('./src/js/**/*.js', [ 'scripts' ])    // watch for changes and run the js task
 })
@@ -57,4 +54,3 @@ gulp.task('watch', ['styl','scripts'], function() {
 * Default task
 **/
 gulp.task( 'default', [ 'styl', 'scripts' ] );
-
