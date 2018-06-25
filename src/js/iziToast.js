@@ -1,5 +1,5 @@
 /*
-* iziToast | v1.3.0
+* iziToast | v1.3.1
 * http://izitoast.marcelodolce.com
 * by Marcelo Dolce.
 */
@@ -649,10 +649,15 @@
 			settings = extend(defaults, settings);
 			settings.time = {};
 
-		if(settings.toastOnce && settings.id && document.querySelectorAll('.'+PLUGIN_NAME+'#'+settings.id).length > 0){
-			return false;
+		if(settings.id === null){
+			var newId = btoa(settings.title+settings.message+settings.color);
+			settings.id = newId;
 		}
-
+		if(settings.toastOnce){
+			if(document.querySelectorAll('.'+PLUGIN_NAME+'#'+settings.id).length > 0){
+				return false;
+			}
+		}
 		settings.ref = new Date().getTime() + Math.floor((Math.random() * 10000000) + 1);
 
 		$iziToast.children[settings.ref] = settings;
@@ -766,7 +771,6 @@
 			if(settings.close){
 				
 				$DOM.buttonClose = document.createElement('button');
-
 				$DOM.buttonClose.type = 'button';
 				$DOM.buttonClose.classList.add(PLUGIN_NAME + '-close');
 				$DOM.buttonClose.addEventListener('click', function (e) {
@@ -1105,9 +1109,7 @@
 				} else {
 					$DOM.overlay.removeEventListener('click', {});
 				}
-
-			}
-
+			}			
 		})();
 
 		// Inside animations
