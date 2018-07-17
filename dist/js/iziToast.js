@@ -85,6 +85,7 @@
 		target: '',
 		targetFirst: true,
 		toastOnce: false,
+		replaceToast: false,
 		timeout: 5000,
 		animateInside: true,
 		drag: true,
@@ -350,6 +351,10 @@
 	 */
 	$iziToast.destroy = function () {
 
+		forEach(document.querySelectorAll('.'+PLUGIN_NAME+'-overlay'), function(element, index) {
+			element.remove();
+		});
+
 		forEach(document.querySelectorAll('.'+PLUGIN_NAME+'-wrapper'), function(element, index) {
 			element.remove();
 		});
@@ -357,6 +362,8 @@
 		forEach(document.querySelectorAll('.'+PLUGIN_NAME), function(element, index) {
 			element.remove();
 		});
+
+		this.children = {};
 
 		// Remove event listeners
 		document.removeEventListener(PLUGIN_NAME+'-opened', {}, false);
@@ -650,14 +657,22 @@
 			settings.time = {};
 
 		if(settings.id === null){
-			var newId = btoa(settings.title+settings.message+settings.color);
+			var newId = btoa(encodeURIComponent(settings.title+settings.message+settings.color));
 			settings.id = newId;
 		}
-		if(settings.toastOnce){
+
+		if(settings.toastOnce && !settings.replaceToast){
 			if(document.querySelectorAll('.'+PLUGIN_NAME+'#'+settings.id).length > 0){
 				return false;
 			}
 		}
+
+		if(settings.replaceToast){
+			forEach(document.querySelectorAll('.'+PLUGIN_NAME+'#'+settings.id), function(element, index) {
+				that.hide(settings, element, 'replaced');
+			});
+		}
+
 		settings.ref = new Date().getTime() + Math.floor((Math.random() * 10000000) + 1);
 
 		$iziToast.children[settings.ref] = settings;
