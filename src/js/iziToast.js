@@ -80,13 +80,12 @@
 		close: true,
 		closeOnEscape: false,
 		closeOnClick: false,
-		rtl: false,
+		displayMode: 0,
 		position: 'bottomRight', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
 		target: '',
 		targetFirst: true,
-		toastOnce: false,
-		replaceToast: false,
 		timeout: 5000,
+		rtl: false,
 		animateInside: true,
 		drag: true,
 		pauseOnHover: true,
@@ -661,13 +660,13 @@
 			settings.id = newId;
 		}
 
-		if(settings.toastOnce && !settings.replaceToast){
+		if(settings.displayMode === 1 || settings.displayMode == 'once'){
 			if(document.querySelectorAll('.'+PLUGIN_NAME+'#'+settings.id).length > 0){
 				return false;
 			}
 		}
 
-		if(settings.replaceToast){
+		if(settings.displayMode === 2 || settings.displayMode == 'replace'){
 			forEach(document.querySelectorAll('.'+PLUGIN_NAME+'#'+settings.id), function(element, index) {
 				that.hide(settings, element, 'replaced');
 			});
