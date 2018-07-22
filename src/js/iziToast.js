@@ -1,5 +1,5 @@
 /*
-* iziToast | v1.3.1
+* iziToast | v1.4.0
 * http://izitoast.marcelodolce.com
 * by Marcelo Dolce.
 */
@@ -195,6 +195,16 @@
 			frag.appendChild(temp.firstChild);
 		}
 		return frag;
+	};
+
+
+	/**
+	 * Generate new ID
+	 * @private
+	 */
+	var generateId = function(params) {
+		var newId = btoa(encodeURIComponent(params));
+		return newId.replace(/=/g, "");
 	};
 
 
@@ -656,20 +666,27 @@
 			settings.time = {};
 
 		if(settings.id === null){
-			var newId = btoa(encodeURIComponent(settings.title+settings.message+settings.color));
-			settings.id = newId;
+			settings.id = generateId(settings.title+settings.message+settings.color);
 		}
 
 		if(settings.displayMode === 1 || settings.displayMode == 'once'){
-			if(document.querySelectorAll('.'+PLUGIN_NAME+'#'+settings.id).length > 0){
-				return false;
+			try {
+				if(document.querySelectorAll('.'+PLUGIN_NAME+'#'+settings.id).length > 0){
+					return false;
+				}
+			} catch (exc) {
+				console.warn('['+PLUGIN_NAME+'] Could not find an element with this selector: '+'#'+settings.id+'. Try to set an valid id.');
 			}
 		}
 
 		if(settings.displayMode === 2 || settings.displayMode == 'replace'){
-			forEach(document.querySelectorAll('.'+PLUGIN_NAME+'#'+settings.id), function(element, index) {
-				that.hide(settings, element, 'replaced');
-			});
+			try {
+				forEach(document.querySelectorAll('.'+PLUGIN_NAME+'#'+settings.id), function(element, index) {
+					that.hide(settings, element, 'replaced');
+				});
+			} catch (exc) {
+				console.warn('['+PLUGIN_NAME+'] Could not find an element with this selector: '+'#'+settings.id+'. Try to set an valid id.');
+			}
 		}
 
 		settings.ref = new Date().getTime() + Math.floor((Math.random() * 10000000) + 1);
