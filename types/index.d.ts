@@ -138,10 +138,11 @@ export interface IziToastSettings {
      */
     targetFirst?: boolean;
     /**
-     * Waits for another toast to be closed on 'onClosed' function. You'll need an ID to use it.
-     * Default value: false
+     * Waits until the toast is closed so you can open it (Use 1 or 'once').
+     * Replaces the toast that was already open (Use 2 or 'replace').
+     * Default value: 0
      */
-    toastOnce?: boolean;
+    displayMode?: number;
     /**
      * Amount in milliseconds to close the toast or false to disable.
      * Default value: 5000
