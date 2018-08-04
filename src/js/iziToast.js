@@ -287,8 +287,13 @@
 	                toastLeft = toastLeft.replace('translateX(', '');
 	            var offsetX = posX - toastLeft;
 
-				toast.classList.remove(settings.transitionIn);
-				toast.classList.remove(settings.transitionInMobile);
+				if(settings.transitionIn){
+					toast.classList.remove(settings.transitionIn);
+				}
+
+				if(settings.transitionInMobile){
+					toast.classList.remove(settings.transitionInMobile);
+				}
 				toast.style.transition = '';
 
 	            if(ACCEPTSTOUCH) {
@@ -593,8 +598,11 @@
 
 		})();
 
-		if(settings.transitionIn || settings.transitionInMobile){
+		if(settings.transitionIn){
 			$toast.classList.remove(settings.transitionIn);
+		} 
+
+		if(settings.transitionInMobile){
 			$toast.classList.remove(settings.transitionInMobile);
 		}
 
