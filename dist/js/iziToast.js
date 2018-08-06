@@ -71,6 +71,7 @@
 		icon: '',
 		iconText: '',
 		iconColor: '',
+		iconUrl: null,
 		image: '',
 		imageWidth: 50,
 		maxWidth: null,
@@ -287,8 +288,12 @@
 	                toastLeft = toastLeft.replace('translateX(', '');
 	            var offsetX = posX - toastLeft;
 
-				toast.classList.remove(settings.transitionIn);
-				toast.classList.remove(settings.transitionInMobile);
+				if(settings.transitionIn){
+					toast.classList.remove(settings.transitionIn);
+				}
+				if(settings.transitionInMobile){
+					toast.classList.remove(settings.transitionInMobile);
+				}
 				toast.style.transition = '';
 
 	            if(ACCEPTSTOUCH) {
@@ -593,8 +598,11 @@
 
 		})();
 
-		if(settings.transitionIn || settings.transitionInMobile){
+		if(settings.transitionIn){
 			$toast.classList.remove(settings.transitionIn);
+		} 
+
+		if(settings.transitionInMobile){
 			$toast.classList.remove(settings.transitionInMobile);
 		}
 
@@ -700,10 +708,10 @@
 			toastBody: document.createElement('div'),
 			toastTexts: document.createElement('div'),
 			toastCapsule: document.createElement('div'),
-			icon: document.createElement('i'),
 			cover: document.createElement('div'),
 			buttons: document.createElement('div'),
 			inputs: document.createElement('div'),
+			icon: !settings.iconUrl ? document.createElement('i') : document.createElement('img'),
 			wrapper: null
 		};
 
@@ -856,24 +864,35 @@
 
 		// Icon
 		(function(){
-			if(settings.icon) {
+
+			if(settings.iconUrl) {
+
+				$DOM.icon.setAttribute('class', PLUGIN_NAME + '-icon');
+				$DOM.icon.setAttribute('src', settings.iconUrl);
+
+			} else if(settings.icon) {
 				$DOM.icon.setAttribute('class', PLUGIN_NAME + '-icon ' + settings.icon);
 				
 				if(settings.iconText){
 					$DOM.icon.appendChild(document.createTextNode(settings.iconText));
 				}
+				
+				if(settings.iconColor){
+					$DOM.icon.style.color = settings.iconColor;
+				}				
+			}
+
+			if(settings.icon || settings.iconUrl) {
 
 				if(settings.rtl){
 					$DOM.toastBody.style.paddingRight = '33px';
 				} else {
 					$DOM.toastBody.style.paddingLeft = '33px';				
 				}
-				
-				if(settings.iconColor){
-					$DOM.icon.style.color = settings.iconColor;
-				}
+
 				$DOM.toastBody.appendChild($DOM.icon);
 			}
+
 		})();
 
 		// Title & Message
@@ -1165,7 +1184,7 @@
 					}, animationTimes[1]);
 				}
 
-				if(settings.icon) {
+				if(settings.icon || settings.iconUrl) {
 					setTimeout(function(){
 						$DOM.icon.classList.add('revealIn');
 					}, animationTimes[2]);
