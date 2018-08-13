@@ -76,6 +76,10 @@ export interface IziToastSettings {
      */
     iconColor?: string;
     /**
+     * Icon URL.
+     */
+    iconUrl?: string;
+    /**
      * Cover image.
      */
     image?: string;
