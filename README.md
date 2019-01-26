@@ -1,7 +1,7 @@
-# [iziToast](http://izitoast.dolce.ninja)
+# [iziToast](http://izitoast.marcelodolza.com)
 Elegant, responsive, flexible and lightweight notification plugin with no dependencies.
 
-[**izitoast**.marcelodolce.com](http://izitoast.marcelodolce.com)
+[**izitoast**.marcelodolza.com](http://izitoast.marcelodolza.com)
 
 ![capa](http://i.imgur.com/NKk7Rxm.png)
 
@@ -15,15 +15,15 @@ Fast | Responsive | Animated | Lightweight | Customizable | No dependencies | Re
 
 
 - All modern browsers are supported (Tested in Chrome, Firefox, Opera, Safari, IE10+ and Edge).
-- Bugs? create an issue [here](https://github.com/dolce/iziToast/issues).
+- Bugs? create an issue [here](https://github.com/marcelodolza/iziToast/issues).
 
 
 ___
-- ### [Changelog](http://izitoast.marcelodolce.com/#Changelog)
-- ### [Options](http://izitoast.marcelodolce.com/#Options)
-- ### [Methods](http://izitoast.marcelodolce.com/#Methods)
-- ### [Events](http://izitoast.marcelodolce.com/#Events)
-- ### [Use](http://izitoast.marcelodolce.com/#Start)
+- ### [Changelog](http://izitoast.marcelodolza.com/#Changelog)
+- ### [Options](http://izitoast.marcelodolza.com/#Options)
+- ### [Methods](http://izitoast.marcelodolza.com/#Methods)
+- ### [Events](http://izitoast.marcelodolza.com/#Events)
+- ### [Use](http://izitoast.marcelodolza.com/#Start)
 ___
 
 #### Gulp Tasks
