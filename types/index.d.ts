@@ -135,7 +135,7 @@ export interface IziToastSettings {
     /**
      * Fixed place where you want to show the toasts.
      */
-    target?: string;
+    target?: string|HTMLElement|jQuery;
     /**
      * Add toast to first position.
      * Default value: true

@@ -1073,7 +1073,19 @@
 
 			if(settings.target){
 
-				$DOM.wrapper = document.querySelector(settings.target);
+				if (typeof settings.target === 'string') {
+                    $DOM.wrapper = document.querySelector(settings.target);
+				} else if (settings.target instanceof HTMLElement) {
+					$DOM.wrapper = settings.target;
+				} else if (window.jQuery && settings.target instanceof jQuery) {
+					if (settings.target.length > 1) {
+						console.warn('The jQuery object passed as a target contained more than one element - only the first one will be used');
+					}
+					$DOM.wrapper = settings.target.get(0);
+				} else {
+					console.error('Unknown target type');
+				}
+
 				$DOM.wrapper.classList.add(PLUGIN_NAME + '-target');
 
 				if(settings.targetFirst) {
