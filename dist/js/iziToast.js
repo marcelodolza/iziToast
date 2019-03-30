@@ -106,7 +106,8 @@
 		onOpening: function () {},
 		onOpened: function () {},
 		onClosing: function () {},
-		onClosed: function () {}
+		onClosed: function () {},
+		onClick: function () {}
 	};
 
 	//
@@ -727,7 +728,11 @@
 			$DOM.toastCapsule.classList.add(PLUGIN_NAME+'-capsule');
 			$DOM.toastBody.classList.add(PLUGIN_NAME + '-body');
 			$DOM.toastTexts.classList.add(PLUGIN_NAME + '-texts');
-
+                        $DOM.toast.addEventListener('click', function(){
+                		settings.onClick();
+                		var event = new CustomEvent(PLUGIN_NAME+'-clicked', {detail: settings});
+                		document.dispatchEvent(event);
+            		});
 			if(ISMOBILE || window.innerWidth <= MOBILEWIDTH){
 				if(settings.transitionInMobile)
 					$DOM.toast.classList.add(settings.transitionInMobile);
