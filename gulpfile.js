@@ -8,9 +8,9 @@ var uglify      = require( 'gulp-uglify' );
 var csso        = require( 'gulp-csso' );
 
 var catchError = function(err) {
-    console.log(err.toString())
+    console.log(err.toString());
     this.emit('end')
-}
+};
 
 /**
 * Styl task
@@ -35,6 +35,8 @@ gulp.task( 'scripts', function() {
     return gulp.src( './src/js/iziToast.js' )
         .pipe( jshint() )
         .pipe( jshint.reporter('default') )
+        .pipe(concat('iziToast.js'))
+        .pipe(gulp.dest('./dist/js'))
         .pipe( concat( 'iziToast.min.js' ) )
         .pipe( uglify( { mangle: true } ) )
         .pipe( gulp.dest( './dist/js' ) )
@@ -46,9 +48,9 @@ gulp.task( 'scripts', function() {
 * Watch task
 **/
 gulp.task('watch', ['styl','scripts'], function() {
-    gulp.watch('./src/css/**/*.styl', [ 'styl' ])    // watch for changes and run the css task
+    gulp.watch('./src/css/**/*.styl', [ 'styl' ]);   // watch for changes and run the css task
     gulp.watch('./src/js/**/*.js', [ 'scripts' ])    // watch for changes and run the js task
-})
+});
 
 /**
 * Default task
