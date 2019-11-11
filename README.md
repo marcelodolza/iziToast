@@ -51,6 +51,11 @@ yarn add izitoast --save
 bower install izitoast --save
 ```
 
+#### React [> 16.8 hooks based] ([NPM](https://www.npmjs.com/package/izitoast-react), [Github](https://github.com/sayjeyhi/iziToast-react))
+```
+npm install izitoast-react --save
+```
+
 #### Angular 2 ([NPM](https://www.npmjs.com/package/ng2-izitoast), [Github](https://github.com/plauzul/ng2-izitoast))
 
 ```
