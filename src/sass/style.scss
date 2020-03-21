@@ -1,0 +1,16 @@
+/*!
+ * iziToast | v1.4.0
+ * http://izitoast.marcelodolce.com
+ * by Marcelo Dolce.
+ */
+
+$fonts: 'Lato' Tahoma Arial;
+$fontsRtl: Tahoma 'Lato' Arial;
+$animation-time1: 0.7s;
+$animation-time2: 0.85s;
+$animation-time3: 1s;
+
+@import 'toast';
+@import 'themes';
+@import 'layouts';
+@import 'animations';
