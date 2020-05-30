@@ -1,7 +1,7 @@
 // Type definitions for IziToast
-// Project https://github.com/dolce/iziToast
+// Project https://github.com/marcelodolza/iziToast
 // Author: Tarık İNCE <incetarik@hotmail.com>
-//         Marcelo Dolce <dolcemarcelo@gmail.com>
+//         Marcelo Dolza <dolcemarcelo@gmail.com>
 //         ZSkycat <https://github.com/ZSkycat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

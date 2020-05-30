@@ -1,7 +1,7 @@
 /*
 * iziToast | v1.4.0
 * http://izitoast.marcelodolce.com
-* by Marcelo Dolce.
+* by Marcelo Dolza.
 */
 (function (root, factory) {
 	if(typeof define === 'function' && define.amd) {
