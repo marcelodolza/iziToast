@@ -7,9 +7,9 @@
   ],
   "authors": [
     {
-      "name": "Marcelo Dolce",
-      "email": "dolcemarcelo@gmail.com",
-      "homepage": "http://marcelodolce.com"
+      "name": "Marcelo Dolza",
+      "email": "dolzamarcelo@gmail.com",
+      "homepage": "http://marcelodolza.com"
     }
   ],
   "license": "Apache-2.0",
@@ -25,8 +25,8 @@
     "warning",
     "confirm",
     "question",
-    "js"
+    "vanillajs"
   ],
-  "homepage": "http://izitoast.marcelodolce.com",
+  "homepage": "http://izitoast.marcelodolza.com",
   "ignore": []
 }

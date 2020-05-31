@@ -1,7 +1,7 @@
 /*
-* iziToast | v1.4.0
-* http://izitoast.marcelodolce.com
-* by Marcelo Dolce.
+* iziToast | v1.5.0
+* http://izitoast.marcelodolza.com
+* by Marcelo Dolza.
 */
 .iziToast-capsule {
   font-size: 0;
@@ -90,7 +90,6 @@
   background-size: 100%;
   background-position: 50% 50%;
   background-repeat: no-repeat;
-  background-color: rgba(0,0,0,0.1);
 }
 .iziToast > .iziToast-close {
   position: absolute;
@@ -133,8 +132,19 @@
   float: left;
   margin: 3px -2px;
 }
-.iziToast > .iziToast-body .iziToast-inputs > input:not([type=checkbox]):not([type=radio]),
-.iziToast > .iziToast-body .iziToast-inputs > select {
+.iziToast > .iziToast-body .iziToast-inputs-child {
+  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+}
+.iziToast > .iziToast-body .iziToast-inputs label {
+  padding-right: 10px;
+  padding-top: 5px;
+}
+.iziToast > .iziToast-body .iziToast-inputs input:not([type=checkbox]):not([type=radio]),
+.iziToast > .iziToast-body .iziToast-inputs select {
   position: relative;
   display: inline-block;
   margin: 2px;
@@ -146,10 +156,10 @@
   background: rgba(0,0,0,0.1);
   color: #000;
   box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
-  min-height: 26px;
+  height: 26px;
 }
-.iziToast > .iziToast-body .iziToast-inputs > input:not([type=checkbox]):not([type=radio]):focus,
-.iziToast > .iziToast-body .iziToast-inputs > select:focus {
+.iziToast > .iziToast-body .iziToast-inputs input:not([type=checkbox]):not([type=radio]):focus,
+.iziToast > .iziToast-body .iziToast-inputs select:focus {
   box-shadow: 0 0 0 1px rgba(0,0,0,0.6);
 }
 .iziToast > .iziToast-body .iziToast-buttons {
@@ -179,13 +189,11 @@
 }
 .iziToast > .iziToast-body .iziToast-buttons > a:focus,
 .iziToast > .iziToast-body .iziToast-buttons > button:focus,
-.iziToast > .iziToast-body .iziToast-buttons > input:not([type=checkbox]):not([type=radio]):focus {
-  box-shadow: 0 0 0 1px rgba(0,0,0,0.6);
-}
+.iziToast > .iziToast-body .iziToast-buttons > input:not([type=checkbox]):not([type=radio]):focus,
 .iziToast > .iziToast-body .iziToast-buttons > a:active,
 .iziToast > .iziToast-body .iziToast-buttons > button:active,
 .iziToast > .iziToast-body .iziToast-buttons > input:not([type=checkbox]):not([type=radio]):active {
-  top: 1px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.6);
 }
 .iziToast > .iziToast-body .iziToast-icon {
   height: 100%;
@@ -233,7 +241,7 @@
 .iziToast > .iziToast-body .iziToast-message {
   padding: 0;
   margin: 0 0 10px 0;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 16px;
   text-align: left;
   float: left;
@@ -246,6 +254,13 @@
 .iziToast.iziToast-animateInside .iziToast-buttons-child,
 .iziToast.iziToast-animateInside .iziToast-inputs-child {
   opacity: 0;
+}
+.iziToast.iziToast-opened .iziToast-title,
+.iziToast.iziToast-opened .iziToast-message,
+.iziToast.iziToast-opened .iziToast-icon,
+.iziToast.iziToast-opened .iziToast-buttons-child,
+.iziToast.iziToast-opened .iziToast-inputs-child {
+  opacity: 1;
 }
 .iziToast-target {
   position: relative;
@@ -1731,3 +1746,4 @@
     opacity: 0;
   }
 }
+

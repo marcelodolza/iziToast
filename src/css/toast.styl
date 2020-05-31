@@ -1,7 +1,7 @@
 /*
-* iziToast | v1.4.0
-* http://izitoast.marcelodolce.com
-* by Marcelo Dolce.
+* iziToast | v1.5.0
+* http://izitoast.marcelodolza.com
+* by Marcelo Dolza.
 */
 
 .iziToast-capsule
@@ -89,7 +89,6 @@
     background-size 100%
     background-position 50% 50%
     background-repeat no-repeat
-    background-color rgba(0, 0, 0, 0.1)
     
   & > .iziToast-close
     position absolute
@@ -131,8 +130,21 @@
       min-height 19px
       float left
       margin 3px -2px
+      &-child
+        display: inline-block
+        display: inline-flex
+        align-items: center;
+        justify-content: center;
+        height: 24px;
 
-      & > input:not([type=checkbox]):not([type=radio]), & > select
+      label
+        padding-right: 10px;
+        padding-top: 5px;
+
+      & input[type=checkbox], & input[type=radio]
+        // margin-top: 5px;
+
+      & input:not([type=checkbox]):not([type=radio]), & select
         position relative
         display inline-block
         margin 2px
@@ -144,7 +156,7 @@
         background rgba(0, 0, 0, 0.1)
         color rgb(0, 0, 0)
         box-shadow 0 0 0 1px rgba(0, 0, 0, 0.2);
-        min-height 26px
+        height 26px
         &:hover
           // background rgba(0, 0, 0, 0.2)
         &:focus
@@ -169,10 +181,8 @@
         color rgb(0, 0, 0)
         &:hover
           background rgba(0, 0, 0, 0.2)
-        &:focus
+        &:focus, &:active
           box-shadow 0 0 0 1px rgba(0, 0, 0, 0.6);
-        &:active
-          top 1px
         
     & .iziToast-icon
       height 100%
@@ -216,7 +226,7 @@
     & .iziToast-message
       padding 0
       margin 0 0 10px 0
-      font-size 14px
+      font-size 13px
       line-height 16px
       text-align left
       float left
@@ -226,6 +236,9 @@
   &.iziToast-animateInside
     .iziToast-title, .iziToast-message, .iziToast-icon, .iziToast-buttons-child, .iziToast-inputs-child
       opacity 0
+  &.iziToast-opened
+    .iziToast-title, .iziToast-message, .iziToast-icon, .iziToast-buttons-child, .iziToast-inputs-child
+      opacity 1
 
 .iziToast-target
   position relative
