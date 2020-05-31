@@ -26,16 +26,17 @@ ___
 - ### [Use](http://izitoast.marcelodolza.com/#Start)
 ___
 
-#### Gulp Tasks
-The default build task
+#### Webpack
+Dev command
 ```
-gulp
+yarn dev
 ```
-Rerun the build task when a file changes
+Build command
 ```
-gulp watch
+yarn build
 ```
 ___
+
 
 
 #### [NPM](https://www.npmjs.com/package/izitoast)
