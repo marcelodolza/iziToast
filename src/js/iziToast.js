@@ -29,23 +29,28 @@
 		THEMES = {
 			info: {
 				color: 'blue',
-				icon: 'ico-info'
+				icon: 'ico-info',
+				backgroundColor: "rgba(157, 222, 255, 1)",
 			},
 			success: {
 				color: 'green',
-				icon: 'ico-success'
+				icon: 'ico-success',
+				backgroundColor: "rgba(166, 239, 184, 1)",
 			},
 			warning: {
 				color: 'orange',
-				icon: 'ico-warning'
+				icon: 'ico-warning',
+				backgroundColor: "rgba(255, 207, 165, 1)",
 			},
 			error: {
 				color: 'red',
-				icon: 'ico-error'
+				icon: 'ico-error',
+				backgroundColor: "rgba(255, 175, 180, 1)",
 			},
 			question: {
 				color: 'yellow',
-				icon: 'ico-question'
+				icon: 'ico-question',
+				backgroundColor: "rgba(255, 249, 178, 1)",
 			}
 		},
 		MOBILEWIDTH = 568,
@@ -66,6 +71,7 @@
 		messageSize: '',
 		messageLineHeight: '',
 		backgroundColor: '',
+		backgroundOpacity: '1',
 		theme: 'light', // dark
 		color: '', // blue, red, green, yellow
 		icon: '',
@@ -219,6 +225,10 @@
 		} else {
 			return false;
 		}
+	};
+	
+	var isRgba = function(color){
+		return color.substring(0,4) == 'rgba';
 	};
 
 
@@ -777,7 +787,11 @@
 			}
 
 			if(settings.backgroundColor) {
-				$DOM.toast.style.background = settings.backgroundColor;
+				if (isRgba(settings.backgroundColor)) {
+					$DOM.toast.style.background = settings.backgroundColor.slice(0, -2) + settings.backgroundOpacity + ')';
+				} else {
+					$DOM.toast.style.background = settings.backgroundColor;
+				}
 				if(settings.balloon){
 					$DOM.toast.style.borderColor = settings.backgroundColor;				
 				}
