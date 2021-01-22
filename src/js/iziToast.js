@@ -29,23 +29,28 @@
 		THEMES = {
 			info: {
 				color: 'blue',
-				icon: 'ico-info'
+				icon: 'ico-info',
+				backgroundColor: "rgba(157, 222, 255, 0.9)",
 			},
 			success: {
 				color: 'green',
-				icon: 'ico-success'
+				icon: 'ico-success',
+				backgroundColor: "rgba(166, 239, 184, 0.9)",
 			},
 			warning: {
 				color: 'orange',
-				icon: 'ico-warning'
+				icon: 'ico-warning',
+				backgroundColor: "rgba(255, 207, 165, 0.9)",
 			},
 			error: {
 				color: 'red',
-				icon: 'ico-error'
+				icon: 'ico-error',
+				backgroundColor: "rgba(255, 175, 180, 0.9)",
 			},
 			question: {
 				color: 'yellow',
-				icon: 'ico-question'
+				icon: 'ico-question',
+				backgroundColor: "rgba(255, 249, 178, 0.9)",
 			}
 		},
 		MOBILEWIDTH = 568,
@@ -66,6 +71,7 @@
 		messageSize: '',
 		messageLineHeight: '',
 		backgroundColor: '',
+		backgroundOpacity: '',
 		theme: 'light', // dark
 		color: '', // blue, red, green, yellow
 		icon: '',
@@ -219,6 +225,41 @@
 		} else {
 			return false;
 		}
+	};
+
+	/**
+	 * Check is color has rgba format?
+	 * @private
+	 */
+	var isRgba = function(color){
+		return color.substring(0,4) == 'rgba';
+	};
+
+	/**
+	 * Check is color has rgb format
+	 * @private
+	 */
+	var isRgb = function(color){
+		return color.substring(0,3) == 'rgb';
+	};
+	
+	/**
+	 * Check is color has HEX fromat
+	 * @private
+	 */
+	var isHex = function(color){
+		return color.substring(0,1) == '#';
+	};
+	
+	/**
+	 * Convert HEX to RGBA
+	 * @private
+	 */
+	var hexToRgba = function(hex, alpha){
+		var r = parseInt(hex.slice(1, 3), 16),
+		g = parseInt(hex.slice(3, 5), 16),
+		b = parseInt(hex.slice(5, 7), 16);
+		return "rgba(" + r + ", " + g + ", " + b + ", " + alpha + ")";
 	};
 
 
@@ -777,7 +818,15 @@
 			}
 
 			if(settings.backgroundColor) {
-				$DOM.toast.style.background = settings.backgroundColor;
+				if (isHex(settings.backgroundColor) && settings.backgroundOpacity != '') {
+					$DOM.toast.style.background = hexToRgba(settings.backgroundColor, settings.backgroundOpacity);
+				} else if (isRgba(settings.backgroundColor) && settings.backgroundOpacity != '') {
+					$DOM.toast.style.background = settings.backgroundColor.replace(/[^,]+(?=\))/, settings.backgroundOpacity);
+				} else if (isRgb(settings.backgroundColor) && settings.backgroundOpacity != '') {
+					$DOM.toast.style.background = settings.backgroundColor.replace(/\)/, ',' + settings.backgroundOpacity + ')');
+				} else {
+					$DOM.toast.style.background = settings.backgroundColor;
+				}
 				if(settings.balloon){
 					$DOM.toast.style.borderColor = settings.backgroundColor;				
 				}
