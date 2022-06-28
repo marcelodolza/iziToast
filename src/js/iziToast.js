@@ -23,7 +23,7 @@
 		BODY = document.querySelector('body'),
 		ISMOBILE = (/Mobi/.test(navigator.userAgent)) ? true : false,
 		ISCHROME = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor),
-		ISFIREFOX = typeof InstallTrigger !== 'undefined',
+		ISFIREFOX = /firefox/i.test(navigator.userAgent),
 		ACCEPTSTOUCH = 'ontouchstart' in document.documentElement,
 		POSITIONS = ['bottomRight','bottomLeft','bottomCenter','topRight','topLeft','topCenter','center'],
 		THEMES = {
