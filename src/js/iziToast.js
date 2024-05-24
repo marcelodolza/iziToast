@@ -83,6 +83,7 @@
 		closeOnClick: false,
 		displayMode: 0,
 		position: 'bottomRight', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
+		parent: '',
 		target: '',
 		targetFirst: true,
 		timeout: 5000,
@@ -673,6 +674,11 @@
 			settings = extend(defaults, settings);
 			settings.time = {};
 
+		if (settings.parent instanceof Element) {
+			BODY = settings.parent;
+			BODY.classList.add(PLUGIN_NAME + '-custom-container');
+		}
+
 		if(settings.id === null){
 			settings.id = generateId(settings.title+settings.message+settings.color);
 		}
@@ -702,7 +708,7 @@
 		$iziToast.children[settings.ref] = settings;
 
 		var $DOM = {
-			body: document.querySelector('body'),
+			body: BODY,
 			overlay: document.createElement('div'),
 			toast: document.createElement('div'),
 			toastBody: document.createElement('div'),
@@ -1108,7 +1114,7 @@
 					$DOM.wrapper = document.createElement('div');
 					$DOM.wrapper.classList.add(PLUGIN_NAME + '-wrapper');
 					$DOM.wrapper.classList.add(position);
-					document.body.appendChild($DOM.wrapper);
+					$DOM.body.appendChild($DOM.wrapper);
 				}
 				if(settings.position == 'topLeft' || settings.position == 'topCenter' || settings.position == 'topRight'){
 					$DOM.wrapper.insertBefore($DOM.toastCapsule, $DOM.wrapper.firstChild);
@@ -1147,7 +1153,7 @@
 					if(!isNaN(settings.zindex) && settings.zindex !== null) {
 						$DOM.overlay.style.zIndex = settings.zindex-1;
 					}
-					document.querySelector('body').appendChild($DOM.overlay);
+					$DOM.body.appendChild($DOM.overlay);
 				}
 
 				if(settings.overlayClose) {
