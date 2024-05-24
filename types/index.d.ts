@@ -133,6 +133,11 @@ export interface IziToastSettings {
      */
     position?: IziToastPosition;
     /**
+     * Custom root render container
+     * Default value: document.body
+     */
+    parent?: Element;
+    /**
      * Fixed place where you want to show the toasts.
      */
     target?: string;
