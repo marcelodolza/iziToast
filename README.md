@@ -37,7 +37,11 @@ gulp watch
 ```
 ___
 
-
+### CDN
+```html
+<script src="https://cdn.jsdelivr.net/gh/marcelodolza/iziToast/dist/js/iziToast.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcelodolza/iziToast/dist/css/iziToast.min.css">
+```
 #### [NPM](https://www.npmjs.com/package/izitoast)
 ```
 npm install izitoast --save
