@@ -3,7 +3,7 @@ Elegant, responsive and lightweight notification plugin with no dependencies.
 
 [https://marcelodolza.github.io/iziToast/](https://marcelodolza.github.io/iziToast/)
 
-![capa](http://i.imgur.com/NKk7Rxm.png)
+![cover](https://github.com/user-attachments/assets/48e0ae60-f50e-43ba-8837-5c6d7186b023)
 
 [logo]: http://i.imgur.com/hCYIhep.png "Check icon"
 [new]: http://i.imgur.com/41zuVDk.png "New label"
