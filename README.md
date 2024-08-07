@@ -1,7 +1,7 @@
-# [iziToast](http://izitoast.dolza.ninja)
-Elegant, responsive, flexible and lightweight notification plugin with no dependencies.
+# [iziToast](https://marcelodolza.github.io/iziToast/)
+Elegant, responsive and lightweight notification plugin with no dependencies.
 
-[**izitoast**.marcelodolza.com](http://izitoast.marcelodolza.com)
+[https://marcelodolza.github.io/iziToast/](https://marcelodolza.github.io/iziToast/)
 
 ![capa](http://i.imgur.com/NKk7Rxm.png)
 
@@ -14,16 +14,11 @@ Fast | Responsive | Animated | Lightweight | Customizable | No dependencies | Re
 ![alt text][logo] | ![alt text][logo] | ![alt text][logo] | ![alt text][logo] | ![alt text][logo] | ![alt text][logo] | ![alt text][logo]
 
 
-- All modern browsers are supported (Tested in Chrome, Firefox, Opera, Safari, IE10+ and Edge).
-- Bugs? create an issue [here](https://github.com/dolza/iziToast/issues).
-
-
 ___
-- ### [Changelog](http://izitoast.marcelodolza.com/#Changelog)
-- ### [Options](http://izitoast.marcelodolza.com/#Options)
-- ### [Methods](http://izitoast.marcelodolza.com/#Methods)
-- ### [Events](http://izitoast.marcelodolza.com/#Events)
-- ### [Use](http://izitoast.marcelodolza.com/#Start)
+- ### [Options](https://marcelodolza.github.io/iziToast/#Options)
+- ### [Methods](https://marcelodolza.github.io/iziToast/#Methods)
+- ### [Events](https://marcelodolza.github.io/iziToast/#Events)
+- ### [Use](https://marcelodolza.github.io/iziToast/#Start)
 ___
 
 #### Webpack

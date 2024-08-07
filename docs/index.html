@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>iziToast.js</title>
+    <link rel="stylesheet" href="css/iziToast.css?v=150">
+    <link rel="stylesheet" href="css/demo.css">
+    <link href="css/shCore.css" rel="stylesheet" type="text/css" />
+    <link href="css/shThemeDefault.css" rel="stylesheet" type="text/css" />
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
+    <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+    <script src="https://kit.fontawesome.com/b33e1a78fe.js" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="js/vendor/shCore.js"></script>
+    <script type="text/javascript" src="js/vendor/shBrushJScript.js"></script>
+    <script type="text/javascript" src="js/vendor/shBrushXml.js"></script>
+    <script type="text/javascript" src="js/vendor/shBrushBash.js"></script>
+    <script src="js/vendor/modernizr.js"></script> <!-- Modernizr -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script> 
+    <link rel="canonical" href="https://marcelodolza.github.io/iziToast/" />
+    <meta name="author" content="Marcelo Dolza">
+    <meta name="description" content="Elegant, responsive and lightweight notification plugin with no dependencies. by Marcelo Dolza.">
+
+    <meta name="theme-color" content="#ecc67f" />
+
+    <meta property="og:url" content="https://marcelodolza.github.io/iziToast/" />
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="iziToast.js" />
+    <meta property="og:site_name" content="iziToast.js"/>
+    <meta property="og:description" content="Elegant, responsive and lightweight notification plugin with no dependencies." />
+    <meta property="og:image" content="https://marcelodolza.github.io/iziToast/img/cover.jpg" />
+    
+
+    <!-- Google+ / Schema.org -->
+    <meta itemprop="name" content="iziToast.js">
+    <meta itemprop="description" content="Elegant, responsive and lightweight notification plugin with no dependencies.">
+    <meta itemprop="image" content="https://marcelodolza.github.io/iziToast/img/cover.jpg">
+
+    <!-- Twitter -->
+    <meta name="twitter:title" content="iziToast.js">
+    <meta name="twitter:description" content="Elegant, responsive and lightweight notification plugin with no dependencies.">
+    <meta name="twitter:url" content="https://marcelodolza.github.io/iziToast/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:image" content="https://marcelodolza.github.io/iziToast/img/cover.jpg">
+    <meta name="twitter:creator" content="@marcelodolza">
+</head>
+<body>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-43600147-5', 'auto');
+ga('send', 'pageview');
+</script>
+
+<script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+  return t;
+}(document, "script", "twitter-wjs"));</script>
+    <nav id="cd-vertical-nav">
+        <ul>
+            <li>
+                <a href="#Welcome" data-number="1">
+                    <span class="cd-dot"></span>
+                    <span class="cd-label">Welcome</span>
+                </a>
+            </li>
+
+            <!-- <li>
+                <a href="#Changelog" data-number="2">
+                    <span class="cd-dot"></span>
+                    <span class="cd-label">Changelog</span>
+                </a>
+            </li> -->
+
+            <li>
+                <a href="#Start" data-number="3">
+                    <span class="cd-dot"></span>
+                    <span class="cd-label">Start</span>
+                </a>
+            </li>
+            <li>
+                <a href="#Options" data-number="4">
+                    <span class="cd-dot"></span>
+                    <span class="cd-label">Options</span>
+                </a>
+            </li>
+            <li>
+                <a href="#Methods" data-number="5">
+                    <span class="cd-dot"></span>
+                    <span class="cd-label">Methods</span>
+                </a>
+            </li>
+            <li>
+                <a href="#Events" data-number="6">
+                    <span class="cd-dot"></span>
+                    <span class="cd-label">Events</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <a class="cd-nav-trigger cd-img-replace">Open navigation<span></span></a>
+    <main>
+        <section class="cd-section" id="Welcome">
+            <div class="highlight bg">
+                <header>
+                    <a href="https://github.com/marcelodolza/iziToast" target="blank" class="right github"></a>
+                    <a href="#documentation" data-target-scroll="#documentation" class="right documentation">Documentation</a>
+                    <a href="https://marcelodolza.github.io/iziModal/" target="blank" class="right documentation">See also <i class="icon icon-star" style="color:yellow"></i> <b>iziModal</b>.js</a>
+                    
+                </header>
+                <div class="core">
+                    <h1><b>iziToast</b>.js <span>v1.5.0</span></h1>
+                    <p>Elegant, responsive and lightweight notification plugin with no dependencies.</p>
+                    <span class="examples">examples</span>
+                    <ul class="buttons">
+                        <li><a href="#" class="trigger-info">Info</a></li>
+                        <li><a href="#" class="trigger-success">Success</a></li>
+                        <li><a href="#" class="trigger-warning">Warning</a></li>
+                        <li><a href="#" class="trigger-error">Error</a></li>
+                        <li><a href="#" class="trigger-question">Question</a></li>
+                        <li><a href="#" class="trigger-progress">Progress</a></li>
+                        <li><a href="#" class="trigger-custom1">Custom I</a></li>
+                        <li><a href="#" class="trigger-custom2">Custom II</a></li>
+                        <li class="lava"></li>
+                    </ul>
+                    <div>
+                        <!-- <a href="http://codepen.io/search/collections/?q=izitoast" class="download" target="blank">Others examples</a> -->
+                        <a class="github-button" href="https://github.com/marcelodolza/iziToast" data-icon="octicon-star" data-count-href="/marcelodolza/iziToast/stargazers" data-count-api="/repos/marcelodolza/iziToast#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star marcelodolza/iziToast on GitHub">Star</a>
+                        <a class="github-button" href="https://github.com/marcelodolza/iziToast/archive/master.zip" data-icon="octicon-cloud-download" aria-label="Download marcelodolza/iziToast on GitHub">Download</a>
+                        <!-- Tweet button -->
+                        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=#IZITOAST - Elegant, responsive, flexible and lightweight notification #plugin with no dependencies.">Tweet</a>
+                        <!-- Like button -->
+                        <iframe src="https://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fizitoast.marcelodolza.com%2F&amp;width=170&amp;layout=button_count&amp;action=like&amp;size=small&amp;show_faces=false&amp;share=true&amp;height=20&amp;appId" width="170" style="/* border:none; */overflow:hidden;" scrolling="no" frameborder="0" allowtransparency="true" height="20"></iframe>
+                    </div>
+                    <div class="target" style="max-width: 500px"></div>
+                </div>
+            </div>
+        </section>
+        <div class="features">
+            <div class="wrap">
+                <h4><span>A plugin for perky developers.</span></h4>
+            </div>
+            <ul class="wrap">
+                <li><i class="icon icon-flight"></i><p>Fast</p></li>
+                <li><i class="icon icon-aspect_ratio"></i><p>Responsive</p></li>
+                <li><i class="icon icon-style"></i><p>Animated</p></li>
+                <li><i class="icon icon-toys"></i><p>Lightweight</p></li>
+                <li><i class="icon icon-palette"></i><p>Customizable</p></li>
+                <li><i class="icon icon-money_off"></i><p>Free</p></li>
+            </ul>
+        </div>
+        <div class="wrap">
+
+            <!-- <section class="cd-section" id="Changelog">
+                <h2>Changelog</h2>
+                <div class="notes">
+                    <div class="header">
+                        <p><i class="icon icon-done_all"></i> All modern browsers are supported. (Tested in Chrome, Firefox, Opera, Safari, IE10+ and Edge).</p>
+                        <p><i class="icon icon-bug_report"></i> Bugs or suggestions for improvements? create a issue <a href="https://github.com/marcelodolza/iziToast/issues" target="blank">here</a>.</p>
+                    </div>
+
+                    <h3><b>1.5.0</b> (Updated on <b>Apr 5</b>, 2020)</h3>
+                    <ul>
+                        <li><p><span class="tag green">new</span> Support for Sass files - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> XSS protection - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> migration from Gulp to Webpack - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> ARIA compatibility - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag red">bug</span> Callbacks were performed even though toasts were destroyed.<a href="https://github.com/marcelodolza/iziToast/issues/131">#131</a> - <b>Fixed</b> <i class="icon icon-done"></i></p></li>
+                    </ul>
+
+
+                    <h3><b>1.4.0</b> (Updated on <b>Aug 6</b>, 2018)</h3>
+                    <ul>
+                        <li><p><span class="tag green">new</span> iconUrl option - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> displayMode option - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> Dynamic id generator - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> TypeScript Interfaces - <b>Updated</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag red">bug</span> Destroy method - <b>Fixed</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag red">bug</span> RTL mode + layout2 / Issue <a href="https://github.com/marcelodolza/iziToast/issues/131">#131</a> - <b>Fixed</b> <i class="icon icon-done"></i></p></li>
+                    </ul>
+
+                    <h3><b>1.3.0</b></h3>
+                    <ul>
+                        <li><p><span class="tag green">new</span> closeOnClick option - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> Inputs option - <b>Implemented</b> <i class="icon icon-done"></i></p></li>                        
+                        <li><p><span class="tag green">new</span> Html structure improving - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag red">bug</span> TypeScript Interfaces - <b>Fixed</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag red">bug</span> Issue <a href="https://github.com/marcelodolza/iziToast/issues/97">#97</a> - <b>Fixed</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag red">bug</span> Progress control / Issue <a href="https://github.com/marcelodolza/iziToast/issues/108">#108</a> - <b>Fixed</b> <i class="icon icon-done"></i></p></li>
+                    </ul>
+
+                    <h3><b>1.2.0</b></h3>
+                    <ul>
+                        <li><p><span class="tag green">new</span> Question type - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> Progress Bar improving (FPS optimizations) - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> progressBarEasing option - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> overlay, overlayClose and overlayColor options - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> closeOnEscape option - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> Progress Bar methods (start, reset, pause and resume) - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+
+                        <li><p><span class="tag green">new</span> TypeScript Interfaces - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> Gulpfile - <b>Added</b> <i class="icon icon-done"></i></p></li>
+
+                        <li><p><span class="tag red">bug</span> Timeout with pauseOnHover and resetOnHover cannot be used without progressBar - <b>Fixed</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag red">bug</span> Timeout for displaying each internal button - <b>Fixed</b> <i class="icon icon-done"></i></p></li>
+                    </ul>
+
+                    <h3><b>1.1.5</b></h3>
+                    <ul>
+                        <li><p><span class="tag green">new</span> Html structure improving - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag red">bug</span> Css min height of toast - <b>Fixed</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag red">bug</span> Corrected nomenclature in new event function - <b>Fixed</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag red">bug</span> Condition of showing progress bar or not - <b>Fixed</b> <i class="icon icon-done"></i></p></li>
+                    </ul>
+
+                    <h3><b>1.1.4</b></h3>
+                    <ul>
+                        <li><p><span class="tag red">bug</span> Progress Bar resetOnHover - <b>Fixed</b> <i class="icon icon-done"></i></p></li>
+                    </ul>
+
+                    <h3><b>1.1.2 / 1.1.3</b></h3>
+                    <ul>
+                        <li><p><span class="tag green">new</span> toastOnce option - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> Info Icon and icons for the Dark theme - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> Theme option (<i>light</i> or <i>dark</i>) - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> options onOpening, onOpened, onClosing and onClosed - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> Listeners iziToast-opening/opened/closing/closed  - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> id option - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> maxWidth option - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> Multiple classes in the option - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> FontSize and LineHeight options for title and message - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> Improvements in Listener iziToast-opening/opened/closing/closed (ClosedBy and all other toast settings) - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> CustomEvent polyfill - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag red">bug</span> Incompatibility with iziModal animations - <b>Fixed</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag red">bug</span> RTL alignments - <b>Fixed</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag red">bug</span> Balloon Toast arrow color does not change when a background is set - <b>Fixed</b> <i class="icon icon-done"></i></p></li>
+                    </ul>
+
+                    <h3><b>1.1.0 / 1.1.1</b></h3>
+                    <ul>
+                        <li><p><span class="tag green">new</span> Drag/Touch support - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> ClosedBy param ('drag' or 'button') - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> Targetfirst option - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> Background & message color options - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> Write HTML elements in toast messages - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag red">bug</span> Leap in animation when used Target - <b>Fixed</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag red">bug</span> zIndex, unexpected behavior - <b>Fixed</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag red">bug</span> box-shadow of balloon toast with progressBar not applied correctly - <b>Fixed</b> <i class="icon icon-done"></i></p></li>
+                    </ul>
+
+                    <h3><b>1.0.2</b></h3>
+                    <ul>
+                        <li><p><span class="tag green">new</span> Original stylus source files - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> Folder structure - <b>Updated</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag green">new</span> Larger zIndex and Option to set it - <b>Implemented</b> <i class="icon icon-done"></i></p></li> 
+                        <li><p><span class="tag red">bug</span> Flip animation - <b>Fixed</b> <i class="icon icon-done"></i></p></li>
+                        <li><p><span class="tag red">bug</span> Wrong positioning of internal elements - <b>Fixed</b> <i class="icon icon-done"></i></p></li>
+                    </ul>
+
+                    <h3><b>1.0.1</b></h3>
+                    <ul>
+                        <li><p><span class="tag green">new</span> Internet Explorer 10+ support - <b>Implemented</b> <i class="icon icon-done"></i></p></li>
+                    </ul>
+                </div>
+            </section> -->
+
+
+            <br><br>
+            <section class="cd-section" id="Start">
+                <h2 id="documentation"> Start</h2>
+                <div class="panel">
+                    <h3><b> <a href="https://www.npmjs.com/package/izitoast" target="blank"><i class="icon icon-link"></i> NPM</a></b> › <b>install</b></h3>
+                    <pre class="brush: bash">
+                        npm install izitoast --save
+                    </pre>
+                    <hr>
+                    <h3><b>Bower</b> › <b>install</b></h3>
+                    <pre class="brush: bash">
+                        bower install izitoast
+                    </pre>
+                </div>
+                <div class="panel">
+                    <h3><b>HTML</b> › Include the CSS files from the dist folder in the <i>head</i> section:</h3>
+                    <pre class="brush: xml">
+                        <!-- <link rel="stylesheet" href="iziToast.min.css"> -->
+                    </pre>
+                    <hr>
+                    <h3><b>HTML</b> › Include the JS file before the <i>scripts</i></h3>
+                    <pre class="brush: xml">
+                        <!-- <script src="iziToast.min.js" type="text/javascript"></script> -->
+                    </pre>
+                    <hr>
+                    <h3><b>JS</b> › Basic example</h3>
+                    <pre class="brush: js">
+                        iziToast.show({
+                            title: 'Hey',
+                            message: 'What would you like to add?'
+                        });
+                    </pre>
+
+                    <hr>
+                    <h3><b> ICONS</b> › Tested and recommended</h3><p class="in-block">One need only incorporate the CSS of icons and use the corresponding class.</p>
+                    <br>
+                    <ul style="padding: 20px;">
+                        <li>
+                            <a href="https://icomoon.io/" target="blank"><i class="icon icon-link"></i>Icomoon</a>
+                        </li>
+                        <li>
+                            <a href="http://fontawesome.io/" target="blank"><i class="icon icon-link"></i>Fontawesome</a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+
+
+            <section class="cd-section" id="Options">
+                    <h2>Options</h2>
+                    <div class="panel attached-bottom">
+                        <h3>Default Options (52)</h3>
+                        <pre class="brush: js">
+                        iziToast.show({
+                            id: null, 
+                            class: '',
+                            title: '',
+                            titleColor: '',
+                            titleSize: '',
+                            titleLineHeight: '',
+                            message: '',
+                            messageColor: '',
+                            messageSize: '',
+                            messageLineHeight: '',
+                            backgroundColor: '',
+                            theme: 'light', // dark
+                            color: '', // blue, red, green, yellow
+                            icon: '',
+                            iconText: '',
+                            iconColor: '',
+                            iconUrl: null,
+                            image: '',
+                            imageWidth: 50,
+                            maxWidth: null,
+                            zindex: null,
+                            layout: 1,
+                            balloon: false,
+                            close: true,
+                            closeOnEscape: false,
+                            closeOnClick: false,
+                            displayMode: 0, // once, replace
+                            position: 'bottomRight', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
+                            target: '',
+                            targetFirst: true,
+                            timeout: 5000,
+                            rtl: false,
+                            animateInside: true,
+                            drag: true,
+                            pauseOnHover: true,
+                            resetOnHover: false,
+                            progressBar: true,
+                            progressBarColor: '',
+                            progressBarEasing: 'linear',
+                            overlay: false,
+                            overlayClose: false,
+                            overlayColor: 'rgba(0, 0, 0, 0.6)',
+                            transitionIn: 'fadeInUp',
+                            transitionOut: 'fadeOut',
+                            transitionInMobile: 'fadeInUp',
+                            transitionOutMobile: 'fadeOutDown',
+                            buttons: {},
+                            inputs: {},
+                            onOpening: function () {},
+                            onOpened: function () {},
+                            onClosing: function () {},
+                            onClosed: function () {}
+                        });
+                        </pre>
+                        <br>
+                    </div>
+                    <div class="table">
+                    <table>
+                        <tbody>
+                        <tr class="titles">
+                            <th>
+                                <div class="border-left"></div>
+                                Argument
+                            </th>
+                            <th>Default value</th>
+                            <th>
+                                <div class="border-right"></div>
+                                Description
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>class</td>
+                            <td>''</td>
+                            <td>The class that will be applied to the toast. It may be used as a reference.</td>
+                        </tr>
+                        <tr>
+                            <td>title</td>
+                            <td>''</td>
+                            <td>Title of the toast.</td>
+                        </tr>
+                        <tr>
+                            <td>titleColor</td>
+                            <td>''</td>
+                            <td>Title color.</td>
+                        </tr>
+                        <tr>
+                            <td>titleSize</td>
+                            <td>''</td>
+                            <td>Title fontSize.</td>
+                        </tr>
+                        <tr>
+                            <td>titleLineHeight</td>
+                            <td>''</td>
+                            <td>Title lineHeight.</td>
+                        </tr>
+                        <tr>
+                            <td>message</td>
+                            <td>''</td>
+                            <td>Message of notification.</td>
+                        </tr>
+                        <tr>
+                            <td>messageColor</td>
+                            <td>''</td>
+                            <td>Message color.</td>
+                        </tr>
+                        <tr>
+                            <td>messageSize</td>
+                            <td>''</td>
+                            <td>Message fontSize.</td>
+                        </tr>
+                        <tr>
+                            <td>messageLineHeight</td>
+                            <td>''</td>
+                            <td>Message lineHeight.</td>
+                        </tr>
+                        <tr>
+                            <td>backgroundColor</td>
+                            <td>''</td>
+                            <td>Background color of the Toast</td>
+                        </tr>
+                        <tr>
+                            <td>theme</td>
+                            <td>''</td>
+                            <td>It can be <b>light</b> or <b>dark</b> or set another class. Create and use like this ".iziToast-theme-name" </td>
+                        </tr>
+                        <tr>
+                            <td>color</td>
+                            <td>''</td>
+                            <td>It can be #hexadecimal, pre-defined themes like <b>blue</b>, <b>red</b>, <b>green</b> and <b>yellow</b> or set another class. Create and use like this ".iziToast-color-name" </td>
+                        </tr>
+                        <tr>
+                            <td>icon</td>
+                            <td>''</td>
+                            <td>Icon class (font-icon of your choice, <a href="https://icomoon.io/" target="blank">Icomoon</a>, <a href="http://fontawesome.io/" target="blank">Fontawesome</a> etc.).</td>
+                        </tr>
+                        <tr>
+                            <td>iconText</td>
+                            <td>''</td>
+                            <td>Icon text (font-icon using text, <a href="https://material.io/icons/" target="blank">Material Icons</a>, etc.).</td>
+                        </tr>
+                        <tr>
+                            <td>iconColor</td>
+                            <td>''</td>
+                            <td>Icon color.</td>
+                        </tr>
+                        <tr>
+                            <td>iconUrl <span class="tag green">new</span></td>
+                            <td>null</td>
+                            <td>Address of file to be loaded. <a href="#" class="trigger-iconUrl">Example</a></td>
+                        </tr>
+                        <tr>
+                            <td>image</td>
+                            <td>''</td>
+                            <td>Cover image. <a href="#" class="trigger-image">Example</a></td>
+                        </tr>
+                        <tr>
+                            <td>imageWidth</td>
+                            <td>50</td>
+                            <td>Width of cover image. <a href="#" class="trigger-imageWidth">Example 100px</a></td>
+                        </tr>
+                        <tr>
+                            <td>maxWidth</td>
+                            <td>null</td>
+                            <td>set maxWidth of toast. <a href="#" class="trigger-maxWidth">Example 500px</a></td>
+                        </tr>
+                        <tr>
+                            <td>zindex</td>
+                            <td>99999</td>
+                            <td>The z-index CSS attribute of the toast</td>
+                        </tr>
+                        <tr>
+                            <td>layout</td>
+                            <td>1</td>
+                            <td><a href="#" class="trigger-layout1">Example Small</a> e <a href="#" class="trigger-layout2">Example Medium</a>. It can be <b>1</b> or <b>2</b>, or use another layout, creating the class like this: ".iziToast-layout3"</td>
+                        </tr>
+                        <tr>
+                            <td>balloon</td>
+                            <td>false</td>
+                            <td>Applies a balloon like toast. <a href="#" class="trigger-balloon">Example</a>.</td>
+                        </tr>
+                        <tr>
+                            <td>close</td>
+                            <td>true</td>
+                            <td>Show "x" close button</td>
+                        </tr>
+                        <tr>
+                            <td>closeOnEscape</td>
+                            <td>false</td>
+                            <td>Allows to close toast using the Esc key.</td>
+                        </tr>
+                        <tr>
+                            <td>closeOnClick <span class="tag green">new</span></td>
+                            <td>false</td>
+                            <td>Allows to close toast clicking on it.</td>
+                        </tr>
+                        <tr>
+                            <td>rtl</td>
+                            <td>false</td>
+                            <td>RTL option</td>
+                        </tr>
+                        <tr>
+                            <td>position</td>
+                            <td>'bottomRight'</td>
+                            <td>Where it will be shown. It can be <a href="#" class="trigger-bottomRight">bottomRight</a>, 
+                            <a href="#" class="trigger-bottomLeft">bottomLeft</a>, 
+                            <a href="#" class="trigger-topRight">topRight</a>, 
+                            <a href="#" class="trigger-topLeft">topLeft</a>, 
+                            <a href="#" class="trigger-topCenter">topCenter</a>, 
+                            <a href="#" class="trigger-bottomCenter">bottomCenter</a> or 
+                            <a href="#" class="trigger-center">center</a>.</td>
+                        </tr>
+                        <tr>
+                            <td>target</td>
+                            <td>''</td>
+                            <td>
+                                Fixed place where you want to show the toasts. <a href="#" class="trigger-target">Example</a>
+                                <div class="target-example"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>targetFirst</td>
+                            <td>true</td>
+                            <td>Add toast to first position.</td>
+                        </tr>
+                        <tr>
+                            <td><strike>toastOnce</strike> <span class="tag red">depreciated</span></td>
+                            <td>false</td>
+                            <td>Waits for another toast to be closed on 'onClosed' function. <strike>You'll need an <b>ID</b> to use it.</strike></td>
+                        </tr>
+                        <tr>
+                            <td>displayMode <span class="tag green">new</span></td>
+                            <td>0</td>
+                            <td>
+                                - Waits until the toast is closed so you can open it (Use <b>1</b> or <b>'once'</b>). <a href="#" class="trigger-once">Example</a> <br>
+                                - Replaces the toast that was already open (Use <b>2</b> or <b>'replace'</b>). <a href="#" class="trigger-replace">Example</a></td>
+                        </tr>
+                        <tr>
+                            <td>timeout</td>
+                            <td>5000</td>
+                            <td>Amount in milliseconds to close the toast or false to disable.</td>
+                        </tr>
+                        <tr>
+                            <td>drag</td>
+                            <td>true</td>
+                            <td>Drag Feature. Is used to close the toast.</td>
+                        </tr>
+                        <tr>
+                            <td>pauseOnHover</td>
+                            <td>true</td>
+                            <td>Pause the toast timeout while the cursor is on it. <a href="#" class="trigger-pause">Example</a></td>
+                        </tr>
+                        <tr>
+                            <td>resetOnHover</td>
+                            <td>false</td>
+                            <td>Reset the toast timeout while the cursor is on it. <a href="#" class="trigger-reset">Example</a></td>
+                        </tr>
+                        <tr>
+                            <td>progressBar</td>
+                            <td>true</td>
+                            <td>Enable timeout progress bar.</td>
+                        </tr>
+                        <tr>
+                            <td>progressBarColor</td>
+                            <td>''</td>
+                            <td>Progress bar color.</td>
+                        </tr>
+                        <tr>
+                            <td>progressBarEasing</td>
+                            <td>'linear'</td>
+                            <td>Animation Easing of progress bar.</td>
+                        </tr>
+                        <tr>
+                            <td>overlay</td>
+                            <td>false</td>
+                            <td>Enables display the Overlay layer on the page.</td>
+                        </tr>
+                        <tr>
+                            <td>overlayClose</td>
+                            <td>false</td>
+                            <td>Allows to close toast clicking on the Overlay.</td>
+                        </tr>
+                        <tr>
+                            <td>overlayColor</td>
+                            <td>'rgba(0, 0, 0, 0.6)'</td>
+                            <td>Overlay background color.</td>
+                        </tr>
+                        <tr>
+                            <td>animateInside</td>
+                            <td>true</td>
+                            <td>Enable animations of elements in the toast. <a href="#" class="trigger-custom1">Example <b>True</b></a> and <a href="#" class="trigger-animInsideFalse">Example <b>False</b></a>.</td>
+                        </tr>
+                        <tr>
+                            <td>buttons</td>
+                            <td>{}</td>
+                            <td>You can specify an array of buttons. <a href="#" class="trigger-custom1">Example</a></td>
+                        </tr>
+                        <tr>
+                            <td>inputs <span class="tag green">new</span></td>
+                            <td>{}</td>
+                            <td>You can specify an array of inputs. <a href="#" class="trigger-question">Example</a></td>
+                        </tr>
+                        <tr>
+                            <td>transitionIn</td>
+                            <td>'fadeInUp'</td>
+                            <td>Default toast open animation. It can be: 
+                                <a href="#" class="trigger-bounceInLeft">bounceInLeft</a>, 
+                                <a href="#" class="trigger-bounceInRight">bounceInRight</a>, 
+                                <a href="#" class="trigger-bounceInUp">bounceInUp</a>, 
+                                <a href="#" class="trigger-bounceInDown">bounceInDown</a>, 
+                                <a href="#" class="trigger-fadeIn">fadeIn</a>, <a href="#" class="trigger-fadeInDown">fadeInDown</a>, 
+                                <a href="#" class="trigger-fadeInUp">fadeInUp</a>, 
+                                <a href="#" class="trigger-fadeInLeft">fadeInLeft</a>, 
+                                <a href="#" class="trigger-fadeInRight">fadeInRight</a> or 
+                                <a href="#" class="trigger-flipInX">flipInX</a>.</td>
+                        </tr>
+                        <tr>
+                            <td>transitionOut</td>
+                            <td>'fadeOut'</td>
+                            <td>Default toast close animation. It can be: fadeOut, fadeOutUp, fadeOutDown, fadeOutLeft, fadeOutRight, flipOutX</td>
+                        </tr>
+                        <tr>
+                            <td>transitionInMobile</td>
+                            <td>'fadeInUp'</td>
+                            <td>Default toast opening mobile transition.</td>
+
+                        </tr>
+                        <tr>
+                            <td>transitionOutMobile</td>
+                            <td>'fadeOutDown'</td>
+                            <td>Default toast closing mobile transition.</td>
+                        </tr>
+                        <tr>
+                            <td>onOpening</td>
+                            <td>function() {}</td>
+                            <td>Callback function triggered when opening the toast.</td>
+                        </tr>
+                        <tr>
+                            <td>onOpened</td>
+                            <td>function() {}</td>
+                            <td>Callback function triggered when onOpened the toast.</td>
+                        </tr>
+                        <tr>
+                            <td>onClosing</td>
+                            <td>function() {}</td>
+                            <td>Callback function triggered when closing the toast.</td>
+                        </tr>
+                        <tr>
+                            <td>onClosed</td>
+                            <td>function() {}</td>
+                            <td>Callback function triggered when closed the toast.</td>
+                        </tr>
+
+                    </tbody>
+                    </table>
+                    </div>
+            </section>
+
+
+            <section class="cd-section" id="Methods">
+                <h2>Methods</h2>
+                <div class="panel">
+
+                    <h3><b>Settings</h3></b><p class="in-block">is used to set default values.</p>
+                    <pre class="brush: js">
+                        iziToast.settings({
+                            timeout: 10000,
+                            resetOnHover: true,
+                            icon: 'material-icons',
+                            transitionIn: 'flipInX',
+                            transitionOut: 'flipOutX',
+                            onOpening: function(){
+                                console.log('callback abriu!');
+                            },
+                            onClosing: function(){
+                                console.log("callback fechou!");
+                            }
+                        });
+                    </pre>
+                    <hr>
+
+                    <h3><b>Show</h3></b><p class="in-block">Opens the toast. (Example with buttons).</p>
+                    <button class="btn right trigger-show">Example</button>
+                    <pre class="brush: js">
+                        iziToast.show({
+                            theme: 'dark',
+                            icon: 'icon-person',
+                            title: 'Hey',
+                            message: 'Welcome!',
+                            position: 'center', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter
+                            progressBarColor: 'rgb(0, 255, 184)',
+                            buttons: [
+                                ['<button>Ok</button>', function (instance, toast) {
+                                    alert("Hello world!");
+                                }, true], // true to focus
+                                ['<button>Close</button>', function (instance, toast) {
+                                    instance.hide({
+                                        transitionOut: 'fadeOutUp',
+                                        onClosing: function(instance, toast, closedBy){
+                                            console.info('closedBy: ' + closedBy); // The return will be: 'closedBy: buttonName'
+                                        }
+                                    }, toast, 'buttonName');
+                                }]
+                            ],
+                            onOpening: function(instance, toast){
+                                console.info('callback abriu!');
+                            },
+                            onClosing: function(instance, toast, closedBy){
+                                console.info('closedBy: ' + closedBy); // tells if it was closed by 'drag' or 'button'
+                            }
+                        });
+                    </pre>
+                    <hr>
+                    <h3><b>Hide</h3></b><p class="in-block">Closes the specific toast.</p>
+                    <pre class="brush: js">
+
+                        var toast = document.querySelector('.iziToast'); // Selector of your toast
+
+                        iziToast.hide({}, toast);
+                        
+                        // Or make new settings                
+    
+                        iziToast.hide({
+                            transitionOut: 'fadeOutUp'
+                        }, toast);
+
+                    </pre>
+                    <hr>
+                    <h3><b>Progress</h3></b><p class="in-block">Control progress bar time.</p>
+                    <pre class="brush: js">
+                        var toast = document.querySelector('.iziToast'); // Selector of your toast
+
+                        iziToast.progress({}, toast).reset();  // Reset progress bar time
+
+                        iziToast.progress({}, toast).pause();  // Pause progress bar time
+
+                        iziToast.progress({}, toast).resume();  // Resume progress bar time
+
+                        iziToast.progress({}, toast).start();  // Pause progress bar time
+
+                        // Full example
+                        iziToast.progress(options, toast, callback).start();
+                    </pre>
+                    <hr>
+
+                    <h3><b>Destroy</h3></b><p class="in-block">Destroy all toasts.</p>
+                    <pre class="brush: js">
+                        iziToast.destroy();
+                    </pre>
+
+
+                    <div class="hr2"></div>
+                    <h4><span>You can use four predefined types that have icon and different colors.</span></h4>
+
+                    <h3><b>Info</h3></b>
+                    <button class="btn right trigger-info">Example</button>
+                    <pre class="brush: js">
+                        iziToast.info({
+                            title: 'Hello',
+                            message: 'Welcome!',
+                        });
+                    </pre>
+                    <hr>
+                    <h3><b>Success</h3></b>
+                    <button class="btn right trigger-success">Example</button>
+                    <pre class="brush: js">
+                        iziToast.success({
+                            title: 'OK',
+                            message: 'Successfully inserted record!',
+                        });
+                    </pre>
+                    <hr>
+                    <h3><b>Warning</h3></b>
+                    <button class="btn right trigger-warning">Example</button>
+                    <pre class="brush: js">
+                        iziToast.warning({
+                            title: 'Caution',
+                            message: 'You forgot important data',
+                        });
+                    </pre>
+                    <hr>
+                    <h3><b>Error</h3></b>
+                    <button class="btn right trigger-error">Example</button>
+                    <pre class="brush: js">
+                        iziToast.error({
+                            title: 'Error',
+                            message: 'Illegal operation',
+                        });
+                    </pre>
+
+                    <hr>
+                    <h3><b>Question</h3></b>
+                    <button class="btn right trigger-question">Example</button>
+                    <pre class="brush: js">
+                        
+                        iziToast.question({
+                            timeout: 20000,
+                            close: false,
+                            overlay: true,
+                            displayMode: 'once',
+                            id: 'question',
+                            zindex: 999,
+                            title: 'Hey',
+                            message: 'Are you sure about that?',
+                            position: 'center',
+                            buttons: [
+                                ['<button><b>YES</b></button>', function (instance, toast) {
+
+                                    instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                                }, true],
+                                ['<button>NO</button>', function (instance, toast) {
+
+                                    instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                                }],
+                            ],
+                            onClosing: function(instance, toast, closedBy){
+                                console.info('Closing | closedBy: ' + closedBy);
+                            },
+                            onClosed: function(instance, toast, closedBy){
+                                console.info('Closed | closedBy: ' + closedBy);
+                            }
+                        });
+                    </pre>
+
+                    <hr>
+                    <h3><b>Inputs</h3></b>
+                    <button class="btn right trigger-inputs">Example</button>
+                    <pre class="brush: js">
+                        iziToast.info({
+                            timeout: 20000,
+                            overlay: true,
+                            displayMode: 'once',
+                            id: 'inputs',
+                            zindex: 999,
+                            title: 'Inputs',
+                            message: 'Examples',
+                            position: 'center',
+                            drag: false,
+                            inputs: [
+                                ['<input type="checkbox">', 'change', function (instance, toast, input, e) {
+                                    console.info(input.checked);
+                                }],
+                                ['<input type="text">', 'keyup', function (instance, toast, input, e) {
+                                    console.info(input.value);
+                                }, true],
+                                ['<input type="number">', 'keydown', function (instance, toast, input, e) {
+                                    console.info(input.value);
+                                }],
+                            ]
+                        });
+                    </pre>
+
+
+                </div>
+            </section>
+            <section class="cd-section" id="Events">
+                <h2>Events</h2>
+                <div class="panel">
+                    <h3><b>Opening</h3></b><p class="in-block">Capture when the toast is opening.</p>
+                    <pre class="brush: js">
+                        // You can compare by any option (id, class, etc...)
+
+                        document.addEventListener('iziToast-opening', function(data){
+
+                            // data.detail will bring all toast settings.
+                            
+                            if(data.detail.class == 'test'){
+                                console.info('EventListener iziToast-opening');
+                            }
+                        });
+                    </pre>
+                    <hr>
+                    <h3><b>Opened</h3></b><p class="in-block">Capture when the toast is opened.</p>
+                    <pre class="brush: js">
+                        document.addEventListener('iziToast-opened', function(data){
+                            if(data.detail.class == 'test'){
+                                console.info('EventListener iziToast-opened');
+                            }
+                        });
+                    </pre>
+                    <hr>
+                    <h3><b>Closing</h3></b><p class="in-block">Capture when the toast is closing.</p>
+                    <pre class="brush: js">
+                        document.addEventListener('iziToast-closing', function(data){
+                            if(data.detail.class == 'test'){
+                                console.info('EventListener iziToast-closing');
+                            }
+                        });
+                    </pre>
+                    <hr>
+                    <h3><b>Closed</h3></b><p class="in-block">Capture when the toast is closed.</p>
+                    <pre class="brush: js">
+                        document.addEventListener('iziToast-closed', function(data){
+                            if(data.detail.class == 'test'){
+                                console.info('EventListener iziToast-closed');
+                                console.info('closedBy:', data.detail.closedBy);
+                            }
+                        });
+                    </pre>
+                </div>
+            </section>
+        </div>
+        
+
+        <hr class="divider" />
+
+
+    <div class="wrap tweets">
+        <blockquote class="twitter-tweet" data-lang="pt"><p lang="en" dir="ltr">iziToast - Elegant, responsive, flexible and lightweight notification plugin with no dependencies <a href="https://t.co/baPiehyQp0">https://t.co/baPiehyQp0</a> <a href="https://t.co/DE08oSZWN3">pic.twitter.com/DE08oSZWN3</a></p>&mdash; Speckyboy (@speckyboy) <a href="https://twitter.com/speckyboy/status/800791246629404673?ref_src=twsrc%5Etfw">21 de novembro de 2016</a></blockquote>
+        <blockquote class="twitter-tweet" data-lang="pt"><p lang="en" dir="ltr">iziToast : Flexible &amp; Lightweight Notification Plugin<a href="https://t.co/rOSzxlaOts">https://t.co/rOSzxlaOts</a> <a href="https://twitter.com/hashtag/javascript?src=hash&amp;ref_src=twsrc%5Etfw">#javascript</a> <a href="https://t.co/r6xY6alN0D">pic.twitter.com/r6xY6alN0D</a></p>&mdash; jQuery Rain (@jquery_rain) <a href="https://twitter.com/jquery_rain/status/865905019291357185?ref_src=twsrc%5Etfw">20 de maio de 2017</a></blockquote>
+        <blockquote class="twitter-tweet" data-lang="pt"><p lang="en" dir="ltr">iziToast - No-dependencies JavaScript library for awesome looking notification popups <a href="https://t.co/cwWX7BSEgV">https://t.co/cwWX7BSEgV</a></p>&mdash; Tutorialzine (@Tutorialzine) <a href="https://twitter.com/Tutorialzine/status/800739561726943232?ref_src=twsrc%5Etfw">21 de novembro de 2016</a></blockquote>       
+        <blockquote class="twitter-tweet" data-lang="pt"><p lang="en" dir="ltr"><a href="https://twitter.com/hashtag/IZIToast?src=hash">#IZIToast</a>.js - Elegant, responsive, flexible and lightweight notification <a href="https://twitter.com/hashtag/plugin?src=hash">#plugin</a> with no dependencies. <a href="https://twitter.com/hashtag/javascript?src=hash">#javascript</a><a href="https://t.co/ThMSD8agMZ">https://t.co/ThMSD8agMZ</a> <a href="https://t.co/M2PzwAwfE3">pic.twitter.com/M2PzwAwfE3</a></p>&mdash; Marcelo Dolza (@marcelodolza) <a href="https://twitter.com/marcelodolza/status/799656540802166784">18 de novembro de 2016</a></blockquote>
+        <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script> 
+    </div>
+
+    </main>
+    <footer class="main">
+        <p>Made with <i class="icon icon-heart"></i> by <a href="http://www.marcelodolza.com" target="_blank">Marcelo Dolza</a>.</p> | 
+        <p>Copyright 2018 - All rights reserved.</p>
+    </footer>
+    <div class="bg"></div>
+
+    <button class="icon-arrow_upward scrollToTop" data-target-scroll=".highlight.bg"></button>
+
+    <!-- Main Scripts -->
+    <script src="js/vendor/jquery-2.2.4.min.js" type="text/javascript"></script>
+    <script src="js/vendor/iziToast.js?v=150" type="text/javascript"></script>
+    <script src="js/demo.js" type="text/javascript"></script>
+</body>
+</html>
