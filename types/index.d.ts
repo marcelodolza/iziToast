@@ -1,7 +1,7 @@
 // Type definitions for IziToast
-// Project https://github.com/dolce/iziToast
+// Project https://github.com/dolza/iziToast
 // Author: Tarık İNCE <incetarik@hotmail.com>
-//         Marcelo Dolce <dolcemarcelo@gmail.com>
+//         Marcelo Dolza <dolzamarcelo@gmail.com>
 //         ZSkycat <https://github.com/ZSkycat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -207,14 +207,14 @@ export interface IziToastSettings {
      * The second parameter is click event callback
      * The last parameter is a boolean that defines whether there will be focus or not.
      */
-    buttons?: ([string, (instance: IziToast, toast: HTMLDivElement, button: HTMLButtonElement, event: MouseEvent, inputs: Array<HTMLInputElement>) => void, boolean])[];
+    buttons?: ([string, (instance: IziToast, settings: IziToastSettings, elements: Array<HTMLInputElement>, event: MouseEvent) => void, boolean])[];
     /**
      * Array of inputs.
      * The first parameter is html string
      * The second and third parameters is event type and event callback
      * The last parameter is a boolean that defines whether there will be focus or not.
      */
-    inputs?: ([string, string, (instance: IziToast, toast: HTMLDivElement, input: HTMLInputElement, event: Event) => void, boolean])[];
+    inputs?: ([string, string, (instance: IziToast, settings: IziToastSettings, elements: Array<HTMLInputElement>, event: Event) => void, boolean])[];
     /**
      * Default toast open animation.
      * Default value: 'fadeInUp'
@@ -240,28 +240,36 @@ export interface IziToastSettings {
      * @param settings Settings of opening toast.
      * @param toast Toast DOM element.
      */
-    onOpening?: (settings: IziToastSettings, toast: HTMLDivElement) => void;
+    onOpening?: (instance: IziToast, settings: IziToastSettings, toast: HTMLDivElement) => void;
     /**
      * Callback function triggered when opened the toast.
      * @param settings Settings of opening toast.
      * @param toast Toast DOM element.
      */
-    onOpened?: (settings: IziToastSettings, toast: HTMLDivElement) => void;
+    onOpened?: (instance: IziToast, settings: IziToastSettings, toast: HTMLDivElement) => void;
     /**
      * Callback function triggered when closing the toast.
      * @param settings Settings of closing toast.
      * @param toast Toast DOM element.
      * @param closedBy Closed by info set by hide method.
      */
-    onClosing?: (settings: IziToastSettings, toast: HTMLDivElement, closedBy: string) => void;
+    onClosing?: (instance: IziToast, settings: IziToastSettings, toast: HTMLDivElement, closedBy: string) => void;
     /**
      * Callback function triggered when closed the toast.
      * @param settings Settings of closing toast.
      * @param toast Toast DOM element.
      * @param closedBy Closed by info set by hide method. (default: drag | timeout | button | overlay | esc | toast)
      */
-    onClosed?: (settings: IziToastSettings, toast: HTMLDivElement, closedBy: string) => void;
+    onClosed?: (instance: IziToast, settings: IziToastSettings, toast: HTMLDivElement, closedBy: string) => void;
+    /**
+     * Callback function triggered when the toast is clicked.
+     * @param settings Settings of closing toast.
+     * @param toast Toast DOM element.
+     * @param closedBy Closed by info set by hide method. (default: drag | timeout | button | overlay | esc | toast)
+     */
+    onClick?: (instance: IziToast, settings: IziToastSettings, toast: HTMLDivElement, event: MouseEvent) => void;
 }
+
 
 export interface IziToastProgress {
     pause(): void;
@@ -280,6 +288,20 @@ export interface IziToast {
     * Destroys all toasts.
     */
     destroy(): void;
+    /**
+    * Sets a toast setting option
+    * @param ref Toast ref value.
+    * @param option Toast option name.
+    * @param value New value for option.
+    */
+    setSetting(ref: string, option: string, value: string): void;
+    /**
+    * Gets the toast settings.
+    * @returns Returns an option or the whole settings object
+    * @param ref Toast ref.
+    * @param option Toast option.
+    */
+    getSettings(ref: string, option?: string): IziToastSettings | string;
     /**
     * Opens the toast.
     * @returns Returns false if toast can not be opened.
